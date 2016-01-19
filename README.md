@@ -1,2 +1,2 @@
 # exerking-front
-An exercise marking system
+An exercise marking system frontend
