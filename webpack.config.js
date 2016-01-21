@@ -13,7 +13,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         loader: 'babel'
       }
     ]
@@ -22,5 +22,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Exerking'
     })
-  ]
+  ],
+    resolve: {
+    modulesDirectories: ['node_modules'],
+    extensions: ['.jsx', '', '.js']
+  }
 };
