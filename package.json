@@ -3,7 +3,7 @@
   "name": "exerking-front",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "watch": "webpack-dev-server --config webpack.config.js --progress --colors",
+    "watch": "webpack-dev-server --config webpack.config.js --progress --colors --inline",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
