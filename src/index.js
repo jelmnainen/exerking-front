@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
+import {Router} from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 import reducer from './reducers';
-import App from './components/App';
+import routes from './routes';
+
+const history = createBrowserHistory();
 
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -17,8 +21,10 @@ document.body.appendChild(container);
 
 const root = (
   <Provider store={store}>
-    <App/>
+      <Router routes={routes} history={history} />
   </Provider>
 );
+
+
 
 ReactDOM.render(root, container);

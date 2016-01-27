@@ -7,7 +7,7 @@ export default class App extends Component {
     return (
       <div>
       	<h2>Exerking</h2>
-      	<ExercisesContainer/>
+        {this.props.children}
       </div>
     );
   }
