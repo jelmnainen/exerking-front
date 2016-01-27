@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const API_URL = process.env.API_URL || 'http://localhost:3000';
+
 module.exports = {
   devtool: 'eval',
   entry: [
@@ -22,7 +24,12 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Exerking'
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        API_URL: JSON.stringify(API_URL)
+      }
+    }),
   ],
   resolve: {
     modulesDirectories: ['node_modules'],

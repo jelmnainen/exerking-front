@@ -1,4 +1,4 @@
-const EXERCISES_URL = 'http://localhost:3000/exercises';
+const EXERCISES_URL = process.env.API_URL + '/exercises';
 
 export const EXERCISES_REQUEST = 'EXERCISES_REQUEST';
 export const EXERCISES_REQUEST_SUCCESS = 'EXERCISES_REQUEST_SUCCESS';

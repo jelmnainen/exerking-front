@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const API_URL = process.env.API_URL || 'http://localhost:3000';
+
 module.exports = {
   devtool: 'source-map',
   entry: [
@@ -34,7 +36,8 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify('production'),
+        API_URL: JSON.stringify(API_URL),
       }
     }),
   ],
