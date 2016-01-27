@@ -2,11 +2,12 @@
   "private": true,
   "name": "exerking-front",
   "scripts": {
+    "lint": "eslint src/",
     "build": "webpack --config webpack.config.js",
     "postinstall": "webpack --config webpack.config.prod.js --progress --colors",
     "start": "node server.js",
     "watch": "webpack-dev-server --config webpack.config.js --progress --colors --inline --history-api-fallback",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "npm run --quiet lint"
   },
   "engines": {
     "node": "5.4"
@@ -24,6 +25,9 @@
   "devDependencies": {
     "babel-core": "^6.4.5",
     "babel-loader": "^6.2.1",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^4.0.0",
+    "eslint-plugin-react": "^3.16.1",
     "html-webpack-plugin": "^1.7.0",
     "webpack": "^1.12.11",
     "webpack-dev-server": "^1.14.1"
