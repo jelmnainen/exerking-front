@@ -7,7 +7,7 @@
     "postinstall": "webpack --config webpack.config.prod.js --progress --colors",
     "start": "node server.js",
     "watch": "webpack-dev-server --config webpack.config.js --progress --colors --inline --history-api-fallback",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "engines": {
     "node": "5.4"
