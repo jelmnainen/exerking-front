@@ -6,7 +6,7 @@
     "build": "webpack --config webpack.config.js",
     "postinstall": "webpack --config webpack.config.prod.js --progress --colors",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive"
   },
   "engines": {
     "node": "5.4"
@@ -16,6 +16,7 @@
     "babel-preset-react": "^6.3.13",
     "express": "^4.13.4",
     "history": "^1.17.0",
+    "immutable": "^3.7.6",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-redux": "^4.0.6",
@@ -27,9 +28,12 @@
     "babel-core": "^6.4.5",
     "babel-loader": "^6.2.1",
     "babel-preset-react-hmre": "^1.0.1",
+    "chai": "^3.5.0",
+    "chai-immutable": "^1.5.3",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^4.0.0",
     "eslint-plugin-react": "^3.16.1",
+    "mocha": "^2.4.5",
     "webpack": "^1.12.11",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.6.4"
