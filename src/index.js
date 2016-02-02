@@ -11,7 +11,7 @@ const history = createBrowserHistory();
 const container = document.getElementById('root');
 const root = (
   <Provider store={store}>
-      <Router routes={routes} history={history} />
+    <Router routes={routes} history={history} />
   </Provider>
 );
 
