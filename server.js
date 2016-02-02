@@ -6,9 +6,25 @@ const port = process.env.PORT || 8080;
 
 const app = express();
 
-app.use(express.static(root));
+if (process.env.NODE_ENV === 'production') {
+
+  app.use(express.static(root));
+
+} else {
+
+  const webpack = require('webpack');
+  const config = require('./webpack.config');
+  const compiler = webpack(config);
+
+  app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+  }));
+  app.use(require('webpack-hot-middleware')(compiler));
+
+}
+
 app.get('*', (req, res) => {
-  res.sendFile('index.html', { root: root });
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 if (!module.parent) {

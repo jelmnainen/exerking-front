@@ -1,12 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const API_URL = process.env.API_URL || 'http://localhost:3000';
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
   entry: [
+    'webpack-hot-middleware/client',
     './src/index',
   ],
   output: {
@@ -23,14 +23,13 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Exerking',
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         API_URL: JSON.stringify(API_URL),
       },
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
   ],
   resolve: {
     modulesDirectories: ['node_modules'],
