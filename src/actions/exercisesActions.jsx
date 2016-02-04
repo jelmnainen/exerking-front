@@ -1,7 +1,11 @@
-const EXERCISES_URL = '${process.env.API_URL}/exercises';
-
+import axios from 'axios';
 export const EXERCISES_REQUEST = 'EXERCISES_REQUEST';
 export const EXERCISES_REQUEST_SUCCESS = 'EXERCISES_REQUEST_SUCCESS';
+
+const aInstance = axios.create({
+  baseURL: process.env.API_URL,
+  headers: { Accept: 'application/json' },
+});
 
 const requestExercises = () => ({ type: EXERCISES_REQUEST });
 
@@ -11,14 +15,9 @@ const receiveExercises = (exercises) => ({
 });
 
 export const fetchExercises = () =>
-	dispatch => {
-  dispatch(requestExercises());
-  fetch(EXERCISES_URL, {
-    headers: {
-      Accept: 'application/json',
-    },
-  })
-			.then(response => response.json())
-			.then(exercises => dispatch(receiveExercises(exercises)))
+  dispatch => {
+    dispatch(requestExercises());
+    aInstance.get('/exercises')
+			.then(exercises => dispatch(receiveExercises(exercises.data)))
 			.catch(e => console.log(e));
-	};
+  };

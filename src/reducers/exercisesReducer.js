@@ -1,9 +1,11 @@
 import { EXERCISES_REQUEST_SUCCESS } from '../actions/exercisesActions';
 
-export default function (state = [], action) {
-  if (action.type === EXERCISES_REQUEST_SUCCESS) {
-    return action.payload;
-  }
+export default function (state = [], { type, payload }) {
+  switch (type) {
 
-  return state;
+  case EXERCISES_REQUEST_SUCCESS:
+    return payload;
+  default:
+    return state;
+  }
 }
