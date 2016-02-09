@@ -35,7 +35,10 @@ export const login = (email, password) =>
           dispatch(requestLoginFail());
         }
       })
-      .catch(e => console.log(e));
+      .catch(e => {
+        dispatch(requestLoginFail());
+        console.log(e);
+      });
   };
 
 export const logout = () => ({ type: LOGOUT });
