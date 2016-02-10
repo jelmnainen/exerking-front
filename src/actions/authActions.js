@@ -24,7 +24,7 @@ const requestLoginFail = () => ({
 export const login = (email, password) =>
   dispatch => {
     dispatch(requestLogin());
-    aInstance.post('/users/sign_in', {
+    aInstance.post('/user/sign_in', {
       email,
       password,
     })
