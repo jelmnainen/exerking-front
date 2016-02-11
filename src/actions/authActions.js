@@ -1,14 +1,9 @@
-import axios from 'axios';
+import { createAxios } from '../utils';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_REQUEST_SUCCESS = 'LOGIN_REQUEST_SUCCESS';
 export const LOGIN_REQUEST_FAIL = 'LOGIN_REQUEST_FAIL';
 export const LOGOUT = 'LOGOUT';
-
-const aInstance = axios.create({
-  baseURL: process.env.API_URL,
-  headers: { Accept: 'application/json' },
-});
 
 const requestLogin = () => ({ type: LOGIN_REQUEST });
 
@@ -24,7 +19,8 @@ const requestLoginFail = () => ({
 export const login = (email, password) =>
   dispatch => {
     dispatch(requestLogin());
-    aInstance.post('/user/sign_in', {
+    const axios = createAxios();
+    axios.post('/user/sign_in', {
       email,
       password,
     })

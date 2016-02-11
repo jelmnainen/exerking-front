@@ -1,11 +1,7 @@
-import axios from 'axios';
+import { createAxios } from '../utils';
+
 export const EXERCISES_REQUEST = 'EXERCISES_REQUEST';
 export const EXERCISES_REQUEST_SUCCESS = 'EXERCISES_REQUEST_SUCCESS';
-
-const aInstance = axios.create({
-  baseURL: process.env.API_URL,
-  headers: { Accept: 'application/json' },
-});
 
 const requestExercises = () => ({ type: EXERCISES_REQUEST });
 
@@ -15,9 +11,11 @@ const receiveExercises = (exercises) => ({
 });
 
 export const fetchExercises = () =>
-  dispatch => {
+  (dispatch, getState) => {
     dispatch(requestExercises());
-    aInstance.get('/exercises')
+    const accessToken = getState().auth.token;
+    const axios = createAxios(accessToken);
+    axios.get('/exercises')
 			.then(exercises => dispatch(receiveExercises(exercises.data)))
 			.catch(e => console.log(e));
   };

@@ -1,13 +1,8 @@
-import axios from 'axios';
+import { createAxios } from '../utils';
 
 export const REGISTRATION_REQUEST = 'REGISTRATION_REQUEST';
 export const REGISTRATION_REQUEST_SUCCESS = 'REGISTRATION_REQUEST_SUCCESS';
 export const REGISTRATION_REQUEST_FAIL = 'REGISTRATION_REQUEST_FAIL';
-
-const aInstance = axios.create({
-  baseURL: process.env.API_URL,
-  headers: { Accept: 'application/json' },
-});
 
 const requestRegistration = () => ({ type: REGISTRATION_REQUEST });
 
@@ -24,7 +19,8 @@ const requestRegistrationFail = (errors) => ({
 export const register = (email, password) =>
   dispatch => {
     dispatch(requestRegistration());
-    aInstance.post('/user', {
+    const axios = createAxios();
+    axios.post('/user', {
       user: {
         email,
         password,
