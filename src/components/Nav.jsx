@@ -5,7 +5,7 @@ export default class Nav extends Component {
 
   render() {
     return (
-      <ul class="nav">
+      <ul className="nav">
         <li> <Link to="/">Home</Link> </li>
         <li> <Link to="/login">Login</Link> </li>
         <li> <Link to="/register">Register</Link> </li>
@@ -16,4 +16,3 @@ export default class Nav extends Component {
   }
 
 }
-
