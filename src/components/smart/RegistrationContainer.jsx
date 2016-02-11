@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { register } from '../../actions/registrationActions';
 import RegistrationPage from '../RegistrationPage';

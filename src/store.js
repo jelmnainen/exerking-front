@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import persistState from 'redux-localstorage'
+import persistState from 'redux-localstorage';
 
 import reducer from './reducers';
 

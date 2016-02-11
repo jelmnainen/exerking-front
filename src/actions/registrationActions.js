@@ -25,11 +25,11 @@ export const register = (email, password) =>
   dispatch => {
     dispatch(requestRegistration());
     aInstance.post('/user', {
-        user: {
-          email,
-          password,
-        },
-      })
+      user: {
+        email,
+        password,
+      },
+    })
       .then(response => {
         if (response.status === 201) {
           dispatch(requestRegistrationSuccess(response.data));
