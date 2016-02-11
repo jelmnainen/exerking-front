@@ -27,6 +27,7 @@ export default class LoginPage extends Component {
 
     return (
       <div className="login-page">
+        <h2>Login</h2>
         { isError && <p>Email or password doesn't match.</p> }
         { isSignedIn ?
           <p>

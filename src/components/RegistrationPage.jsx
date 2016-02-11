@@ -25,6 +25,7 @@ export default class RegistrationPage extends Component {
 
     return (
       <div className="registration-page">
+        <h2>Registeration</h2>
         { isError && <p>Check your password or username.</p> }
         { isOK ?
           <p>
