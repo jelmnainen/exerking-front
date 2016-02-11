@@ -2,7 +2,7 @@
   "private": true,
   "name": "exerking-front",
   "scripts": {
-    "lint": "eslint --ext .js,.jsx src/",
+    "lint": "eslint --ext .js,.jsx src/ test/",
     "build": "webpack --config webpack.config.js",
     "postinstall": "webpack --config webpack.config.prod.js --progress --colors",
     "start": "node server.js",
