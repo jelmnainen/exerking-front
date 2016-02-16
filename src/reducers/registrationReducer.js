@@ -23,6 +23,8 @@ export default (state = initialState, action) => {
       errorMessages: action.errors,
     };
   default:
-    return state;
+    let newState = state;
+    newState.isOK = false;
+    return newState;
   }
 };
