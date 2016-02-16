@@ -30,16 +30,10 @@ export const register = (email, password) =>
       },
     })
       .then(response => {
-        if (response.status === 201) {
-          dispatch(requestRegistrationSuccess(response.data));
-        } else if (response.status === 422) {
-          dispatch(requestRegistrationFail(response.data.errors));
-        } else {
-          dispatch(requestRegistrationFail());
-        }
+        dispatch(requestRegistrationSuccess(response.data));
       })
-    .catch(e => {
-      dispatch(requestRegistrationFail());
-      console.log(e);
-    });
+      .catch(response => {
+        dispatch(requestRegistrationFail(response.data && response.data.errors));
+        console.error(response);
+      });
   };
