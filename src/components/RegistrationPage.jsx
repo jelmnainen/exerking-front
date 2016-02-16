@@ -15,13 +15,14 @@ export default class RegistrationPage extends Component {
   onSubmit(event) {
     event.preventDefault();
     const { inProgress } = this.props.reg;
-    const { email: { value: email }, password: { value: password } } = this.refs;
+    const { email: { value: email }, password: { value: password },
+        passwordConfirmation: { value: passwordConfirmation } } = this.refs;
 
-    if (inProgress || password === '' || email === '') {
+    if (inProgress) {
       return;
     }
 
-    this.props.onRegistration(email, password);
+    this.props.onRegistration(email, password, passwordConfirmation);
   }
 
   render() {
@@ -52,6 +53,8 @@ export default class RegistrationPage extends Component {
             Password
             <input name="password" ref="password" type="password"/>
             { passwordErrors }
+            Password Confirmation
+            <input name="passwordConfirmation" ref="passwordConfirmation" type="password"/>
             <button disabled={ inProgress } type="submit">Sign up</button>
           </form>
         }
