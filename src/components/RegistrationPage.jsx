@@ -25,12 +25,20 @@ export default class RegistrationPage extends Component {
   }
 
   render() {
-    const { isError, inProgress, isOK } = this.props.reg;
+    const { isError, inProgress, isOK, errorMessages } = this.props.reg;
+
+    let emailErrors;
+    let passwordErrors;
+    if (isError && errorMessages.email) {
+      emailErrors = <p>{ errorMessages.email.join(', ') }</p>;
+    }
+    if (isError && errorMessages.password) {
+      passwordErrors = <p>{ errorMessages.password.join(', ') }</p>;
+    }
 
     return (
       <div className="registration-page">
         <h2>Registeration</h2>
-        { isError && <p>Check your password or username.</p> }
         { isOK ?
           <p>
             Welcome to Exerking! {' '}
@@ -40,8 +48,10 @@ export default class RegistrationPage extends Component {
           <form onSubmit={ this.onSubmit }>
             Email
             <input name="email" ref="email" type="text"/>
+            { emailErrors }
             Password
             <input name="password" ref="password" type="password"/>
+            { passwordErrors }
             <button disabled={ inProgress } type="submit">Sign up</button>
           </form>
         }
