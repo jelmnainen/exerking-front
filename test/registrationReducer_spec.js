@@ -19,6 +19,7 @@ describe('registrationReducer', () => {
     };
     const expectedState = {
       inProgress: true,
+      isError: false,
     };
     const nextState = reducer(undefined, action);
     expect(nextState).to.eql(expectedState);

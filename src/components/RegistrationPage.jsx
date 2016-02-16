@@ -8,6 +8,10 @@ export default class RegistrationPage extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.afterNewRegistration();
+  }
+
   onSubmit(event) {
     event.preventDefault();
     const { inProgress } = this.props.reg;
