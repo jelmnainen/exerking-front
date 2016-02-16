@@ -3,6 +3,7 @@ import { createAxios } from '../utils';
 export const REGISTRATION_REQUEST = 'REGISTRATION_REQUEST';
 export const REGISTRATION_REQUEST_SUCCESS = 'REGISTRATION_REQUEST_SUCCESS';
 export const REGISTRATION_REQUEST_FAIL = 'REGISTRATION_REQUEST_FAIL';
+export const RESET_REGISTRATION = 'RESET_REGISTRATION';
 
 const requestRegistration = () => ({ type: REGISTRATION_REQUEST });
 
@@ -15,6 +16,8 @@ const requestRegistrationFail = (errors) => ({
   type: REGISTRATION_REQUEST_FAIL,
   errors,
 });
+
+export const resetAfterNewRegistration = () => ({ type: RESET_REGISTRATION });
 
 export const register = (email, password) =>
   dispatch => {
