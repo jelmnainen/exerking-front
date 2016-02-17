@@ -30,10 +30,10 @@ export default class RegistrationPage extends Component {
 
     let emailErrors;
     let passwordErrors;
-    if (isError && errorMessages.email) {
+    if (errorMessages && errorMessages.email) {
       emailErrors = <p>{ errorMessages.email.join(', ') }</p>;
     }
-    if (isError && errorMessages.password) {
+    if (errorMessages && errorMessages.password) {
       passwordErrors = <p>{ errorMessages.password.join(', ') }</p>;
     }
 

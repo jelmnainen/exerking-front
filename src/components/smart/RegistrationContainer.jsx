@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onRegistration: (email, password) => dispatch(register(email, password)),
+  onRegistration: (email, password, passwordConfirmation) => dispatch(register(email, password, passwordConfirmation)),
   onPageLeave: () => dispatch(resetRegistration()),
 });
 
