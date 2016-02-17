@@ -1,5 +1,5 @@
 import { REGISTRATION_REQUEST, REGISTRATION_REQUEST_SUCCESS,
-  REGISTRATION_REQUEST_FAIL, RESET_REGISTRATION, }
+  REGISTRATION_REQUEST_FAIL, REGISTRATION_RESET, }
   from '../actions/registrationActions';
 
 const initialState = {
@@ -24,10 +24,8 @@ export default (state = initialState, action) => {
       isError: true,
       errorMessages: action.errors,
     };
-  case RESET_REGISTRATION:
-    const newState = state;
-    newState.isOK = false;
-    return newState;
+  case REGISTRATION_RESET:
+    return {};
   default:
     return state;
   }

@@ -9,7 +9,7 @@ export default class RegistrationPage extends Component {
   }
 
   componentWillUnmount() {
-    this.props.afterNewRegistration();
+    this.props.onPageLeave();
   }
 
   onSubmit(event) {

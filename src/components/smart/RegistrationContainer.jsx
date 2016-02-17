@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { register, resetAfterNewRegistration } from '../../actions/registrationActions';
+import { register, resetRegistration } from '../../actions/registrationActions';
 import RegistrationPage from '../RegistrationPage';
 
 const mapStateToProps = (state) => ({
@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onRegistration: (email, password) => dispatch(register(email, password)),
-  afterNewRegistration: () => dispatch(resetAfterNewRegistration()),
+  onPageLeave: () => dispatch(resetRegistration()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
