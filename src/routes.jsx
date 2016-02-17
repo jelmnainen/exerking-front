@@ -5,10 +5,12 @@ import ExercisesContainer from './components/smart/ExercisesContainer';
 import LoginContainer from './components/smart/LoginContainer';
 import LogoutContainer from './components/smart/LogoutContainer';
 import RegistrationContainer from './components/smart/RegistrationContainer';
+import ExerciseSingleContainer from './components/smart/ExerciseSingleContainer';
 
 export default (
   <Route path="/" component={App}>
     <Route path="exercises" component={ExercisesContainer} />
+    <Route path="exercises/:id" component={ExerciseSingleContainer} />
     <Route path="login" component={LoginContainer} />
     <Route path="logout" component={LogoutContainer} />
     <Route path="register" component={RegistrationContainer} />

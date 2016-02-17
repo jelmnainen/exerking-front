@@ -3,6 +3,8 @@ import { createAxios } from '../utils';
 export const EXERCISES_REQUEST = 'EXERCISES_REQUEST';
 export const EXERCISES_REQUEST_SUCCESS = 'EXERCISES_REQUEST_SUCCESS';
 export const EXERCISES_REQUEST_FAILED = 'EXERCISES_REQUEST_FAILED';
+export const EXERCISES_SINGLE_REQUEST_SUCCESS = 'EXERCISES_SINGLE_REQUEST_SUCCESS';
+export const EXERCISES_SINGLE_REQUEST_FAIL = 'EXERCISES_SINGLE_REQUEST_FAIL';
 
 const requestExercises = () => ({ type: EXERCISES_REQUEST });
 
@@ -13,6 +15,15 @@ const receiveExercises = (exercises) => ({
 
 const exercisesRequestFailed = () => ({
   type: EXERCISES_REQUEST_FAILED,
+});
+
+const receiveSingleExercise = (exercise) => ({
+  type: EXERCISES_SINGLE_REQUEST_SUCCESS,
+  payload: exercise,
+});
+
+const receiveSingleExerciseFail = () => ({
+  type: EXERCISES_SINGLE_REQUEST_FAIL,
 });
 
 export const fetchExercises = () =>
@@ -32,4 +43,16 @@ export const fetchExercises = () =>
         dispatch(exercisesRequestFailed());
         console.log(e);
       });
+
+  };
+
+export const fetchSingleExercise = (id) =>
+  (dispatch, getState) => {
+    const axios = createAxios(getState().auth.token);
+    axios.get('/exercises/'+id)
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(receiveSingleExercise(response.data));
+        }
+      })
   };
