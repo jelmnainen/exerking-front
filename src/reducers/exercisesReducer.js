@@ -7,7 +7,7 @@ export default function (state = {}, { type, payload }) {
 
   case EXERCISES_REQUEST_SUCCESS:
     return payload.reduce((map, exercise) => {
-      map[exercise.id] = exercise;
+      map[exercise.id] = exercise; // eslint-disable-line no-param-reassign
       return map;
     }, {});
   case EXERCISES_REQUEST_FAILED:

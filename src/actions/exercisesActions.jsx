@@ -43,16 +43,19 @@ export const fetchExercises = () =>
         dispatch(exercisesRequestFailed());
         console.log(e);
       });
-
   };
 
 export const fetchSingleExercise = (id) =>
   (dispatch, getState) => {
     const axios = createAxios(getState().auth.token);
-    axios.get('/exercises/'+id)
+    axios.get(`/exercises/${id}`)
       .then(response => {
         if (response.status === 200) {
           dispatch(receiveSingleExercise(response.data));
         }
       })
+      .catch(e => {
+        dispatch(receiveSingleExerciseFail());
+        console.log(e);
+      });
   };

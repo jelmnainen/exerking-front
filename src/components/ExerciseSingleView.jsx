@@ -10,7 +10,7 @@ export default class ExerciseSingleView extends Component {
     const { exercise } = this.props;
 
     if (!exercise) {
-      return <div>Loading</div>
+      return <div>Loading</div>;
     }
 
     return (
