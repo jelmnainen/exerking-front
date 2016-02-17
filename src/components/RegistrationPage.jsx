@@ -26,7 +26,7 @@ export default class RegistrationPage extends Component {
   }
 
   render() {
-    const { isError, inProgress, isOK, errorMessages } = this.props.reg;
+    const { inProgress, isOK, errorMessages } = this.props.reg;
 
     let emailErrors;
     let passwordErrors;

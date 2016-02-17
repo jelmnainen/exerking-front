@@ -22,6 +22,7 @@ export default function (state = initialState, action) {
     return {
       isSignedIn: false,
       isError: true,
+      errorMessages: action.errors,
     };
   case LOGOUT:
     return {
