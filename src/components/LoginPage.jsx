@@ -15,7 +15,7 @@ export default class LoginPage extends Component {
     const { login } = this.props.actions;
     const { email: { value: email }, password: { value: password } } = this.refs;
 
-    if (inProgress || password === '' || email === '') {
+    if (inProgress) {
       return;
     }
 
@@ -23,12 +23,21 @@ export default class LoginPage extends Component {
   }
 
   render() {
-    const { isSignedIn, isError, inProgress, email } = this.props.auth;
+    const { isSignedIn, inProgress, email, errorMessages } = this.props.auth;
+
+    let emailErrors;
+    let passwordErrors;
+
+    if (errorMessages && errorMessages.email) {
+      emailErrors = <p>{ errorMessages.email.join(', ') }</p>;
+    }
+    if (errorMessages && errorMessages.password) {
+      passwordErrors = <p>{ errorMessages.password.join(', ') }</p>;
+    }
 
     return (
       <div className="login-page">
         <h2>Login</h2>
-        { isError && <p>Email or password doesn't match.</p> }
         { isSignedIn ?
           <p>
             You're signed in as { email }. {' '}
@@ -38,8 +47,10 @@ export default class LoginPage extends Component {
           <form onSubmit={ this.onSubmit }>
             Email
             <input ref="email" type="text" />
+            { emailErrors }
             Password
             <input ref="password" type="password" />
+            { passwordErrors }
             <button disabled={ inProgress } type="submit">Log in</button>
           </form>
         }
