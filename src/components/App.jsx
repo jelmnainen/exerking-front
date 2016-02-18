@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Nav from './Nav';
+import NavContainer from './smart/NavContainer';
 
 export default class App extends Component {
 
@@ -7,7 +7,7 @@ export default class App extends Component {
     return (
       <div>
         <h2>Exerking</h2>
-        <Nav />
+        <NavContainer />
         {this.props.children}
       </div>
     );
