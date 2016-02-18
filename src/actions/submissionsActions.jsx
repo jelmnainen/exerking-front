@@ -24,8 +24,10 @@ export const addSubmissionReset = () => ({ type: SUBMISSIONS_ADD_RESET });
 export const submitExercise = (exerciseId, feedbackAsked) =>
   (dispatch, getState) => {
     dispatch(addSubmission());
-    const axios = createAxios(getState().auth.token);
+    const { id: userId, token } = getState().auth;
+    const axios = createAxios(token);
     axios.post('/submissions', {
+      user_id: userId,
       exercise_id: exerciseId,
       feedback_asked: feedbackAsked,
     })
