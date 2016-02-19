@@ -1,8 +1,10 @@
-import { EXERCISES_REQUEST, EXERCISES_REQUEST_SUCCESS, EXERCISES_REQUEST_FAILED, EXERCISES_SINGLE_REQUEST,EXERCISES_SINGLE_REQUEST_SUCCESS,EXERCISES_SINGLE_REQUEST_FAIL, EXERCISES_ADD_REQUEST,
-  EXERCISES_ADD_REQUEST_SUCCESS, EXERCISES_ADD_REQUEST_FAIL , EXERCISES_ADD_RESET } from '../actions/exercisesActions';
+import { EXERCISES_REQUEST, EXERCISES_REQUEST_SUCCESS, EXERCISES_REQUEST_FAILED,
+  EXERCISES_SINGLE_REQUEST, EXERCISES_SINGLE_REQUEST_SUCCESS, EXERCISES_SINGLE_REQUEST_FAIL,
+  EXERCISES_ADD_REQUEST, EXERCISES_ADD_REQUEST_SUCCESS, EXERCISES_ADD_REQUEST_FAIL,
+  EXERCISES_ADD_RESET } from '../actions/exercisesActions';
 import { LOGOUT } from '../actions/authActions';
 
-const initialState = { 
+const initialState = {
   isFetching: false,
   isError: false,
   entries: {},
@@ -12,7 +14,7 @@ const initialState = {
 const addRequest = (state, action) => {
   switch (action.type) {
   case EXERCISES_ADD_REQUEST:
-    return {
+    return {
       inProgress: true,
       isError: false,
     };
@@ -28,6 +30,8 @@ const addRequest = (state, action) => {
       errorMessages: action.payload,
     };
   case EXERCISES_ADD_RESET:
+    return {};
+  default:
     return {};
   }
 };
@@ -66,7 +70,7 @@ export default function (state = initialState, action) {
       isError: false,
       entries: Object.assign({}, state.entries, {
         [payload.id]: payload,
-      })
+      }),
     });
   case EXERCISES_SINGLE_REQUEST_FAIL:
     return Object.assign({}, state, {

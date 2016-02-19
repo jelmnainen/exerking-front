@@ -53,6 +53,31 @@ export const addExerciseReset = () => ({
   type: EXERCISES_ADD_RESET,
 });
 
+const checkErrors = ({ title, text, deadline }) => {
+  let valid = true;
+  const errors = {
+    title: [],
+    text: [],
+    deadline: [],
+  };
+
+  if (title === '') {
+    valid = false;
+    errors.title.push('Title is blank');
+  }
+  if (text === '') {
+    valid = false;
+    errors.text.push('Text is blank');
+  }
+  if (deadline === '') {
+    valid = false;
+    errors.deadline.push('Deadline is blank');
+  }
+  if (valid) {
+    return false;
+  }
+  return errors;
+};
 
 export const fetchExercises = () =>
   (dispatch, getState) => {
@@ -93,43 +118,18 @@ export const addExercise = (exercise) =>
   (dispatch, getState) => {
     dispatch(addExerciseRequest());
     let errors = checkErrors(exercise);
-    if(errors){
-      dispatch(addExercisesFail(errors))
+    if(errors) {
+      dispatch(addExercisesFail(errors)),
     } else {
       const axios = createAxios(getState().auth.token);
 
       axios.post('/exercises', exercise)
         .then(response => {
-          dispatch(addExercisesSuccess(response.data))
+          dispatch(addExercisesSuccess(response.data)),
         })
         .catch(response => {
-          dispatch(addExercisesFail(response.data))
+          dispatch(addExercisesFail(response.data)),
         })
-      }
+    }
   };
 
-const checkErrors = ({ title, text, deadline }) => {
-  let valid = true;
-  const errors = {
-    title: [],
-    text: [],
-    deadline: [],
-  };
-
-  if (title === '') {
-    valid = false;
-    errors.title.push('Title is blank');
-  }
-  if (text === '') {
-    valid = false;
-    errors.text.push('Text is blank');
-  }
-  if (deadline === '') {
-    valid = false;
-    errors.deadline.push('Deadline is blank');
-  }
-  if (valid) {
-    return false;
-  }
-  return errors;
-};

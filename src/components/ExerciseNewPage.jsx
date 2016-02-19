@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 
 export default class ExercisesNewPage extends Component {
 
   constructor() {
     super();
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.onPageLeave();
   }
 
   onSubmit(event) {
@@ -17,16 +20,11 @@ export default class ExercisesNewPage extends Component {
     const text = this.refs.text.value;
     const deadline = this.refs.deadline.value;
 
-    if(inProgress){
+    if (inProgress) {
       return;
     }
 
-    addExercise({title,text,deadline});
-
-  }
-
-  componentWillUnmount() {
-    this.props.onPageLeave();
+    addExercise({ title, text, deadline });
   }
 
   render() {
@@ -47,28 +45,28 @@ export default class ExercisesNewPage extends Component {
     }
 
     return (
-        <div className="exercise-add">
-          <h2>Add new excercise</h2>
-          <form onSubmit={this.onSubmit}>
-            <div>
-              <label>Title</label>
-              <input ref="title" />
-              { titleErrors }
-            </div>
-            <div>
-              <label>Text</label>
-              <textarea ref="text" />
-              { textErrors }
-            </div>
-            <div>
-              <label>Deadline</label>
-              <input type="date" ref="deadline" />
-              { deadlineErrors }
-            </div>
-            <button disabled={ inProgress } type="submit">Add Exercise</button>
-          </form>
+      <div className="exercise-add">
+        <h2>Add new excercise</h2>
+        <form onSubmit={this.onSubmit}>
+          <div>
+            <label>Title</label>
+            <input ref="title" />
+            { titleErrors }
+          </div>
+          <div>
+            <label>Text</label>
+            <textarea ref="text" />
+            { textErrors }
+          </div>
+          <div>
+            <label>Deadline</label>
+            <input type="date" ref="deadline" />
+            { deadlineErrors }
+          </div>
+          <button disabled={ inProgress } type="submit">Add Exercise</button>
+        </form>
 
-        </div>
+      </div>
     );
   }
 

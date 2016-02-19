@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { addExercise, addExerciseReset } from '../../actions/exercisesActions';
 import ExerciseNewPage from '../ExerciseNewPage';
