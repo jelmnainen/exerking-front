@@ -43,7 +43,7 @@ export default class ExercisesNewPage extends Component {
       textErrors = <p>{ errorMessages.text.join(', ') }</p>;
     }
     if (errorMessages && errorMessages.deadline) {
-      deadlineErrors = <p>{ errorMessages.text.join(', ') }</p>;
+      deadlineErrors = <p>{ errorMessages.deadline.join(', ') }</p>;
     }
 
     return (
