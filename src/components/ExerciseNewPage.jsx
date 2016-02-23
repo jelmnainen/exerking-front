@@ -69,9 +69,7 @@ export default class ExercisesNewPage extends Component {
             { deadlineErrors }
           </div>
           <button disabled={ inProgress } type="submit">Add Exercise</button>
-
         </form>
-
       </div>
     );
   }
