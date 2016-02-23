@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Nav from '../Nav';
 
 const mapStateToProps = (state) => ({
-    teacher: state.auth.isTeacher,
+  teacher: state.auth.isTeacher,
 });
 
 const mapDispatchToProps = () => ({
