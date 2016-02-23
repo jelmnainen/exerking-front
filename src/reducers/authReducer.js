@@ -15,8 +15,10 @@ export default function (state = initialState, action) {
   case LOGIN_REQUEST_SUCCESS:
     return {
       isSignedIn: true,
+      id: action.payload.id,
       email: action.payload.email,
       token: action.payload.access_token,
+      isTeacher: action.payload.teacher,
     };
   case LOGIN_REQUEST_FAIL:
     return {
