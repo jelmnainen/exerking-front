@@ -117,19 +117,18 @@ export const fetchSingleExercise = (id) =>
 export const addExercise = (exercise) =>
   (dispatch, getState) => {
     dispatch(addExerciseRequest());
-    let errors = checkErrors(exercise);
-    if(errors) {
-      dispatch(addExercisesFail(errors)),
+    const errors = checkErrors(exercise);
+    if (errors) {
+      dispatch(addExercisesFail(errors));
     } else {
       const axios = createAxios(getState().auth.token);
 
       axios.post('/exercises', exercise)
         .then(response => {
-          dispatch(addExercisesSuccess(response.data)),
+          dispatch(addExercisesSuccess(response.data));
         })
         .catch(response => {
-          dispatch(addExercisesFail(response.data)),
-        })
+          dispatch(addExercisesFail(response.data));
+        });
     }
   };
-
