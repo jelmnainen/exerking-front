@@ -23,7 +23,7 @@ describe('authReducer', () => {
 
   it('login request success updates state correctly', () => {
     const emailAddress = 'emailaddress';
-    const teacher = false;
+    const isTeacher = false;
     const id = 12;
     const accessToken = '1';
     const action = {
@@ -31,16 +31,16 @@ describe('authReducer', () => {
       payload: {
         email: emailAddress,
         access_token: accessToken,
-        id: 12,
-        teacher: false,
+        id,
+        teacher: isTeacher,
       },
     };
     const expectedState = {
       isSignedIn: true,
-      id: 12,
+      id,
       email: emailAddress,
       token: accessToken,
-      isTeacher: false,
+      isTeacher,
     };
     const nextState = reducer(undefined, action);
     expect(nextState).to.eql(expectedState);
