@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
   inProgress: state.exercises.addRequest.inProgress,
   isError: state.exercises.addRequest.isError,
   errorMessages: state.exercises.addRequest.errorMessages,
+  isCreated: state.exercises.addRequest.isCreated,
 });
 
 const mapDispatchToProps = (dispatch) => ({

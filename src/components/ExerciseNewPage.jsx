@@ -28,11 +28,12 @@ export default class ExercisesNewPage extends Component {
   }
 
   render() {
-    const { inProgress, errorMessages } = this.props;
+    const { inProgress, errorMessages, isCreated } = this.props;
 
     let titleErrors;
     let textErrors;
     let deadlineErrors;
+    let created;
 
     if (errorMessages && errorMessages.title) {
       titleErrors = <p>{ errorMessages.title.join(', ') }</p>;
@@ -43,10 +44,14 @@ export default class ExercisesNewPage extends Component {
     if (errorMessages && errorMessages.deadline) {
       deadlineErrors = <p>{ errorMessages.deadline.join(', ') }</p>;
     }
+    if (isCreated) {
+      created = <p>Exercise created</p>;
+    }
 
     return (
       <div className="exercise-add">
         <h2>Add new excercise</h2>
+        { created }
         <form onSubmit={this.onSubmit}>
           <div>
             <label>Title</label>
@@ -64,6 +69,7 @@ export default class ExercisesNewPage extends Component {
             { deadlineErrors }
           </div>
           <button disabled={ inProgress } type="submit">Add Exercise</button>
+
         </form>
 
       </div>
