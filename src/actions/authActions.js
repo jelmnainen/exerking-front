@@ -47,7 +47,7 @@ export const login = (email, password) =>
       dispatch(requestLoginFail(errors));
     } else {
       const axios = createAxios();
-      axios.post('/user/sign_in', {
+      axios.post('/users/sign_in', {
         email,
         password,
       })

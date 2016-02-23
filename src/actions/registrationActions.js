@@ -53,11 +53,9 @@ export const register = (email, password, passwordConfirmation) =>
       dispatch(requestRegistrationFail(errors));
     } else {
       const axios = createAxios();
-      axios.post('/user', {
-        user: {
-          email,
-          password,
-        },
+      axios.post('/users', {
+        email,
+        password,
       })
         .then(response => {
           dispatch(requestRegistrationSuccess(response.data));
