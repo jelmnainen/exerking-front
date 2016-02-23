@@ -9,6 +9,7 @@ export default class ExerciseSingleView extends Component {
 
   componentWillMount() {
     this.props.exercisesActions.fetchSingleExercise(this.props.params.id);
+    this.props.fetchCurrentUserSubmissions();
   }
 
   componentWillUnmount() {
@@ -22,7 +23,7 @@ export default class ExerciseSingleView extends Component {
   }
 
   render() {
-    const { exercise } = this.props;
+    const { exercise, submissions } = this.props;
 
     if (!exercise) {
       return <div>Loading</div>;
