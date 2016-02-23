@@ -13,7 +13,14 @@ describe('exercisesReducer', () => {
   it('returns correct payload', () => {
     const initialState = {};
     const payload = [{ id: 1 }];
-    const expectedState = { [payload[0].id]: payload[0] };
+    const expectedState = {
+      isFetching: false,
+      isError: false,
+      entries: {
+        [payload[0].id]: payload[0],
+      },
+    };
+
     const nextState = reducer(initialState, { type: EXERCISES_REQUEST_SUCCESS, payload });
     expect(nextState).to.eql(expectedState);
   });
