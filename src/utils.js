@@ -16,3 +16,14 @@ export const createAxios = (accessToken) => {
 
   return instance;
 };
+
+export const filterMap = (map, predicate) => {
+  const filtered = {};
+  Object.keys(map).forEach(key => {
+    const item = map[key];
+    if (predicate(item)) {
+      filtered[key] = item;
+    }
+  });
+  return filtered;
+};
