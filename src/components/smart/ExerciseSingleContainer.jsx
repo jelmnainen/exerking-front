@@ -1,21 +1,26 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { filterMap } from '../../utils';
 
 import * as exercisesActions from '../../actions/exercisesActions';
-import { submitExercise, addSubmissionReset, fetchCurrentUserSubmissions, }
+import { submitExercise, addSubmissionReset, fetchCurrentUserExerciseSubmissions, }
   from '../../actions/submissionsActions';
 import ExerciseSingleView from '../ExerciseSingleView';
 
 const mapStateToProps = (state, props) => ({
-  exercise: state.exercises[props.params.id],
+  exercise: state.exercises.entries[props.params.id],
+  submissions: filterMap(
+    state.submissions.entries,
+    submission => submission.exercise_id == props.params.id // eslint-disable-line eqeqeq
+  ),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   exercisesActions: bindActionCreators(exercisesActions, dispatch),
   submitExercise: (exerciseId, feedbackAsked) =>
     dispatch(submitExercise(exerciseId, feedbackAsked)),
-  fetchCurrentUserSubmissions: () =>
-    dispatch(fetchCurrentUserSubmissions()),
+  fetchSubmissions: (exerciseId) =>
+    dispatch(fetchCurrentUserExerciseSubmissions(exerciseId)),
   onPageLeave: () => dispatch(addSubmissionReset()),
 });
 

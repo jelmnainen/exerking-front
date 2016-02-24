@@ -9,7 +9,7 @@ export default class ExerciseSingleView extends Component {
 
   componentWillMount() {
     this.props.exercisesActions.fetchSingleExercise(this.props.params.id);
-    this.props.fetchCurrentUserSubmissions();
+    this.props.fetchSubmissions(this.props.params.id);
   }
 
   componentWillUnmount() {
@@ -22,8 +22,30 @@ export default class ExerciseSingleView extends Component {
     this.props.submitExercise(this.props.params.id, feedback);
   }
 
+  renderSubmissionList() {
+    const { submissions } = this.props;
+
+    if (!submissions) {
+      return (<p>No submissions.</p>);
+    }
+    return (
+      <ol>
+        { Object.keys(submissions).map(id => this.renderSubmission(submissions[id])) }
+      </ol>
+    );
+  }
+
+  renderSubmission(submission) {
+    return (
+      <li>
+        <p>Done: {submission.done ? 'Yes' : 'No'}</p>
+        { submission.feedback && <p>Feedback: {submission.feedback}</p> }
+      </li>
+    );
+  }
+
   render() {
-    const { exercise, submissions } = this.props;
+    const { exercise } = this.props;
 
     if (!exercise) {
       return <div>Loading</div>;
@@ -39,6 +61,8 @@ export default class ExerciseSingleView extends Component {
           <input type="checkbox" ref="feedbackAsked"/>Ask for feedback
           <button type="submit">Submit</button>
         </form>
+        <h3>Submissions</h3>
+        { this.renderSubmissionList() }
       </div>
     );
   }

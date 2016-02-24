@@ -1,6 +1,6 @@
 import { SUBMISSIONS_ADD, SUBMISSIONS_ADD_SUCCESS, SUBMISSIONS_ADD_FAIL, SUBMISSIONS_ADD_RESET,
-  SUBMISSIONS_CURRENT_USER_REQUEST, SUBMISSIONS_CURRENT_USER_SUCCESS,
-  SUBMISSIONS_CURRENT_USER_FAIL, }
+  SUBMISSIONS_REQUEST, SUBMISSIONS_SUCCESS,
+  SUBMISSIONS_FAIL, }
   from '../actions/submissionsActions';
 
 const initialState = {
@@ -40,21 +40,21 @@ export default function (state = initialState, { type, payload }) {
     return Object.assign({}, state, {
       addRequest: {},
     });
-  case SUBMISSIONS_CURRENT_USER_REQUEST:
+  case SUBMISSIONS_REQUEST:
     return Object.assign({}, state, {
       isFetching: true,
       isError: false,
     });
-  case SUBMISSIONS_CURRENT_USER_SUCCESS:
+  case SUBMISSIONS_SUCCESS:
     return Object.assign({}, state, {
       isFetching: false,
       isError: false,
-      entries: Object.assign({}, state.entities, payload.reduce((map, submission) => {
+      entries: Object.assign({}, state.entries, payload.reduce((map, submission) => {
         map[submission.id] = submission; // eslint-disable-line no-param-reassign
         return map;
       }, {})),
     });
-  case SUBMISSIONS_CURRENT_USER_FAIL:
+  case SUBMISSIONS_FAIL:
     return Object.assign({}, state, {
       isFetching: false,
       isError: true,

@@ -4,9 +4,9 @@ export const SUBMISSIONS_ADD = 'SUBMISSIONS_ADD';
 export const SUBMISSIONS_ADD_SUCCESS = 'SUBMISSIONS_ADD_SUCCESS';
 export const SUBMISSIONS_ADD_FAIL = 'SUBMISSIONS_ADD_FAIL';
 export const SUBMISSIONS_ADD_RESET = 'SUBMISSIONS_ADD_RESET';
-export const SUBMISSIONS_CURRENT_USER_REQUEST = 'SUBMISSIONS_CURRENT_USER_REQUEST';
-export const SUBMISSIONS_CURRENT_USER_SUCCESS = 'SUBMISSIONS_CURRENT_USER_SUCCESS';
-export const SUBMISSIONS_CURRENT_USER_FAIL = 'SUBMISSIONS_CURRENT_USER_FAIL';
+export const SUBMISSIONS_REQUEST = 'SUBMISSIONS_REQUEST';
+export const SUBMISSIONS_SUCCESS = 'SUBMISSIONS_SUCCESS';
+export const SUBMISSIONS_FAIL = 'SUBMISSIONS_FAIL';
 
 const addSubmission = () => ({
   type: SUBMISSIONS_ADD,
@@ -22,15 +22,15 @@ const addSubmissionFail = (errors) => ({
   errors,
 });
 
-const requestCurrentUserSubmissions = () => ({ type: SUBMISSIONS_CURRENT_USER_REQUEST });
+const fetchSubmissionsRequest = () => ({ type: SUBMISSIONS_REQUEST });
 
-const fetchCurrentUserSubmissionsSuccess = (submissions) => ({
-  type: SUBMISSIONS_CURRENT_USER_SUCCESS,
+const fetchSubmissionsSuccess = (submissions) => ({
+  type: SUBMISSIONS_SUCCESS,
   payload: submissions,
 });
 
-const fetchCurrentUserSubmissionsFail = () => ({
-  type: SUBMISSIONS_CURRENT_USER_FAIL,
+const fetchSubmissionsFail = () => ({
+  type: SUBMISSIONS_FAIL,
 });
 
 export const addSubmissionReset = () => ({ type: SUBMISSIONS_ADD_RESET });
@@ -54,17 +54,27 @@ export const submitExercise = (exerciseId, feedbackAsked) =>
       });
   };
 
-export const fetchCurrentUserSubmissions = () =>
+export const fetchExerciseSubmissions = (exerciseId, userId) =>
   (dispatch, getState) => {
-    dispatch(requestCurrentUserSubmissions());
-    const { id: userId, token } = getState().auth;
+    dispatch(fetchSubmissionsRequest());
+    const { token } = getState().auth;
+    const params = {};
+    if (userId) {
+      params.user_id = userId;
+    }
     const axios = createAxios(token);
-    axios.get(`/users/${userId}/submissions`)
+    axios.get(`/exercises/${exerciseId}/submissions`, { params })
       .then(response => {
-        dispatch(fetchCurrentUserSubmissionsSuccess(response.data));
+        dispatch(fetchSubmissionsSuccess(response.data));
       })
       .catch(e => {
-        dispatch(fetchCurrentUserSubmissionsFail());
+        dispatch(fetchSubmissionsFail());
         console.log(e);
       });
+  };
+
+export const fetchCurrentUserExerciseSubmissions = (exerciseId) =>
+  (dispatch, getState) => {
+    const currentUserId = getState().auth.id;
+    dispatch(fetchExerciseSubmissions(exerciseId, currentUserId));
   };
