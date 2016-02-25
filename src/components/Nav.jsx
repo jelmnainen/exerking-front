@@ -1,18 +1,42 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-
+import { Link, IndexLink } from 'react-router';
 
 export default class Nav extends Component {
 
+  renderMainMenu() {
+    if (this.props.isSignedIn) {
+      return (
+        <div className="menu">
+          <Link className="item" activeClassName="active" to="/exercises">Exercises</Link>
+        </div>
+      );
+    }
+    return (
+      <IndexLink className="item" activeClassName="active" to="/">Home</IndexLink>
+    );
+  }
+
+  renderAuthMenu() {
+    if (this.props.isSignedIn) {
+      return (
+        <Link className="right item" activeClassName="active" to="/logout">Logout</Link>
+      );
+    }
+    return (
+      <div className="right menu">
+        <Link className="item" activeClassName="active" to="/register">Register</Link>
+        <Link className="item" activeClassName="active" to="/login">Login</Link>
+      </div>
+    );
+  }
+
   render() {
     return (
-      <ul className="nav">
-        <li> <Link to="/">Home</Link> </li>
-        <li> <Link to="/login">Login</Link> </li>
-        <li> <Link to="/register">Register</Link> </li>
-        <li> <Link to="/logout">Logout</Link> </li>
-        <li> <Link to="/exercises">Exercises</Link> </li>
-      </ul>
+      <div className="ui pointing menu">
+        <strong className="header item">Exerking</strong>
+        {this.renderMainMenu()}
+        {this.renderAuthMenu()}
+      </div>
     );
   }
 

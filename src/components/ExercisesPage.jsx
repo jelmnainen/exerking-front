@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ExercisesList from './ExercisesList';
 import { Link } from 'react-router';
+import TeacherSection from './smart/TeacherSection';
 
 export default class ExercisesPage extends Component {
 
@@ -10,10 +11,18 @@ export default class ExercisesPage extends Component {
 
   render() {
     return (
-      <div className="exercises-page">
-        <h3>Exercises</h3>
-        { this.props.teacher && <Link to="/exercises/new">Add exercise</Link> }
-        <ExercisesList {...this.props}/>
+      <div className="row">
+        <div className="column">
+          <h1 className="ui large header">
+            Exercises
+            <TeacherSection>
+              <Link className="ui tiny green button right floated" to="/exercises/new">
+                Create new
+              </Link>
+            </TeacherSection>
+          </h1>
+          <ExercisesList {...this.props}/>
+        </div>
       </div>
     );
   }

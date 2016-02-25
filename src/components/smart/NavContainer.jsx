@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import Nav from '../Nav';
 
 const mapStateToProps = (state) => ({
-  teacher: state.auth.isTeacher,
+  isSignedIn: state.auth.isSignedIn,
 });
 
 const mapDispatchToProps = () => ({
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(Nav);
