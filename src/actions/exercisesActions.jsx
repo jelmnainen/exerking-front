@@ -122,8 +122,12 @@ export const addExercise = (exercise) =>
       dispatch(addExercisesFail(errors));
     } else {
       const axios = createAxios(getState().auth.token);
-
-      axios.post('/exercises', exercise)
+      axios.post('/exercises', {
+        title: exercise.title,
+        text: exercise.text,
+        deadline: exercise.deadline,
+        file_upload: exercise.fileUpload,
+      })
         .then(response => {
           dispatch(addExercisesSuccess(response.data));
         })

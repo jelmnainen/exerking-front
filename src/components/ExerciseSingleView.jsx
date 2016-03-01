@@ -28,7 +28,7 @@ export default class ExerciseSingleView extends Component {
         { exercise.file_upload ?
           <p>File upload block</p>
           :
-          <p>Checkbox submit block</p>
+          <p>Submit exercise</p>
         }
         <input type="checkbox" ref="feedbackAsked"/>Ask for feedback
         <button type="submit">Submit</button>
