@@ -22,6 +22,20 @@ export default class ExerciseSingleView extends Component {
     this.props.submitExercise(this.props.params.id, feedback);
   }
 
+  renderForm(exercise) {
+    return (
+      <form onSubmit={ this.onSubmit }>
+        { exercise.file_upload ?
+          <p>File upload block</p>
+          :
+          <p>Submit exercise</p>
+        }
+        <input type="checkbox" ref="feedbackAsked"/>Ask for feedback
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
+
   renderSubmissionList() {
     const { submissions } = this.props;
 
@@ -57,10 +71,7 @@ export default class ExerciseSingleView extends Component {
         <p>Deadline: {exercise.deadline}</p>
         <p>{exercise.text}</p>
         <h3>Submit exercise</h3>
-        <form onSubmit={ this.onSubmit }>
-          <input type="checkbox" ref="feedbackAsked"/>Ask for feedback
-          <button type="submit">Submit</button>
-        </form>
+        { this.renderForm(exercise) }
         <h3>Submissions</h3>
         { this.renderSubmissionList() }
       </div>

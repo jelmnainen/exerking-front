@@ -19,12 +19,13 @@ export default class ExercisesNewPage extends Component {
     const title = this.refs.title.value;
     const text = this.refs.text.value;
     const deadline = this.refs.deadline.value;
+    const fileUpload = this.refs.fileUpload.checked;
 
     if (inProgress) {
       return;
     }
 
-    addExercise({ title, text, deadline });
+    addExercise({ title, text, deadline, fileUpload });
   }
 
   render() {
@@ -50,7 +51,7 @@ export default class ExercisesNewPage extends Component {
 
     return (
       <div className="exercise-add">
-        <h2>Add new excercise</h2>
+        <h2>Add new exercise</h2>
         { created }
         <form onSubmit={this.onSubmit}>
           <div>
@@ -67,6 +68,9 @@ export default class ExercisesNewPage extends Component {
             <label>Deadline</label>
             <input type="date" ref="deadline" />
             { deadlineErrors }
+          </div>
+          <div>
+            <input type="checkbox" ref="fileUpload" />Require file upload
           </div>
           <button disabled={ inProgress } type="submit">Add Exercise</button>
         </form>
