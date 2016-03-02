@@ -35,6 +35,20 @@ const fetchSubmissionsFail = () => ({
 
 export const addSubmissionReset = () => ({ type: SUBMISSIONS_ADD_RESET });
 
+export const submitExerciseFile = (exerciseId, fileSubmit, feedbackAsked) =>
+  (dispatch, getState) => {
+    const { id: userId, token } = getState().auth;
+    const axios = createAxios(token);
+    axios.post(`/submissions/${exerciseId}/file`, {
+      user_id: userId,
+      file: fileSubmit,
+      feedback_asked: feedbackAsked,
+    })
+      .then(response => {
+        console.log(`success!\n${response.data}`);
+      });
+  };
+
 export const submitExercise = (exerciseId, feedbackAsked) =>
   (dispatch, getState) => {
     dispatch(addSubmission());

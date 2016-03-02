@@ -27,8 +27,34 @@ export default class ExerciseSingleView extends Component {
 
   onSubmit(event) {
     event.preventDefault();
+    const { params: [{ id }], submitExerciseFile } = this.props;
     const feedback = this.refs.feedbackAsked.checked;
-    this.props.submitExercise(this.props.params.id, feedback);
+
+    if (this.props.exercise.file_upload) {
+      const file = event.target[0].files[0];
+      const reader = new FileReader();
+
+      reader.onload = (data) => {
+        submitExerciseFile(id, data.target.result, feedback);
+      };
+
+      reader.readAsText(file);
+    }
+
+    this.props.submitExercise(id, feedback);
+  }
+
+  renderForm(exercise) {
+    return (
+      <form onSubmit={ this.onSubmit }>
+        { exercise.file_upload ?
+          <input type="file"></input> :
+          <p>Submit exercise</p>
+        }
+        <input type="checkbox" ref="feedbackAsked"/>Ask for feedback
+        <button type="submit">Submit</button>
+      </form>
+    );
   }
 
   renderSubmissionList() {
