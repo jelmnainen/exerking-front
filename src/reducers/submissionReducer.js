@@ -2,6 +2,7 @@ import { SUBMISSIONS_ADD, SUBMISSIONS_ADD_SUCCESS, SUBMISSIONS_ADD_FAIL, SUBMISS
   SUBMISSIONS_REQUEST, SUBMISSIONS_SUCCESS,
   SUBMISSIONS_FAIL, }
   from '../actions/submissionsActions';
+import { LOGOUT } from '../actions/authActions';
 
 const initialState = {
   isFetching: false,
@@ -59,6 +60,8 @@ export default function (state = initialState, { type, payload }) {
       isFetching: false,
       isError: true,
     });
+  case LOGOUT:
+    return initialState;
   default:
     return state;
   }

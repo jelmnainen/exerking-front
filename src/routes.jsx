@@ -7,6 +7,7 @@ import LogoutContainer from './components/smart/LogoutContainer';
 import RegistrationContainer from './components/smart/RegistrationContainer';
 import ExerciseSingleContainer from './components/smart/ExerciseSingleContainer';
 import ExcerciseNewContainer from './components/smart/ExcerciseNewContainer';
+import SubmissionsContainer from './components/smart/SubmissionsContainer';
 
 export default (
   <Route path="/" component={App}>
@@ -16,6 +17,7 @@ export default (
     <Route path="login" component={LoginContainer} />
     <Route path="logout" component={LogoutContainer} />
     <Route path="register" component={RegistrationContainer} />
+    <Route path="submissions" component={SubmissionsContainer} />
     <IndexRedirect to="/exercises" />
   </Route>
 );
