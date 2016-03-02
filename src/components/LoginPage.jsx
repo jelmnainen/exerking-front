@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import LoginForm from './LoginForm';
 
 export default class LoginPage extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(event) {
-    event.preventDefault();
-
+  onSubmit({ email, password }) {
     const { inProgress } = this.props.auth;
     const { login } = this.props.actions;
-    const { email: { value: email }, password: { value: password } } = this.refs;
 
     if (inProgress) {
       return;
@@ -22,38 +20,31 @@ export default class LoginPage extends Component {
     login(email, password);
   }
 
-  render() {
-    const { isSignedIn, inProgress, email, errorMessages } = this.props.auth;
-
-    let emailErrors;
-    let passwordErrors;
-
-    if (errorMessages && errorMessages.email) {
-      emailErrors = <p>{ errorMessages.email.join(', ') }</p>;
-    }
-    if (errorMessages && errorMessages.password) {
-      passwordErrors = <p>{ errorMessages.password.join(', ') }</p>;
-    }
-
+  renderMessage() {
+    const { email } = this.props.auth;
     return (
-      <div className="login-page">
-        <h2>Login</h2>
-        { isSignedIn ?
-          <p>
-            You're signed in as { email }. {' '}
-            <Link to="/logout">Logout</Link>
-          </p>
-          :
-          <form onSubmit={ this.onSubmit }>
-            Email
-            <input ref="email" type="text" />
-            { emailErrors }
-            Password
-            <input ref="password" type="password" />
-            { passwordErrors }
-            <button disabled={ inProgress } type="submit">Log in</button>
-          </form>
-        }
+      <p>
+        You're signed in as { email }. {' '}
+        <Link to="/logout">Logout</Link>
+      </p>
+    );
+  }
+
+  renderForm() {
+    const { inProgress, errorMessages } = this.props.auth;
+    return (
+      <LoginForm loading={inProgress} errors={errorMessages} onSubmit={this.onSubmit} />
+    );
+  }
+
+  render() {
+    const { isSignedIn } = this.props.auth;
+    return (
+      <div className="row">
+        <div className="six wide column">
+          <h2 className="ui header">Login</h2>
+          {isSignedIn ? this.renderMessage() : this.renderForm()}
+        </div>
       </div>
     );
   }

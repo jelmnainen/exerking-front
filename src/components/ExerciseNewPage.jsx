@@ -37,43 +37,71 @@ export default class ExercisesNewPage extends Component {
     let created;
 
     if (errorMessages && errorMessages.title) {
-      titleErrors = <p>{ errorMessages.title.join(', ') }</p>;
+      titleErrors = (
+        <div className="ui pointing red basic label">
+          {errorMessages.title.join(', ')}
+        </div>
+      );
     }
     if (errorMessages && errorMessages.text) {
-      textErrors = <p>{ errorMessages.text.join(', ') }</p>;
+      textErrors = (
+        <div className="ui pointing red basic label">
+          {errorMessages.text.join(', ')}
+        </div>
+      );
     }
     if (errorMessages && errorMessages.deadline) {
-      deadlineErrors = <p>{ errorMessages.deadline.join(', ') }</p>;
+      deadlineErrors = (
+        <div className="ui pointing red basic label">
+          {errorMessages.deadline.join(', ')}
+        </div>
+      );
     }
+
     if (isCreated) {
-      created = <p>Exercise created</p>;
+      created = (
+        <div className="ui success message">
+          <p>Exercise created</p>
+        </div>
+      );
     }
 
     return (
-      <div className="exercise-add">
-        <h2>Add new exercise</h2>
-        { created }
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <label>Title</label>
-            <input ref="title" />
-            { titleErrors }
-          </div>
-          <div>
-            <label>Text</label>
-            <textarea ref="text" />
-            { textErrors }
-          </div>
-          <div>
-            <label>Deadline</label>
-            <input type="date" ref="deadline" />
-            { deadlineErrors }
-          </div>
-          <div>
-            <input type="checkbox" ref="fileUpload" />Require file upload
-          </div>
-          <button disabled={ inProgress } type="submit">Add Exercise</button>
-        </form>
+      <div className="row">
+        <div className="column">
+          <h2 className="ui header">Add new excercise</h2>
+          {created}
+          <form className="ui form" onSubmit={this.onSubmit}>
+            <div className="field">
+              <label>Title</label>
+              <input ref="title" />
+              {titleErrors}
+            </div>
+            <div className="field">
+              <label>Text</label>
+              <textarea ref="text" />
+              {textErrors}
+            </div>
+            <div className="field">
+              <label>Deadline</label>
+              <input type="date" ref="deadline" />
+              {deadlineErrors}
+            </div>
+            <div className="inline field">
+              <div className="ui checkbox">
+                <input type="checkbox" ref="fileUpload" />
+                <label>Require file upload</label>
+              </div>
+            </div>
+            <button
+              className="ui primary button"
+              disabled={inProgress}
+              type="submit"
+            >
+              Add Exercise
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

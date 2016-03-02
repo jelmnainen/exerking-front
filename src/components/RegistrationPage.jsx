@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import RegistrationForm from './RegistrationForm';
 
 export default class RegistrationPage extends Component {
 
@@ -12,11 +13,8 @@ export default class RegistrationPage extends Component {
     this.props.onPageLeave();
   }
 
-  onSubmit(event) {
-    event.preventDefault();
+  onSubmit({ email, password, passwordConfirmation }) {
     const { inProgress } = this.props.reg;
-    const { email: { value: email }, password: { value: password },
-        passwordConfirmation: { value: passwordConfirmation } } = this.refs;
 
     if (inProgress) {
       return;
@@ -25,39 +23,30 @@ export default class RegistrationPage extends Component {
     this.props.onRegistration(email, password, passwordConfirmation);
   }
 
-  render() {
-    const { inProgress, isOK, errorMessages } = this.props.reg;
-
-    let emailErrors;
-    let passwordErrors;
-    if (errorMessages && errorMessages.email) {
-      emailErrors = <p>{ errorMessages.email.join(', ') }</p>;
-    }
-    if (errorMessages && errorMessages.password) {
-      passwordErrors = <p>{ errorMessages.password.join(', ') }</p>;
-    }
-
+  renderMessage() {
     return (
-      <div className="registration-page">
-        <h2>Registeration</h2>
-        { isOK ?
-          <p>
-            Welcome to Exerking! {' '}
-            <Link to="/login">Login now</Link>
-          </p>
-          :
-          <form onSubmit={ this.onSubmit }>
-            Email
-            <input name="email" ref="email" type="text"/>
-            { emailErrors }
-            Password
-            <input name="password" ref="password" type="password"/>
-            { passwordErrors }
-            Password Confirmation
-            <input name="passwordConfirmation" ref="passwordConfirmation" type="password"/>
-            <button disabled={ inProgress } type="submit">Sign up</button>
-          </form>
-        }
+      <p>
+        Welcome to Exerking! {' '}
+        <Link to="/login">Login now</Link>
+      </p>
+    );
+  }
+
+  renderForm() {
+    const { inProgress, errorMessages } = this.props.reg;
+    return (
+      <RegistrationForm loading={inProgress} errors={errorMessages} onSubmit={this.onSubmit} />
+    );
+  }
+
+  render() {
+    const { isOK } = this.props.reg;
+    return (
+      <div className="row">
+        <div className="six wide column">
+          <h2 className="ui header">Registration</h2>
+          {isOK ? this.renderMessage() : this.renderForm()}
+        </div>
       </div>
     );
   }

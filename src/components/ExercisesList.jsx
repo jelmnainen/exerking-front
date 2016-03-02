@@ -1,27 +1,44 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import moment from 'moment';
 
 export default class ExerciseList extends Component {
 
+  componentDidMount() {
+    $(this.refs.container).accordion({ exclusive: false }); // eslint-disable-line no-undef
+  }
+
   renderExercise(exercise) {
     return (
-      <li key={exercise.id} className="exercise-single">
-        <h4>
-          <Link to={`/exercises/${exercise.id}`}>{exercise.title}</Link>
-        </h4>
-        <span className="byline">{exercise.deadline}</span>
-        <p>{exercise.text}</p>
-      </li>
+      <div key={exercise.id}>
+        <div className="title">
+          <i className="dropdown icon"></i>
+          {exercise.title} {' '}
+          <div className="ui tiny label">
+            {moment(exercise.deadline).format('LLL')}
+          </div>
+          <Link
+            className="ui mini compact blue button right floated"
+            to={`/exercises/${exercise.id}`}
+          >
+            View and submit
+          </Link>
+        </div>
+        <div className="content">
+          <p>{exercise.text}</p>
+          <Link to={`/exercises/${exercise.id}`}>
+            {exercise.title}
+          </Link>
+        </div>
+      </div>
     );
   }
 
   render() {
     const { exercises } = this.props;
     return (
-      <div className="exerciseList">
-        <ul>
-          { Object.keys(exercises).map(id => this.renderExercise(exercises[id])) }
-        </ul>
+      <div className="ui styled fluid accordion" ref="container">
+        {Object.keys(exercises).map(id => this.renderExercise(exercises[id]))}
       </div>
     );
   }
