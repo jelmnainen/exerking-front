@@ -43,8 +43,6 @@ export default class ExerciseSingleView extends Component {
 
       reader.readAsText(file);
     }
-
-    this.props.submitExercise(id, feedback);
   }
 
   renderSubmissionList() {
