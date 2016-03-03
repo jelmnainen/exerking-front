@@ -35,7 +35,7 @@ const fetchSubmissionsFail = () => ({
 
 export const addSubmissionReset = () => ({ type: SUBMISSIONS_ADD_RESET });
 
-export const submitExercise = (exerciseId, feedbackAsked) =>
+export const submitExercise = (exerciseId, feedbackAsked, fileContent, fileType) =>
   (dispatch, getState) => {
     dispatch(addSubmission());
     const { id: userId, token } = getState().auth;
@@ -44,6 +44,8 @@ export const submitExercise = (exerciseId, feedbackAsked) =>
       user_id: userId,
       exercise_id: exerciseId,
       feedback_asked: feedbackAsked,
+      file_content: fileContent,
+      file_type: fileType,
     })
       .then(response => {
         dispatch(addSubmissionSuccess(response.data));
