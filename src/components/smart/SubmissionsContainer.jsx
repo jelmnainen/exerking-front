@@ -1,15 +1,17 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import * as submissionsActions from '../../actions/submissionsActions';
+import { fetchAllSubmissions } from '../../actions/submissionsActions';
+import { fetchExercises } from '../../actions/exercisesActions';
 import SubmissionsPage from '../SubmissionsPage';
 
 const mapStateToProps = (state) => ({
   submissions: state.submissions.entries,
+  exercises: state.exercises.entries,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  submissionsActions: bindActionCreators(submissionsActions, dispatch),
+  fetchAllSubmissions: () => dispatch(fetchAllSubmissions()),
+  fetchExercises: () => dispatch(fetchExercises()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubmissionsPage);

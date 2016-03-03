@@ -5,24 +5,43 @@ export default class SubmissionsList extends Component {
 
 
   renderSubmission(submission) {
+    const { exercises } = this.props;
+    let feedback;
+
+    if (submission.feedback_asked) {
+      if (submission.feedback) {
+        feedback = (
+          <span className="ui tiny green basic label">Feedback given</span>
+        );
+      } else {
+        feedback = (
+          <span className="ui tiny red basic label">Feedback pending</span>
+        );
+      }
+    }
+
     return (
-      <ul>
-        <li key={submission.id}>
-          <h1><Link to ={`/submissions/${submission.id}`}>Submission: {submission.id}</Link></h1>
-          <p>User: {submission.user_id}</p>
-          <p>Exercise: {submission.exercise_id}</p>
-          <p>Feedback asked: {submission.feedback_asked ? 'Yes' : 'No' }</p>
-          <p>Points awarded: {submission.done ? 'Yes' : 'No' }</p>
-          <p>Submitted at: {submission.created_at}</p>
-        </li>
-      </ul>
+      <div key={submission.id} className="ui raised segment">
+        {exercises[submission.exercise_id].title} by {submission.user_id}
+        {' '}
+        {feedback} {' '}
+        {!submission.done &&
+          <span className="ui tiny basic label">Not accepted</span>
+        }
+        <Link
+          className="ui mini compact blue button right floated"
+          to={`/submissions/${submission.id}`}
+        >
+          View
+        </Link>
+      </div>
     );
   }
 
   render() {
     const { submissions } = this.props;
     return (
-      <div>
+      <div className="ui stacked segments">
         {Object.keys(submissions).map(id => this.renderSubmission(submissions[id]))}
       </div>
     );
