@@ -59,6 +59,24 @@ export default class ExerciseSingleView extends Component {
     );
   }
 
+  renderSubmitSegment() {
+    const { exercise } = this.props;
+    if (moment().isAfter(exercise.deadline)) {
+      return (
+        <div className="ui attached negative message">
+          <i className="warning icon" />
+          Deadline has expired.
+        </div>
+      );
+    }
+    return (
+      <div className="ui segment">
+        <h2 className="ui small header">Submit exercise</h2>
+        {this.renderForm()}
+      </div>
+    );
+  }
+
   renderForm() {
     const { exercise } = this.props;
     return (
@@ -115,10 +133,7 @@ export default class ExerciseSingleView extends Component {
 
             <div className="six wide column">
               <div className="ui segments">
-                <div className="ui segment">
-                  <h2 className="ui small header">Submit exercise</h2>
-                  {this.renderForm()}
-                </div>
+                {this.renderSubmitSegment()}
                 <div className="ui segment">
                   <h2 className="ui small header">Submissions</h2>
                   {this.renderSubmissionList()}
