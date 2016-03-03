@@ -3,8 +3,11 @@ import { bindActionCreators } from 'redux';
 import { filterMap } from '../../utils';
 
 import * as exercisesActions from '../../actions/exercisesActions';
-import { submitExercise, addSubmissionReset, fetchCurrentUserExerciseSubmissions, }
-  from '../../actions/submissionsActions';
+import {
+  submitExercise,
+  addSubmissionReset,
+  fetchCurrentUserExerciseSubmissions,
+} from '../../actions/submissionsActions';
 import ExerciseSingleView from '../ExerciseSingleView';
 
 const mapStateToProps = (state, props) => ({
@@ -17,8 +20,8 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   exercisesActions: bindActionCreators(exercisesActions, dispatch),
-  submitExercise: (exerciseId, feedbackAsked) =>
-    dispatch(submitExercise(exerciseId, feedbackAsked)),
+  submitExercise: (exerciseId, feedbackAsked, fileContent, fileType) =>
+    dispatch(submitExercise(exerciseId, feedbackAsked, fileContent, fileType)),
   fetchSubmissions: (exerciseId) =>
     dispatch(fetchCurrentUserExerciseSubmissions(exerciseId)),
   onPageLeave: () => dispatch(addSubmissionReset()),

@@ -35,21 +35,7 @@ const fetchSubmissionsFail = () => ({
 
 export const addSubmissionReset = () => ({ type: SUBMISSIONS_ADD_RESET });
 
-export const submitExerciseFile = (exerciseId, fileSubmit, feedbackAsked) =>
-  (dispatch, getState) => {
-    const { id: userId, token } = getState().auth;
-    const axios = createAxios(token);
-    axios.post(`/submissions/${exerciseId}/file`, {
-      user_id: userId,
-      file: fileSubmit,
-      feedback_asked: feedbackAsked,
-    })
-      .then(response => {
-        console.log(`success!\n${response.data}`);
-      });
-  };
-
-export const submitExercise = (exerciseId, feedbackAsked) =>
+export const submitExercise = (exerciseId, feedbackAsked, fileContent, fileType) =>
   (dispatch, getState) => {
     dispatch(addSubmission());
     const { id: userId, token } = getState().auth;
@@ -58,6 +44,8 @@ export const submitExercise = (exerciseId, feedbackAsked) =>
       user_id: userId,
       exercise_id: exerciseId,
       feedback_asked: feedbackAsked,
+      file_content: fileContent,
+      file_type: fileType,
     })
       .then(response => {
         dispatch(addSubmissionSuccess(response.data));
