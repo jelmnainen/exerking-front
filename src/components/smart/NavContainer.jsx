@@ -3,6 +3,7 @@ import Nav from '../Nav';
 
 const mapStateToProps = (state) => ({
   isSignedIn: state.auth.isSignedIn,
+  email: state.auth.email,
 });
 
 const mapDispatchToProps = () => ({

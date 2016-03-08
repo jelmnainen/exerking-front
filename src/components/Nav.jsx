@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
 
 export default class Nav extends Component {
@@ -19,7 +19,14 @@ export default class Nav extends Component {
   renderAuthMenu() {
     if (this.props.isSignedIn) {
       return (
-        <Link className="right item" activeClassName="active" to="/logout">Logout</Link>
+        <span className="right menu">
+          <span className="item">
+            {this.props.email}
+          </span>
+          <span className="item" activeClassName="active">
+            <Link to="/logout">Logout</Link>
+          </span>
+        </span>
       );
     }
     return (
@@ -41,3 +48,8 @@ export default class Nav extends Component {
   }
 
 }
+
+Nav.propTypes = {
+  isSignedIn: PropTypes.bool.isRequired,
+  email: PropTypes.string,
+};
