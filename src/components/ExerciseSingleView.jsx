@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import cn from 'classnames';
 import moment from 'moment';
 
@@ -32,7 +32,7 @@ export default class ExerciseSingleView extends Component {
     const feedback = this.refs.feedbackAsked.checked;
 
     if (this.props.exercise.file_upload) {
-      const file = event.target[0].files[0];
+      const file = this.refs.file.files[0];
       const reader = new FileReader();
 
       reader.onload = (data) => {
@@ -40,6 +40,8 @@ export default class ExerciseSingleView extends Component {
       };
 
       reader.readAsText(file);
+    } else {
+      submitExercise(id, feedback);
     }
   }
 
@@ -160,3 +162,22 @@ export default class ExerciseSingleView extends Component {
   }
 
 }
+
+
+ExerciseSingleView.propTypes = {
+  params: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+  exercisesActions: PropTypes.objectOf(PropTypes.func),
+  fetchSubmissions: PropTypes.func,
+  onPageLeave: PropTypes.func,
+  submitExercise: PropTypes.func,
+  exercise: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    text: PropTypes.string,
+    deadline: PropTypes.string,
+    file_upload: PropTypes.boolean,
+  }),
+  submissions: PropTypes.object,
+};
