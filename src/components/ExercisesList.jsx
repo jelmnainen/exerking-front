@@ -14,11 +14,11 @@ export default class ExerciseList extends Component {
         <div className="title">
           <i className="dropdown icon"></i>
           {exercise.title} {' '}
-          {!!exercise.deadline ?
+          {!!exercise.deadline &&
             <div className="ui tiny label">
              {moment(exercise.deadline).format('LLL')}
-            </div> :
-          ''}
+            </div>
+          }
           <Link
             className="ui mini compact blue button right floated"
             to={`/exercises/${exercise.id}`}

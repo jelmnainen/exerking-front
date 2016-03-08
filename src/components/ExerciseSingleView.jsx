@@ -166,18 +166,18 @@ export default class ExerciseSingleView extends Component {
 
 ExerciseSingleView.propTypes = {
   params: PropTypes.shape({
-    id: PropTypes.string,
-  }),
-  exercisesActions: PropTypes.objectOf(PropTypes.func),
-  fetchSubmissions: PropTypes.func,
-  onPageLeave: PropTypes.func,
-  submitExercise: PropTypes.func,
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+  exercisesActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  fetchSubmissions: PropTypes.func.isRequired,
+  onPageLeave: PropTypes.func.isRequired,
+  submitExercise: PropTypes.func.isRequired,
   exercise: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    text: PropTypes.string,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
     deadline: PropTypes.string,
-    file_upload: PropTypes.boolean,
+    file_upload: PropTypes.bool.isRequired,
   }),
   submissions: PropTypes.object,
 };
