@@ -17,7 +17,6 @@ export default class Nav extends Component {
   }
 
   renderAuthMenu() {
-    console.log(this.props);
     if (this.props.isSignedIn) {
       return (
         <span className="right menu">
