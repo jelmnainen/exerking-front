@@ -5,7 +5,7 @@ export default class SubmissionsList extends Component {
 
 
   renderSubmission(submission) {
-    const { exercises } = this.props;
+    const { exercises, users } = this.props;
     let feedback;
 
     if (submission.feedback_asked) {
@@ -22,7 +22,8 @@ export default class SubmissionsList extends Component {
 
     return (
       <div key={submission.id} className="ui raised segment">
-        {exercises[submission.exercise_id].title} by {submission.user_id}
+        {exercises[submission.exercise_id] && exercises[submission.exercise_id].title} by
+        {users[submission.user_id] && users[submission.user_id].email}
         {' '}
         {feedback} {' '}
         {!submission.done &&
@@ -39,7 +40,16 @@ export default class SubmissionsList extends Component {
   }
 
   render() {
-    const { submissions } = this.props;
+    const { submissions, isLoading } = this.props;
+    if (isLoading) {
+      return (
+        <div className="ui very padded stacked segment">
+          <div className="ui active inverted dimmer">
+            <div className="ui text loader">Loading</div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="ui stacked segments">
         {Object.keys(submissions).map(id => this.renderSubmission(submissions[id]))}

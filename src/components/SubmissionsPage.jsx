@@ -6,6 +6,7 @@ export default class SubmissionsPage extends Component {
   componentWillMount() {
     this.props.fetchAllSubmissions();
     this.props.fetchExercises();
+    this.props.fetchAllUsers();
   }
 
   render() {
