@@ -8,6 +8,7 @@ export default class Nav extends Component {
       return (
         <div className="menu">
           <Link className="item" activeClassName="active" to="/exercises">Exercises</Link>
+          <Link className="item" activeClassName="active" to="/submissions">Submissions</Link>
         </div>
       );
     }

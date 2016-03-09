@@ -80,3 +80,18 @@ export const fetchCurrentUserExerciseSubmissions = (exerciseId) =>
     const currentUserId = getState().auth.id;
     dispatch(fetchExerciseSubmissions(exerciseId, currentUserId));
   };
+
+export const fetchAllSubmissions = () =>
+  (dispatch, getState) => {
+    dispatch(fetchSubmissionsRequest());
+    const { token } = getState().auth;
+    const axios = createAxios(token);
+    axios.get(`/submissions`)
+      .then(response => {
+        dispatch(fetchSubmissionsSuccess(response.data));
+      })
+      .catch(e => {
+        dispatch(fetchSubmissionsFail());
+        console.log(e);
+      });
+  };
