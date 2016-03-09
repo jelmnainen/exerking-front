@@ -35,11 +35,12 @@ export default class ExerciseSingleView extends Component {
       const file = this.refs.file.files[0];
       const reader = new FileReader();
 
-      reader.onload = (data) => {
-        submitExercise(id, feedback, btoa(data.target.result), file.type);
+      reader.onload = ({ target: { result } }) => {
+        const fileContent = result.substr(result.indexOf(',') + 1);
+        submitExercise(id, feedback, fileContent, file.type);
       };
 
-      reader.readAsText(file);
+      reader.readAsDataURL(file);
     } else {
       submitExercise(id, feedback);
     }
