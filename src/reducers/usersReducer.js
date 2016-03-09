@@ -1,40 +1,29 @@
+import { Map, fromJS } from 'immutable';
+
 import { USERS_REQUEST, USERS_SUCCESS, USERS_FAIL } from '../actions/usersActions';
 import { LOGOUT } from '../actions/authActions';
 
-const initialState = {
+const initialState = fromJS({
   isFetching: false,
   isError: false,
-  entries: {},
-};
-
-const entries = (state = {}, action) => {
-  const { payload } = action;
-  switch (action.type) {
-  case USERS_SUCCESS:
-    return payload.reduce((map, user) => {
-      map[user.id] = user; // eslint-disable-line no-param-reassign
-      return map;
-    }, {});
-  default:
-    return state;
-  }
-};
+  entries: new Map(),
+});
 
 export default function (state = initialState, action) {
   switch (action.type) {
   case USERS_REQUEST:
-    return Object.assign({}, state, {
+    return state.merge({
       isFetching: true,
       isError: false,
     });
   case USERS_SUCCESS:
-    return Object.assign({}, state, {
+    return state.mergeDeep({
       isFetching: false,
       isError: false,
-      entries: entries(state.entries, action),
+      entries: new Map(action.payload.map(item => [item.id, fromJS(item)])),
     });
   case USERS_FAIL:
-    return Object.assign({}, state, {
+    return state.merge({
       isFetching: false,
       isError: true,
     });

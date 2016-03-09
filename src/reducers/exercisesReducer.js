@@ -1,107 +1,105 @@
+import { Map, fromJS } from 'immutable';
+
 import { EXERCISES_REQUEST, EXERCISES_REQUEST_SUCCESS, EXERCISES_REQUEST_FAILED,
   EXERCISES_SINGLE_REQUEST, EXERCISES_SINGLE_REQUEST_SUCCESS, EXERCISES_SINGLE_REQUEST_FAIL,
   EXERCISES_ADD_REQUEST, EXERCISES_ADD_REQUEST_SUCCESS, EXERCISES_ADD_REQUEST_FAIL,
   EXERCISES_ADD_RESET } from '../actions/exercisesActions';
 import { LOGOUT } from '../actions/authActions';
 
-const addRequest = (state = {}, action) => {
+const emptyMap = fromJS({});
+
+const addRequest = (state = emptyMap, action) => {
   switch (action.type) {
   case EXERCISES_ADD_REQUEST:
-    return {
+    return state.merge({
       inProgress: true,
       isError: false,
-    };
+    });
   case EXERCISES_ADD_REQUEST_SUCCESS:
-    return {
+    return state.merge({
       inProgress: false,
       isError: false,
       isCreated: true,
-    };
+    });
   case EXERCISES_ADD_REQUEST_FAIL:
-    return {
+    return state.merge({
       inProgress: false,
       isError: true,
       errorMessages: action.payload,
-    };
+    });
   case EXERCISES_ADD_RESET:
-    return {};
+    return emptyMap;
   default:
     return state;
   }
 };
 
-const entries = (state = {}, action) => {
+const entries = (state = emptyMap, action) => {
   const { payload } = action;
   switch (action.type) {
   case EXERCISES_REQUEST_SUCCESS:
-    return payload.reduce((map, exercise) => {
-      map[exercise.id] = exercise; // eslint-disable-line no-param-reassign
-      return map;
-    }, {});
+    return state.merge(new Map(payload.map(item => [item.id, fromJS(item)])));
   case EXERCISES_ADD_REQUEST_SUCCESS:
   case EXERCISES_SINGLE_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
-      [payload.id]: payload,
-    });
+    return state.set(payload.id, fromJS(payload));
   default:
     return state;
   }
 };
 
-const initialState = {
+const initialState = fromJS({
   isFetching: false,
   isError: false,
   entries: {},
   addRequest: {},
-};
+});
 
 export default function (state = initialState, action) {
   const { type } = action;
+
   switch (type) {
   case EXERCISES_REQUEST:
-    return Object.assign({}, state, {
+    return state.merge({
       isFetching: true,
       isError: false,
     });
   case EXERCISES_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
+    return state.mergeDeep({
       isFetching: false,
       isError: false,
-      entries: entries(state.entries, action),
+      entries: entries(state.get('entries'), action),
     });
   case EXERCISES_REQUEST_FAILED:
-    return Object.assign({}, state, {
+    return state.merge({
       isFetching: false,
       isError: true,
-      entries: {},
     });
   case EXERCISES_SINGLE_REQUEST:
-    return Object.assign({}, state, {
+    return state.merge({
       isFetching: true,
       isError: false,
     });
   case EXERCISES_SINGLE_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
+    return state.merge({
       isFetching: false,
       isError: false,
-      entries: entries(state.entries, action),
+      entries: entries(state.get('entries'), action),
     });
   case EXERCISES_SINGLE_REQUEST_FAIL:
-    return Object.assign({}, state, {
+    return state.merge({
       isFetching: false,
       isError: true,
-      entries: {},
     });
   case EXERCISES_ADD_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
-      entries: entries(state.entries, action),
-      addRequest: addRequest(state.addRequest, action),
+    return state.merge({
+      entries: entries(state.get('entries'), action),
+      addRequest: addRequest(state.get('addRequest'), action),
     });
   case EXERCISES_ADD_REQUEST:
   case EXERCISES_ADD_REQUEST_FAIL:
   case EXERCISES_ADD_RESET:
-    return Object.assign({}, state, {
-      addRequest: addRequest(state.addRequest, action),
+    return state.merge({
+      addRequest: addRequest(state.get('addRequest'), action),
     });
   case LOGOUT:
     return initialState;

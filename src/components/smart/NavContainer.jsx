@@ -1,10 +1,13 @@
 import { connect } from 'react-redux';
 import Nav from '../Nav';
 
-const mapStateToProps = (state) => ({
-  isSignedIn: state.auth.isSignedIn,
-  email: state.auth.email,
-});
+const mapStateToProps = (state) => {
+  const auth = state.get('auth');
+  return {
+    isSignedIn: auth.get('isSignedIn'),
+    email: auth.get('email'),
+  };
+};
 
 const mapDispatchToProps = () => ({
 });

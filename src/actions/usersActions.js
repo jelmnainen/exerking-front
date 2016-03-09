@@ -18,7 +18,7 @@ const fetchUsersFail = () => ({
 export const fetchAllUsers = () =>
   (dispatch, getState) => {
     dispatch(fetchUsersRequest());
-    const { token } = getState().auth;
+    const token = getState().getIn(['auth', 'token']);
     const axios = createAxios(token);
     axios.get('/users')
       .then(response => {

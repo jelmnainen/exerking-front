@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Map } from 'immutable';
 import cn from 'classnames';
 import FormInput from './FormInput';
 
@@ -35,7 +36,7 @@ export default class RegistrationForm extends Component {
   }
 
   render() {
-    const { loading, errors = {} } = this.props;
+    const { loading, errors = new Map() } = this.props;
     const { email, password, passwordConfirmation } = this.state;
 
     return (
@@ -45,7 +46,7 @@ export default class RegistrationForm extends Component {
       >
         <FormInput
           name="email"
-          errors={errors.email}
+          errors={errors.get('email')}
           value={email}
           onChange={this.onEmailChange}
         >
@@ -54,7 +55,7 @@ export default class RegistrationForm extends Component {
         <FormInput
           name="password"
           type="password"
-          errors={errors.password}
+          errors={errors.get('password')}
           value={password}
           onChange={this.onPasswordChange}
         >
@@ -83,7 +84,7 @@ export default class RegistrationForm extends Component {
 
 RegistrationForm.propTypes = {
   loading: PropTypes.bool,
-  errors: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+  errors: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
 };
 

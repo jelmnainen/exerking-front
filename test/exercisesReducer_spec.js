@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { Map, fromJS } from 'immutable';
 
 import reducer from '../src/reducers/exercisesReducer';
 import { EXERCISES_REQUEST_SUCCESS } from '../src/actions/exercisesActions';
@@ -11,17 +12,24 @@ describe('exercisesReducer', () => {
   });
 
   it('returns correct payload', () => {
-    const initialState = {};
-    const payload = [{ id: 1 }];
-    const expectedState = {
+    const action = {
+      type: EXERCISES_REQUEST_SUCCESS,
+      payload: [{ id: 2 }],
+    };
+    const initialState = fromJS({
+      entries: new Map([
+        [1, fromJS({ id: 1 })],
+      ]),
+    });
+    const expectedState = fromJS({
+      entries: new Map([
+        [1, fromJS({ id: 1 })],
+        [2, fromJS({ id: 2 })],
+      ]),
       isFetching: false,
       isError: false,
-      entries: {
-        [payload[0].id]: payload[0],
-      },
-    };
-
-    const nextState = reducer(initialState, { type: EXERCISES_REQUEST_SUCCESS, payload });
+    });
+    const nextState = reducer(initialState, action);
     expect(nextState).to.eql(expectedState);
   });
 });

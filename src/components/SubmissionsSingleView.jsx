@@ -11,14 +11,13 @@ export default class SubmissionsSingleView extends Component {
     }
 
     componentWillMount() {
-      this.props.fetchSingleExercise(this.props.params.id);
-      this.props.fetchSubmissions(this.props.params.id);
+      this.props.fetchSubmission(this.props.params.id);
     }
 
     onSubmit(e) {
       e.preventDefault();
       this.props.patchSubmission(
-        this.props.submission.id,
+        this.props.params.id,
         this.refs.textarea.value,
         this.refs.done.checked
       );
@@ -26,14 +25,25 @@ export default class SubmissionsSingleView extends Component {
 
     render() {
       const { exercise, submission } = this.props;
-      let feedback;
+      const loading = !(exercise && submission);
 
-      if (submission.feedback_asked) {
-        if (submission.feedback) {
+      if (loading) {
+        return (
+          <div className="row">
+            <div className="column">
+              <div className="ui active small inline loader" />
+            </div>
+          </div>
+        );
+      }
+
+      let feedback;
+      if (submission.get('feedback_asked')) {
+        if (submission.get('feedback')) {
           feedback = (
             <div>
               <h2 className="ui tiny header">Feedback</h2>
-              <p>{submission.feedback}</p>
+              <p>{submission.get('feedback')}</p>
             </div>
           );
         } else {
@@ -51,22 +61,22 @@ export default class SubmissionsSingleView extends Component {
         <div className="row">
           <div className="column">
             <h1 className="ui large header">
-              Submission: {exercise.title}
+              Submission: {exercise.get('title')}
             </h1>
             <div className="ui grid">
               <div className="six wide column">
                 <div className="ui segments">
                   <div className="ui secondary segment">
-                    <p>Deadline: {moment(exercise.deadline).format('LLL')}</p>
+                    <p>Deadline: {moment(exercise.get('deadline')).format('LLL')}</p>
                   </div>
                   <div className="ui segment">
-                    <p>{exercise.text}</p>
+                    <p>{exercise.get('text')}</p>
                   </div>
                 </div>
               </div>
               <div className="ten wide column">
                 <div className="ui segments">
-                  {submission.done ||
+                  {submission.get('done') ||
                     <StudentSection>
                       <div className="ui attached negative message">
                         <p>Submission is not accepted</p>
@@ -78,11 +88,18 @@ export default class SubmissionsSingleView extends Component {
                       <form className="ui form" onSubmit={this.onSubmit}>
                         <div className="field">
                           <label>Feedback</label>
-                          <textarea ref="textarea" defaultValue={submission.feedback}></textarea>
+                          <textarea
+                            ref="textarea"
+                            defaultValue={submission.get('feedback')}
+                          />
                         </div>
                         <div className="inline field">
                           <div className="ui checkbox">
-                            <input type="checkbox" ref="done" defaultChecked={submission.done} />
+                            <input
+                              type="checkbox"
+                              ref="done"
+                              defaultChecked={submission.get('done')}
+                            />
                             <label>Done</label>
                           </div>
                         </div>

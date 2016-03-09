@@ -31,7 +31,7 @@ export default class ExerciseSingleView extends Component {
     const { id } = this.props.params;
     const feedback = this.refs.feedbackAsked.checked;
 
-    if (this.props.exercise.file_upload) {
+    if (this.props.exercise.get('file_upload')) {
       const file = this.refs.file.files[0];
       const reader = new FileReader();
 
@@ -49,7 +49,7 @@ export default class ExerciseSingleView extends Component {
   renderSubmissionList() {
     const { submissions } = this.props;
 
-    if (Object.keys(submissions).length === 0) {
+    if (submissions.isEmpty()) {
       return (
         <p>No submissions made</p>
       );
@@ -57,18 +57,18 @@ export default class ExerciseSingleView extends Component {
 
     return (
       <div className="ui relaxed divided list">
-        {Object.keys(submissions).map(id => this.renderSubmission(submissions[id]))}
+        {submissions.valueSeq().map(submission => this.renderSubmission(submission))}
       </div>
     );
   }
 
   renderSubmission(submission) {
     return (
-      <div key={submission.id} className="item">
-        <i className={cn('square icon', submission.done ? 'green check' : 'red minus')} />
+      <div key={submission.get('id')} className="item">
+        <i className={cn('square icon', submission.get('done') ? 'green check' : 'red minus')} />
         <div className="content">
-          {moment(submission.created_at).fromNow()}
-          {submission.feedback && <p>Feedback: {submission.feedback}</p>}
+          {moment(submission.get('created_at')).fromNow()}
+          {submission.get('feedback') && <p>Feedback: {submission.get('feedback')}</p>}
         </div>
       </div>
     );
@@ -76,7 +76,7 @@ export default class ExerciseSingleView extends Component {
 
   renderSubmitSegment() {
     const { exercise } = this.props;
-    if (moment().isAfter(exercise.deadline)) {
+    if (moment().isAfter(exercise.get('deadline'))) {
       return (
         <div className="ui attached negative message">
           <i className="warning icon" />
@@ -96,7 +96,7 @@ export default class ExerciseSingleView extends Component {
     const { exercise } = this.props;
     return (
       <form className="ui form" onSubmit={this.onSubmit}>
-        {exercise.file_upload &&
+        {exercise.get('file_upload') &&
           <div className="field">
             <input
               style={{ display: 'none' }}
@@ -132,16 +132,16 @@ export default class ExerciseSingleView extends Component {
     return (
       <div className="row">
         <div className="column">
-          <h1 className="ui large header">{exercise.title}</h1>
+          <h1 className="ui large header">{exercise.get('title')}</h1>
           <div className="ui grid">
 
             <div className="ten wide column">
               <div className="ui segments">
                 <div className="ui secondary segment">
-                  <p>Deadline: {moment(exercise.deadline).format('LLL')}</p>
+                  <p>Deadline: {moment(exercise.get('deadline')).format('LLL')}</p>
                 </div>
                 <div className="ui segment">
-                  <p>{exercise.text}</p>
+                  <p>{exercise.get('text')}</p>
                 </div>
               </div>
             </div>
@@ -173,12 +173,6 @@ ExerciseSingleView.propTypes = {
   fetchSubmissions: PropTypes.func.isRequired,
   onPageLeave: PropTypes.func.isRequired,
   submitExercise: PropTypes.func.isRequired,
-  exercise: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    deadline: PropTypes.string,
-    file_upload: PropTypes.bool.isRequired,
-  }),
+  exercise: PropTypes.object,
   submissions: PropTypes.object,
 };

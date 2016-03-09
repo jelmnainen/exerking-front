@@ -6,7 +6,9 @@ import LogoutPage from '../LogoutPage';
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogout: () => dispatch(logout()),
+  onLogout() {
+    dispatch(logout());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoutPage);

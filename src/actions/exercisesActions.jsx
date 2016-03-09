@@ -82,7 +82,7 @@ const checkErrors = ({ title, text, deadline }) => {
 export const fetchExercises = () =>
   (dispatch, getState) => {
     dispatch(requestExercises());
-    const accessToken = getState().auth.token;
+    const accessToken = getState().getIn(['auth', 'token']);
     const axios = createAxios(accessToken);
     axios.get('/exercises')
       .then(response => {
@@ -101,7 +101,8 @@ export const fetchExercises = () =>
 export const fetchSingleExercise = (id) =>
   (dispatch, getState) => {
     dispatch(receiveSingleRequest());
-    const axios = createAxios(getState().auth.token);
+    const accessToken = getState().getIn(['auth', 'token']);
+    const axios = createAxios(accessToken);
     axios.get(`/exercises/${id}`)
       .then(response => {
         if (response.status === 200) {
@@ -121,7 +122,8 @@ export const addExercise = (exercise) =>
     if (errors) {
       dispatch(addExercisesFail(errors));
     } else {
-      const axios = createAxios(getState().auth.token);
+      const accessToken = getState().getIn(['auth', 'token']);
+      const axios = createAxios(accessToken);
       axios.post('/exercises', {
         title: exercise.title,
         text: exercise.text,

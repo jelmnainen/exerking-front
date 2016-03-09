@@ -5,7 +5,7 @@ import * as actions from '../../actions/authActions';
 import LoginPage from '../LoginPage';
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  auth: state.get('auth'),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -9,6 +9,9 @@ export const SUBMISSIONS_SUCCESS = 'SUBMISSIONS_SUCCESS';
 export const SUBMISSIONS_FAIL = 'SUBMISSIONS_FAIL';
 export const SUBMISSIONS_SUBMIT_FEEDBACK_SUCCESS = 'SUBMISSIONS_SUBMIT_FEEDBACK_SUCCESS';
 export const SUBMISSIONS_SUBMIT_FEEDBACK_FAIL = 'SUBMISSIONS_SUBMIT_FEEDBACK_FAIL';
+export const SUBMISSIONS_SINGLE_REQUEST = 'SUBMISSIONS_SINGLE_REQUEST';
+export const SUBMISSIONS_SINGLE_SUCCESS = 'SUBMISSIONS_SINGLE_SUCCESS';
+export const SUBMISSIONS_SINGLE_FAILURE = 'SUBMISSIONS_SINGLE_FAILURE';
 
 const addSubmission = () => ({
   type: SUBMISSIONS_ADD,
@@ -50,7 +53,9 @@ export const addSubmissionReset = () => ({ type: SUBMISSIONS_ADD_RESET });
 export const submitExercise = (exerciseId, feedbackAsked, fileContent, fileType) =>
   (dispatch, getState) => {
     dispatch(addSubmission());
-    const { id: userId, token } = getState().auth;
+    const auth = getState().get('auth');
+    const userId = auth.get('id');
+    const token = auth.get('token');
     const axios = createAxios(token);
     axios.post('/submissions', {
       user_id: userId,
@@ -68,26 +73,53 @@ export const submitExercise = (exerciseId, feedbackAsked, fileContent, fileType)
       });
   };
 
-export const patchExercise = (submissionId, feedback, done) =>
-    (dispatch, getState) => {
-      const { token } = getState().auth;
-      const axios = createAxios(token);
-      axios.put(`/submissions/${submissionId}`, {
-        feedback,
-        done,
+const singleSubmissionRequest = () => ({
+  type: SUBMISSIONS_SINGLE_REQUEST,
+});
+
+const singleSubmissionSuccess = (payload) => ({
+  type: SUBMISSIONS_SINGLE_SUCCESS,
+  payload,
+});
+
+const singleSubmissionFailure = () => ({
+  type: SUBMISSIONS_SINGLE_FAILURE,
+});
+
+export const fetchSubmission = (id) =>
+  (dispatch, getState) => {
+    dispatch(singleSubmissionRequest());
+    const token = getState().getIn(['auth', 'token']);
+    const axios = createAxios(token);
+    axios.get(`/submissions/${id}`)
+      .then(response => {
+        dispatch(singleSubmissionSuccess(response.data));
       })
+      .catch(response => {
+        dispatch(singleSubmissionFailure(response.data && response.data.errors));
+      });
+  };
+
+export const patchSubmission = (submissionId, feedback, done) =>
+  (dispatch, getState) => {
+    const token = getState().getIn(['auth', 'token']);
+    const axios = createAxios(token);
+    axios.put(`/submissions/${submissionId}`, {
+      feedback,
+      done,
+    })
       .then(response => {
         dispatch(submitFeedbackSuccess(response.data));
       })
       .catch(response => {
         dispatch(submitFeedbackFail(response.data && response.data.errors));
       });
-    };
+  };
 
 export const fetchExerciseSubmissions = (exerciseId, userId) =>
   (dispatch, getState) => {
     dispatch(fetchSubmissionsRequest());
-    const { token } = getState().auth;
+    const token = getState().getIn(['auth', 'token']);
     const params = {};
     if (userId) {
       params.user_id = userId;
@@ -105,14 +137,14 @@ export const fetchExerciseSubmissions = (exerciseId, userId) =>
 
 export const fetchCurrentUserExerciseSubmissions = (exerciseId) =>
   (dispatch, getState) => {
-    const currentUserId = getState().auth.id;
+    const currentUserId = getState().getIn(['auth', 'id']);
     dispatch(fetchExerciseSubmissions(exerciseId, currentUserId));
   };
 
 export const fetchAllSubmissions = () =>
   (dispatch, getState) => {
     dispatch(fetchSubmissionsRequest());
-    const { token } = getState().auth;
+    const token = getState().getIn(['auth', 'token']);
     const axios = createAxios(token);
     axios.get(`/submissions`)
       .then(response => {
@@ -127,7 +159,7 @@ export const fetchAllSubmissions = () =>
 export const fetchUserSubmissions = (userId) =>
   (dispatch, getState) => {
     dispatch(fetchSubmissionsRequest());
-    const { token } = getState().auth;
+    const token = getState().getIn(['auth', 'token']);
     const axios = createAxios(token);
     axios.get(`/users/${userId}/submissions`)
       .then(response => {
@@ -141,6 +173,6 @@ export const fetchUserSubmissions = (userId) =>
 
 export const fetchCurrentUserSubmissions = () =>
   (dispatch, getState) => {
-    const currentUserId = getState().auth.id;
+    const currentUserId = getState().getIn(['auth', 'id']);
     dispatch(fetchUserSubmissions(currentUserId));
   };

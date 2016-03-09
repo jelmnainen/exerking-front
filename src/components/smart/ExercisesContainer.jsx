@@ -5,7 +5,7 @@ import * as exercisesActions from '../../actions/exercisesActions';
 import ExercisesPage from '../ExercisesPage';
 
 const mapStateToProps = (state) => ({
-  exercises: state.exercises.entries,
+  exercises: state.getIn(['exercises', 'entries']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
