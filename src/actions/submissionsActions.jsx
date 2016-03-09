@@ -95,3 +95,24 @@ export const fetchAllSubmissions = () =>
         console.log(e);
       });
   };
+
+export const fetchUserSubmissions = (userId) =>
+  (dispatch, getState) => {
+    dispatch(fetchSubmissionsRequest());
+    const { token } = getState().auth;
+    const axios = createAxios(token);
+    axios.get(`/users/${userId}/submissions`)
+      .then(response => {
+        dispatch(fetchSubmissionsSuccess(response.data));
+      })
+      .catch(e => {
+        dispatch(fetchSubmissionsFail());
+        console.log(e);
+      });
+  };
+
+export const fetchCurrentUserSubmissions = () =>
+  (dispatch, getState) => {
+    const currentUserId = getState().auth.id;
+    dispatch(fetchUserSubmissions(currentUserId));
+  };

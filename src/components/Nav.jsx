@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
+import TeacherSection from './smart/TeacherSection';
 
 export default class Nav extends Component {
 
@@ -8,7 +9,10 @@ export default class Nav extends Component {
       return (
         <div className="menu">
           <Link className="item" activeClassName="active" to="/exercises">Exercises</Link>
-          <Link className="item" activeClassName="active" to="/submissions">Submissions</Link>
+          <TeacherSection>
+            <Link className="item" activeClassName="active" to="/submissions">Submissions</Link>
+          </TeacherSection>
+          <Link className="item" activeClassName="active" to="/me/submissions">My submissions</Link>
         </div>
       );
     }
