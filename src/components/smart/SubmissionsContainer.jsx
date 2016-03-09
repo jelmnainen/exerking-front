@@ -16,9 +16,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchAllSubmissions: () => dispatch(fetchAllSubmissions()),
-  fetchExercises: () => dispatch(fetchExercises()),
-  fetchAllUsers: () => dispatch(fetchAllUsers()),
+  fetchSubmissions: () => {
+    dispatch(fetchAllSubmissions());
+    dispatch(fetchExercises());
+    dispatch(fetchAllUsers());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubmissionsPage);

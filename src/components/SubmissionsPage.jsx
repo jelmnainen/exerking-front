@@ -4,9 +4,7 @@ import SubmissionsList from './SubmissionsList';
 export default class SubmissionsPage extends Component {
 
   componentWillMount() {
-    this.props.fetchAllSubmissions();
-    this.props.fetchExercises();
-    this.props.fetchAllUsers();
+    this.props.fetchSubmissions();
   }
 
   render() {
