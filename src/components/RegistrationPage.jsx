@@ -35,7 +35,7 @@ export default class RegistrationPage extends Component {
   renderForm() {
     const { inProgress, errorMessages } = this.props.reg;
     return (
-      <RegistrationForm loading={inProgress} errors={errorMessages} onSubmit={this.onSubmit} />
+      <RegistrationForm loading={inProgress} errors={errorMessages} onSubmit={this.onSubmit()} />
     );
   }
 

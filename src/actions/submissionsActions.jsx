@@ -7,6 +7,8 @@ export const SUBMISSIONS_ADD_RESET = 'SUBMISSIONS_ADD_RESET';
 export const SUBMISSIONS_REQUEST = 'SUBMISSIONS_REQUEST';
 export const SUBMISSIONS_SUCCESS = 'SUBMISSIONS_SUCCESS';
 export const SUBMISSIONS_FAIL = 'SUBMISSIONS_FAIL';
+export const SUBMISSIONS_SUBMIT_FEEDBACK_SUCCESS = 'SUBMISSIONS_SUBMIT_FEEDBACK_SUCESS';
+export const SUBMISSIONS_SUBMIT_FEEDBACK_FAIL = 'SUBMISSIONS_SUBMIT_FEEDBACK_FAIL';
 
 const addSubmission = () => ({
   type: SUBMISSIONS_ADD,
@@ -33,6 +35,16 @@ const fetchSubmissionsFail = () => ({
   type: SUBMISSIONS_FAIL,
 });
 
+const submitFeedbackSuccess = (responseData) => ({
+  type: SUBMISSIONS_SUBMIT_FEEDBACK_SUCCESS,
+  payload: responseData,
+});
+
+const submitFeedbackFail = (responseData) => ({
+  type: SUBMISSIONS_SUBMIT_FEEDBACK_FAIL,
+  payload: responseData,
+});
+
 export const addSubmissionReset = () => ({ type: SUBMISSIONS_ADD_RESET });
 
 export const submitExercise = (exerciseId, feedbackAsked, fileContent, fileType) =>
@@ -55,6 +67,22 @@ export const submitExercise = (exerciseId, feedbackAsked, fileContent, fileType)
         console.error(response);
       });
   };
+
+export const patchExercise = (submissionId, feedback) =>
+    (dispatch, getState) => {
+      const { id: userId, token } = getState().auth;
+      const axios = createAxios(token);
+      axios.put(`/submissions/${submissionId}`, {
+        feedback,
+        user_id: userId,
+      })
+      .then(response => {
+        dispatch(submitFeedbackSuccess(response.data));
+      })
+      .catch(response => {
+        dispatch(submitFeedbackFail(response.data && response.data.errors));
+      });
+    };
 
 export const fetchExerciseSubmissions = (exerciseId, userId) =>
   (dispatch, getState) => {
