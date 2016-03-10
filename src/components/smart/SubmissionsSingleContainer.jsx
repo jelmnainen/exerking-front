@@ -18,8 +18,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchSingleExercise(id)),
   fetchSubmissions: (exerciseId) =>
     dispatch(submissionsActions.fetchCurrentUserExerciseSubmissions(exerciseId)),
-  patchSubmission: (id, feedback) =>
-    dispatch(submissionsActions.patchExercise(id, feedback)),
+  patchSubmission: (id, feedback, done) =>
+    dispatch(submissionsActions.patchExercise(id, feedback, done)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubmissionsSingleView);

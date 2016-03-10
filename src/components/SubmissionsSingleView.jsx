@@ -13,20 +13,17 @@ export default class SubmissionsSingleView extends Component {
       this.props.fetchSubmissions(this.props.params.id);
     }
 
-    componentDidMount() {
-      if (this.props.submission.feedback !== null) {
-        this.refs.textarea.value = this.props.submission.feedback;
-      }
-    }
-
     onSubmit(e) {
       e.preventDefault();
-      console.log('PATCHÖÖÖ');
-      this.props.patchSubmission(this.props.submission.id, this.refs.textarea.value);
+      this.props.patchSubmission(
+        this.props.submission.id,
+        this.refs.textarea.value,
+        this.refs.done.checked
+      );
     }
 
     render() {
-      const { exercise } = this.props;
+      const { exercise, submission } = this.props;
       return (
         <div className="row">
           <div className="column">
@@ -45,17 +42,21 @@ export default class SubmissionsSingleView extends Component {
               <div className="ten wide column">
                 <div className="ui segments">
                   <div className="ui segment">
-                    <div className="ui form">
+                    <form className="ui form" onSubmit={this.onSubmit}>
                       <div className="field">
-                        <form onSubmit={this.onSubmit}>
-                          <label>Feedback</label>
-                          <textarea ref="textarea"></textarea>
-                          <button className="ui primary button">
-                            Save
-                          </button>
-                        </form>
+                        <label>Feedback</label>
+                        <textarea ref="textarea" defaultValue={submission.feedback}></textarea>
                       </div>
-                    </div>
+                      <div className="inline field">
+                        <div className="ui checkbox">
+                          <input type="checkbox" ref="done" defaultChecked={submission.done} />
+                          <label>Done</label>
+                        </div>
+                      </div>
+                      <button className="ui primary button">
+                        Save
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>

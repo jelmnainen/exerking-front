@@ -68,13 +68,13 @@ export const submitExercise = (exerciseId, feedbackAsked, fileContent, fileType)
       });
   };
 
-export const patchExercise = (submissionId, feedback) =>
+export const patchExercise = (submissionId, feedback, done) =>
     (dispatch, getState) => {
-      const { id: userId, token } = getState().auth;
+      const { token } = getState().auth;
       const axios = createAxios(token);
       axios.put(`/submissions/${submissionId}`, {
         feedback,
-        user_id: userId,
+        done,
       })
       .then(response => {
         dispatch(submitFeedbackSuccess(response.data));
