@@ -66,13 +66,13 @@ export default class SubmissionsSingleView extends Component {
               </div>
               <div className="ten wide column">
                 <div className="ui segments">
-                    {submission.done ||
-                      <StudentSection>
-                        <div className="ui attached negative message">
-                          <p>Submission is not accepted</p>
-                        </div>
-                      </StudentSection>
-                    }
+                  {submission.done ||
+                    <StudentSection>
+                      <div className="ui attached negative message">
+                        <p>Submission is not accepted</p>
+                      </div>
+                    </StudentSection>
+                  }
                   <div className="ui segment">
                     <TeacherSection>
                       <form className="ui form" onSubmit={this.onSubmit}>
