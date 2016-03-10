@@ -6,11 +6,11 @@ import SubmissionsSingleView from '../SubmissionsSingleView';
 
 const mapStateToProps = (state, props) => {
   const { submissions: { entries } } = state;
-  const submission = entries[props.params.id];
-  return ({
+  const submission = entries[props.params.id] || {};
+  return {
     submission,
-    exercise: state.exercises.entries[submission.exercise_id],
-  });
+    exercise: state.exercises.entries[submission.exercise_id] || {},
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
