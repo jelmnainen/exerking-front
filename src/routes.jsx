@@ -9,6 +9,7 @@ import ExerciseSingleContainer from './components/smart/ExerciseSingleContainer'
 import ExcerciseNewContainer from './components/smart/ExcerciseNewContainer';
 import SubmissionsContainer from './components/smart/SubmissionsContainer';
 import UserSubmissionsContainer from './components/smart/UserSubmissionsContainer';
+import SubmissionsSingleContainer from './components/smart/SubmissionsSingleContainer.jsx';
 
 export default (
   <Route path="/" component={App}>
@@ -20,6 +21,7 @@ export default (
     <Route path="register" component={RegistrationContainer} />
     <Route path="submissions" component={SubmissionsContainer} />
     <Route path="me/submissions" component={UserSubmissionsContainer} />
+    <Route path="submissions/:id" component={SubmissionsSingleContainer} />
     <IndexRedirect to="/exercises" />
   </Route>
 );
