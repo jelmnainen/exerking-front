@@ -6,7 +6,7 @@ import LoginContainer from './containers/LoginContainer';
 import LogoutContainer from './containers/LogoutContainer';
 import RegistrationContainer from './containers/RegistrationContainer';
 import ExerciseSingleContainer from './containers/ExerciseSingleContainer';
-import ExcerciseNewContainer from './containers/ExcerciseNewContainer';
+import ExerciseNewContainer from './containers/ExerciseNewContainer';
 import SubmissionsContainer from './containers/SubmissionsContainer';
 import UserSubmissionsContainer from './containers/UserSubmissionsContainer';
 import SubmissionsSingleContainer from './containers/SubmissionsSingleContainer';
@@ -14,7 +14,7 @@ import SubmissionsSingleContainer from './containers/SubmissionsSingleContainer'
 export default (
   <Route path="/" component={App}>
     <Route path="exercises" component={ExercisesContainer} />
-    <Route path="exercises/new" component={ExcerciseNewContainer} />
+    <Route path="exercises/new" component={ExerciseNewContainer} />
     <Route path="exercises/:id" component={ExerciseSingleContainer} />
     <Route path="login" component={LoginContainer} />
     <Route path="logout" component={LogoutContainer} />
