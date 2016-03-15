@@ -28,9 +28,7 @@ export default class Nav extends Component {
           <span className="item">
             {this.props.email}
           </span>
-          <span className="item" activeClassName="active">
-            <Link to="/logout">Logout</Link>
-          </span>
+          <Link className="item" activeClassName="active" to="/logout">Logout</Link>
         </span>
       );
     }
