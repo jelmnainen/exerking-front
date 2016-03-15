@@ -1,15 +1,15 @@
 import React from 'react';
 import { Route, IndexRedirect } from 'react-router';
 import App from './components/App';
-import ExercisesContainer from './components/smart/ExercisesContainer';
-import LoginContainer from './components/smart/LoginContainer';
-import LogoutContainer from './components/smart/LogoutContainer';
-import RegistrationContainer from './components/smart/RegistrationContainer';
-import ExerciseSingleContainer from './components/smart/ExerciseSingleContainer';
-import ExcerciseNewContainer from './components/smart/ExcerciseNewContainer';
-import SubmissionsContainer from './components/smart/SubmissionsContainer';
-import UserSubmissionsContainer from './components/smart/UserSubmissionsContainer';
-import SubmissionsSingleContainer from './components/smart/SubmissionsSingleContainer.jsx';
+import ExercisesContainer from './containers/ExercisesContainer';
+import LoginContainer from './containers/LoginContainer';
+import LogoutContainer from './containers/LogoutContainer';
+import RegistrationContainer from './containers/RegistrationContainer';
+import ExerciseSingleContainer from './containers/ExerciseSingleContainer';
+import ExcerciseNewContainer from './containers/ExcerciseNewContainer';
+import SubmissionsContainer from './containers/SubmissionsContainer';
+import UserSubmissionsContainer from './containers/UserSubmissionsContainer';
+import SubmissionsSingleContainer from './containers/SubmissionsSingleContainer';
 
 export default (
   <Route path="/" component={App}>

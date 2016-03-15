@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import NavContainer from './smart/NavContainer';
+import NavContainer from '../containers/NavContainer';
 
 export default class App extends Component {
 

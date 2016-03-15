@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import TeacherSection from './smart/TeacherSection';
-import StudentSection from './smart/StudentSection';
+import TeacherSection from '../containers/TeacherSection';
+import StudentSection from '../containers/StudentSection';
 
 export default class SubmissionsSingleView extends Component {
 

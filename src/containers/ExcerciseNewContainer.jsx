@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import { addExercise, addExerciseReset } from '../../actions/exercisesActions';
-import ExerciseNewPage from '../ExerciseNewPage';
+import { addExercise, addExerciseReset } from '../actions/exercisesActions';
+import ExerciseNewPage from '../components/ExerciseNewPage';
 
 const mapStateToProps = (state) => {
   const request = state.getIn(['exercises', 'addRequest']);

@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { fetchAllSubmissions } from '../../actions/submissionsActions';
-import { fetchExercises } from '../../actions/exercisesActions';
-import { fetchAllUsers } from '../../actions/usersActions';
-import SubmissionsPage from '../SubmissionsPage';
+import { fetchAllSubmissions } from '../actions/submissionsActions';
+import { fetchExercises } from '../actions/exercisesActions';
+import { fetchAllUsers } from '../actions/usersActions';
+import SubmissionsPage from '../components/SubmissionsPage';
 
 const getLoadingStatus = (state) => {
   const submissions = state.getIn(['submissions', 'isFetching']);

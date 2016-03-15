@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
-import TeacherSection from './smart/TeacherSection';
+import TeacherSection from '../containers/TeacherSection';
 
 export default class Nav extends Component {
 

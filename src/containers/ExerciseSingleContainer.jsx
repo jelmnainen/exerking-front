@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as exercisesActions from '../../actions/exercisesActions';
+import * as exercisesActions from '../actions/exercisesActions';
 import {
   submitExercise,
   addSubmissionReset,
   fetchCurrentUserExerciseSubmissions,
-} from '../../actions/submissionsActions';
-import ExerciseSingleView from '../ExerciseSingleView';
+} from '../actions/submissionsActions';
+import ExerciseSingleView from '../components/ExerciseSingleView';
 
 const mapStateToProps = (state, props) => {
   const id = +props.params.id;

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 
-import { fetchExercises } from '../../actions/exercisesActions';
-import { fetchSubmission, patchSubmission } from '../../actions/submissionsActions';
-import SubmissionsSingleView from '../SubmissionsSingleView';
+import { fetchExercises } from '../actions/exercisesActions';
+import { fetchSubmission, patchSubmission } from '../actions/submissionsActions';
+import SubmissionsSingleView from '../components/SubmissionsSingleView';
 
 const mapStateToProps = (state, props) => {
   const id = +props.params.id;

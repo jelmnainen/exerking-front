@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import { fromJS, Map } from 'immutable';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { fetchCurrentUserSubmissions } from '../../actions/submissionsActions';
-import { fetchExercises } from '../../actions/exercisesActions';
-import SubmissionsPage from '../SubmissionsPage';
+import { fetchCurrentUserSubmissions } from '../actions/submissionsActions';
+import { fetchExercises } from '../actions/exercisesActions';
+import SubmissionsPage from '../components/SubmissionsPage';
 
 const getCurrentUserSubmissions = createSelector(
   [

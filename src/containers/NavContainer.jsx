@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Nav from '../Nav';
+import Nav from '../components/Nav';
 
 const mapStateToProps = (state) => {
   const auth = state.get('auth');

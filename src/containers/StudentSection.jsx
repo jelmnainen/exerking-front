@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Section from '../Section';
+import Section from '../components/Section';
 
 const mapStateToProps = (state) => {
   const auth = state.get('auth');

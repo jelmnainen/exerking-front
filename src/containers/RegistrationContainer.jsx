@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import { register, resetRegistration } from '../../actions/registrationActions';
-import RegistrationPage from '../RegistrationPage';
+import { register, resetRegistration } from '../actions/registrationActions';
+import RegistrationPage from '../components/RegistrationPage';
 
 const mapStateToProps = (state) => ({
   reg: state.get('registration'),

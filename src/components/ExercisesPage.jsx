@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ExercisesList from './ExercisesList';
 import { Link } from 'react-router';
-import TeacherSection from './smart/TeacherSection';
+import TeacherSection from '../containers/TeacherSection';
 
 export default class ExercisesPage extends Component {
 

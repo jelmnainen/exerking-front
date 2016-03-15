@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as exercisesActions from '../../actions/exercisesActions';
-import ExercisesPage from '../ExercisesPage';
+import * as exercisesActions from '../actions/exercisesActions';
+import ExercisesPage from '../components/ExercisesPage';
 
 const mapStateToProps = (state) => ({
   exercises: state.getIn(['exercises', 'entries']),
