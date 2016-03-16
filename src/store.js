@@ -3,9 +3,10 @@ import thunk from 'redux-thunk';
 import persistState from 'redux-localstorage';
 import { fromJS, Map } from 'immutable';
 
+import api from './middleware/api';
 import reducer from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk, api)(createStore);
 const createPersistentStore = compose(
   persistState('auth', {
     slicer: (paths) => (state) => state.filter((v, k) => paths.indexOf(k) !== -1),

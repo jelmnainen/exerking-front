@@ -1,59 +1,45 @@
-import { createAxios } from '../utils';
+import { CALL_API } from '../middleware/api';
 
 export const EXERCISES_REQUEST = 'EXERCISES_REQUEST';
-export const EXERCISES_REQUEST_SUCCESS = 'EXERCISES_REQUEST_SUCCESS';
-export const EXERCISES_REQUEST_FAILED = 'EXERCISES_REQUEST_FAILED';
+export const EXERCISES_SUCCESS = 'EXERCISES_SUCCESS';
+export const EXERCISES_FAILURE = 'EXERCISES_FAILURE';
+
 export const EXERCISES_SINGLE_REQUEST = 'EXERCISES_SINGLE_REQUEST';
-export const EXERCISES_SINGLE_REQUEST_SUCCESS = 'EXERCISES_SINGLE_REQUEST_SUCCESS';
-export const EXERCISES_SINGLE_REQUEST_FAIL = 'EXERCISES_SINGLE_REQUEST_FAIL';
+export const EXERCISES_SINGLE_SUCCESS = 'EXERCISES_SINGLE_SUCCESS';
+export const EXERCISES_SINGLE_FAILURE = 'EXERCISES_SINGLE_FAILURE';
+
 export const EXERCISES_ADD_REQUEST = 'EXERCISES_ADD_REQUEST';
-export const EXERCISES_ADD_REQUEST_SUCCESS = 'EXERCISES_ADD_REQUEST_SUCCESS';
-export const EXERCISES_ADD_REQUEST_FAIL = 'EXERCISES_ADD_REQUEST_FAIL';
+export const EXERCISES_ADD_SUCCESS = 'EXERCISES_ADD_SUCCESS';
+export const EXERCISES_ADD_FAILURE = 'EXERCISES_ADD_FAILURE';
 export const EXERCISES_ADD_RESET = 'EXERCISES_ADD_RESET';
 
-const requestExercises = () => ({ type: EXERCISES_REQUEST });
-
-const receiveExercises = (exercises) => ({
-  type: EXERCISES_REQUEST_SUCCESS,
-  payload: exercises,
+export const fetchExercises = () => ({
+  [CALL_API]: {
+    types: [
+      EXERCISES_REQUEST,
+      EXERCISES_SUCCESS,
+      EXERCISES_FAILURE,
+    ],
+    endpoint: '/exercises',
+  },
 });
 
-const exercisesRequestFailed = () => ({
-  type: EXERCISES_REQUEST_FAILED,
-});
-
-const receiveSingleRequest = () => ({
-  type: EXERCISES_SINGLE_REQUEST,
-});
-
-const receiveSingleExerciseSuccess = (exercise) => ({
-  type: EXERCISES_SINGLE_REQUEST_SUCCESS,
-  payload: exercise,
-});
-
-const receiveSingleExerciseFail = () => ({
-  type: EXERCISES_SINGLE_REQUEST_FAIL,
-});
-
-const addExerciseRequest = () => ({
-  type: EXERCISES_ADD_REQUEST,
-});
-
-const addExercisesSuccess = (payload) => ({
-  type: EXERCISES_ADD_REQUEST_SUCCESS,
-  payload,
-});
-
-const addExercisesFail = (payload) => ({
-  type: EXERCISES_ADD_REQUEST_FAIL,
-  payload,
+export const fetchSingleExercise = (id) => ({
+  [CALL_API]: {
+    types: [
+      EXERCISES_SINGLE_REQUEST,
+      EXERCISES_SINGLE_SUCCESS,
+      EXERCISES_SINGLE_FAILURE,
+    ],
+    endpoint: `/exercises/${id}`,
+  },
 });
 
 export const addExerciseReset = () => ({
   type: EXERCISES_ADD_RESET,
 });
 
-const checkErrors = ({ title, text, deadline }) => {
+const validateExercise = ({ title, text, deadline }) => {
   let valid = true;
   const errors = {
     title: [],
@@ -79,62 +65,16 @@ const checkErrors = ({ title, text, deadline }) => {
   return errors;
 };
 
-export const fetchExercises = () =>
-  (dispatch, getState) => {
-    dispatch(requestExercises());
-    const accessToken = getState().getIn(['auth', 'token']);
-    const axios = createAxios(accessToken);
-    axios.get('/exercises')
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(receiveExercises(response.data));
-        } else {
-          dispatch(exercisesRequestFailed());
-        }
-      })
-      .catch(e => {
-        dispatch(exercisesRequestFailed());
-        console.log(e);
-      });
-  };
-
-export const fetchSingleExercise = (id) =>
-  (dispatch, getState) => {
-    dispatch(receiveSingleRequest());
-    const accessToken = getState().getIn(['auth', 'token']);
-    const axios = createAxios(accessToken);
-    axios.get(`/exercises/${id}`)
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(receiveSingleExerciseSuccess(response.data));
-        }
-      })
-      .catch(e => {
-        dispatch(receiveSingleExerciseFail());
-        console.log(e);
-      });
-  };
-
-export const addExercise = (exercise) =>
-  (dispatch, getState) => {
-    dispatch(addExerciseRequest());
-    const errors = checkErrors(exercise);
-    if (errors) {
-      dispatch(addExercisesFail(errors));
-    } else {
-      const accessToken = getState().getIn(['auth', 'token']);
-      const axios = createAxios(accessToken);
-      axios.post('/exercises', {
-        title: exercise.title,
-        text: exercise.text,
-        deadline: exercise.deadline,
-        file_upload: exercise.fileUpload,
-      })
-        .then(response => {
-          dispatch(addExercisesSuccess(response.data));
-        })
-        .catch(response => {
-          dispatch(addExercisesFail(response.data));
-        });
-    }
-  };
+export const addExercise = (exercise) => ({
+  [CALL_API]: {
+    types: [
+      EXERCISES_ADD_REQUEST,
+      EXERCISES_ADD_SUCCESS,
+      EXERCISES_ADD_FAILURE,
+    ],
+    endpoint: '/exercises',
+    method: 'post',
+    payload: exercise,
+    validate: validateExercise,
+  },
+});
