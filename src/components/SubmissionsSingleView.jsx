@@ -82,6 +82,18 @@ export default class SubmissionsSingleView extends Component {
                     </div>
                   </StudentSection>
                 }
+                {submission.get('file_url') &&
+                  <div className="ui attached info message">
+                    File attachment available.
+                    <a
+                      href={submission.get('file_url')}
+                      target="_blank"
+                      className="compact blue basic mini ui right floated button"
+                    >
+                      Download file
+                    </a>
+                  </div>
+                }
                 <div className="ui segment">
                   <TeacherSection>
                     <form className="ui form" onSubmit={this.onSubmit}>
