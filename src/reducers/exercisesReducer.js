@@ -38,7 +38,7 @@ const entries = (state = emptyMap, action) => {
   const { payload } = action;
   switch (action.type) {
   case EXERCISES_SUCCESS:
-    return state.merge(new Map(payload.map(item => [item.id, fromJS(item)])));
+    return state.merge(Map(payload.map(item => [item.id, fromJS(item)])));
   case EXERCISES_ADD_SUCCESS:
   case EXERCISES_SINGLE_SUCCESS:
     return state.set(payload.id, fromJS(payload));

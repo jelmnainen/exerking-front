@@ -74,7 +74,7 @@ export const addExercise = (exercise) => ({
     ],
     endpoint: '/exercises',
     method: 'post',
-    payload: exercise,
+    body: exercise,
     validate: validateExercise,
   },
 });

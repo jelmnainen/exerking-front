@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 
-import { SUBMISSIONS_ADD, SUBMISSIONS_ADD_SUCCESS, SUBMISSIONS_ADD_FAIL, SUBMISSIONS_ADD_RESET,
-  SUBMISSIONS_REQUEST, SUBMISSIONS_SUCCESS, SUBMISSIONS_FAIL,
+import { SUBMISSIONS_ADD_REQUEST, SUBMISSIONS_ADD_SUCCESS, SUBMISSIONS_ADD_FAILURE,
+  SUBMISSIONS_ADD_RESET, SUBMISSIONS_REQUEST, SUBMISSIONS_SUCCESS, SUBMISSIONS_FAILURE,
   SUBMISSIONS_SINGLE_REQUEST, SUBMISSIONS_SINGLE_SUCCESS, SUBMISSIONS_SINGLE_FAILURE }
   from '../actions/submissionsActions';
 import { LOGOUT } from '../actions/authActions';
@@ -14,7 +14,7 @@ const entries = (state = emptyMap, { type, payload }) => {
   case SUBMISSIONS_SINGLE_SUCCESS:
     return state.set(payload.id, fromJS(payload));
   case SUBMISSIONS_SUCCESS:
-    return state.mergeDeep(new Map(payload.map(item => [item.id, fromJS(item)])));
+    return state.mergeDeep(Map(payload.map(item => [item.id, fromJS(item)])));
   default:
     return state;
   }
@@ -29,7 +29,7 @@ const initialState = fromJS({
 
 export default function (state = initialState, action) {
   switch (action.type) {
-  case SUBMISSIONS_ADD:
+  case SUBMISSIONS_ADD_REQUEST:
     return state.merge({
       addRequest: {
         inProgress: true,
@@ -44,7 +44,7 @@ export default function (state = initialState, action) {
       },
       entries: entries(state.get('entries'), action),
     });
-  case SUBMISSIONS_ADD_FAIL:
+  case SUBMISSIONS_ADD_FAILURE:
     return state.merge({
       addRequest: {
         isFetching: false,
@@ -62,20 +62,17 @@ export default function (state = initialState, action) {
       isError: false,
     });
   case SUBMISSIONS_SUCCESS:
+  case SUBMISSIONS_SINGLE_SUCCESS:
     return state.merge({
       isFetching: false,
       isError: false,
       entries: entries(state.get('entries'), action),
     });
-  case SUBMISSIONS_FAIL:
+  case SUBMISSIONS_FAILURE:
   case SUBMISSIONS_SINGLE_FAILURE:
     return state.merge({
       isFetching: false,
       isError: true,
-    });
-  case SUBMISSIONS_SINGLE_SUCCESS:
-    return state.merge({
-      entries: entries(state.get('entries'), action),
     });
   case LOGOUT:
     return initialState;
