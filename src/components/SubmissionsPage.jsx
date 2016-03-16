@@ -14,7 +14,7 @@ export default class SubmissionsPage extends Component {
           <h1 className="ui large header">
             Submissions
           </h1>
-          <SubmissionsList {...this.props}/>
+          <SubmissionsList {...this.props} />
         </div>
       </div>
     );

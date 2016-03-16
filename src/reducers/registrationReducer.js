@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 
 import { REGISTRATION_REQUEST, REGISTRATION_REQUEST_SUCCESS,
-  REGISTRATION_REQUEST_FAIL, REGISTRATION_RESET, }
+  REGISTRATION_REQUEST_FAIL, REGISTRATION_RESET }
   from '../actions/registrationActions';
 
 const initialState = fromJS({

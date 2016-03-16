@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import { LOGIN_REQUEST, LOGIN_REQUEST_SUCCESS, LOGIN_REQUEST_FAIL, LOGOUT, }
+import { LOGIN_REQUEST, LOGIN_REQUEST_SUCCESS, LOGIN_REQUEST_FAIL, LOGOUT }
   from '../actions/authActions.js';
 
 const initialState = fromJS({

@@ -5,7 +5,8 @@ export const CALL_API = Symbol('CALL_API');
 export default store => next => action => {
   const api = action[CALL_API];
   if (typeof api === 'undefined') {
-    return next(action);
+    next(action);
+    return;
   }
 
   const { types, endpoint, method = 'get', payload, validate, authenticate = true } = api;
@@ -16,7 +17,8 @@ export default store => next => action => {
   if (validate) {
     const errors = validate(payload);
     if (errors) {
-      return next({ type: FAILURE, payload: errors });
+      next({ type: FAILURE, payload: errors });
+      return;
     }
   }
 

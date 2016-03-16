@@ -146,7 +146,7 @@ export const fetchAllSubmissions = () =>
     dispatch(fetchSubmissionsRequest());
     const token = getState().getIn(['auth', 'token']);
     const axios = createAxios(token);
-    axios.get(`/submissions`)
+    axios.get('/submissions')
       .then(response => {
         dispatch(fetchSubmissionsSuccess(response.data));
       })

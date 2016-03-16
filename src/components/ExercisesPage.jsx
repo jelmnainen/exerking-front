@@ -21,7 +21,7 @@ export default class ExercisesPage extends Component {
               </Link>
             </TeacherSection>
           </h1>
-          <ExercisesList {...this.props}/>
+          <ExercisesList {...this.props} />
         </div>
       </div>
     );
