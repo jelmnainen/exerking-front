@@ -11,7 +11,7 @@ const emptyMap = fromJS({});
 const addRequest = (state = emptyMap, action) => {
   switch (action.type) {
   case EXERCISES_ADD_REQUEST:
-    return state.merge({
+    return state.delete('errorMessages').merge({
       inProgress: true,
       isError: false,
     });

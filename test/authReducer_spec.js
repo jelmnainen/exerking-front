@@ -46,6 +46,8 @@ describe('authReducer', () => {
     };
     const expectedState = fromJS({
       isSignedIn: true,
+      isError: false,
+      inProgress: false,
       id: payload.id,
       email: payload.email,
       token: payload.access_token,
@@ -65,6 +67,7 @@ describe('authReducer', () => {
     const expectedState = fromJS({
       isSignedIn: false,
       isError: true,
+      inProgress: false,
       errorMessages: action.errors,
     });
     const nextState = reducer(emptyState, action);

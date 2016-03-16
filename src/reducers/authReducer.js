@@ -10,14 +10,14 @@ const initialState = fromJS({
 export default function (state = initialState, action) {
   switch (action.type) {
   case LOGIN_REQUEST:
-    return state.merge({
+    return state.delete('errorMessages').merge({
       isSignedIn: false,
       inProgress: true,
-      errorMessages: undefined,
     });
   case LOGIN_REQUEST_SUCCESS:
     return state.merge({
       isSignedIn: true,
+      isError: false,
       inProgress: false,
       id: action.payload.id,
       email: action.payload.email,

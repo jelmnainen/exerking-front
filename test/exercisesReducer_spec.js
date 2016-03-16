@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { Map, fromJS } from 'immutable';
 
 import reducer from '../src/reducers/exercisesReducer';
-import { EXERCISES_REQUEST_SUCCESS } from '../src/actions/exercisesActions';
+import { EXERCISES_SUCCESS } from '../src/actions/exercisesActions';
 
 describe('exercisesReducer', () => {
   it('returns last state with unrecognized type', () => {
@@ -13,7 +13,7 @@ describe('exercisesReducer', () => {
 
   it('returns correct payload', () => {
     const action = {
-      type: EXERCISES_REQUEST_SUCCESS,
+      type: EXERCISES_SUCCESS,
       payload: [{ id: 2 }],
     };
     const initialState = fromJS({

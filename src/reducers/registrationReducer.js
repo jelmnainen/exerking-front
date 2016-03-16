@@ -10,10 +10,9 @@ const initialState = fromJS({
 export default (state = initialState, action) => {
   switch (action.type) {
   case REGISTRATION_REQUEST:
-    return state.merge({
+    return state.delete('errorMessages').merge({
       isError: false,
       inProgress: true,
-      errorMessages: undefined,
     });
   case REGISTRATION_REQUEST_SUCCESS:
     return state.merge({
