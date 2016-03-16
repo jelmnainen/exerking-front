@@ -16,7 +16,7 @@ export default class FormInput extends Component {
     const { children, type, required, name, errors, value } = this.props;
     let error;
 
-    if (errors && errors.length) {
+    if (errors && !errors.isEmpty()) {
       error = (
         <div className="ui pointing red basic label">
           {errors.join(', ')}
@@ -41,7 +41,7 @@ FormInput.propTypes = {
   required: PropTypes.bool,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  errors: PropTypes.arrayOf(PropTypes.string),
+  errors: PropTypes.object,
   onChange: PropTypes.func.isRequired,
 };
 

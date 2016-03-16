@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
-import TeacherSection from './smart/TeacherSection';
+import TeacherSection from '../containers/TeacherSection';
 
 export default class Nav extends Component {
 
@@ -28,9 +28,7 @@ export default class Nav extends Component {
           <span className="item">
             {this.props.email}
           </span>
-          <span className="item" activeClassName="active">
-            <Link to="/logout">Logout</Link>
-          </span>
+          <Link className="item" activeClassName="active" to="/logout">Logout</Link>
         </span>
       );
     }

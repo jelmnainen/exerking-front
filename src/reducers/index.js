@@ -1,15 +1,15 @@
-import exercisesReducer from './exercisesReducer';
-import authReducer from './authReducer';
-import registrationReducer from './registrationReducer';
-import submissionReducer from './submissionReducer';
-import usersReducer from './usersReducer';
+import { combineReducers } from 'redux-immutablejs';
 
-export default function (state = {}, action) {
-  return {
-    exercises: exercisesReducer(state.exercises, action),
-    auth: authReducer(state.auth, action),
-    registration: registrationReducer(state.registration, action),
-    submissions: submissionReducer(state.submissions, action),
-    users: usersReducer(state.users, action),
-  };
-}
+import exercises from './exercisesReducer';
+import auth from './authReducer';
+import registration from './registrationReducer';
+import submissions from './submissionReducer';
+import users from './usersReducer';
+
+export default combineReducers({
+  exercises,
+  auth,
+  registration,
+  submissions,
+  users,
+});

@@ -18,6 +18,9 @@ if (process.env.NODE_ENV === 'production') {
 
   app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
+    watchOptions: {
+      poll: true,
+    },
   }));
   app.use(require('webpack-hot-middleware')(compiler));
 

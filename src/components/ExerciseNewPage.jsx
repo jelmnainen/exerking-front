@@ -36,24 +36,24 @@ export default class ExercisesNewPage extends Component {
     let deadlineErrors;
     let created;
 
-    if (errorMessages && errorMessages.title) {
+    if (errorMessages && errorMessages.get('title')) {
       titleErrors = (
         <div className="ui pointing red basic label">
-          {errorMessages.title.join(', ')}
+          {errorMessages.get('title').join(', ')}
         </div>
       );
     }
-    if (errorMessages && errorMessages.text) {
+    if (errorMessages && errorMessages.get('text')) {
       textErrors = (
         <div className="ui pointing red basic label">
-          {errorMessages.text.join(', ')}
+          {errorMessages.get('text').join(', ')}
         </div>
       );
     }
-    if (errorMessages && errorMessages.deadline) {
+    if (errorMessages && errorMessages.get('deadline')) {
       deadlineErrors = (
         <div className="ui pointing red basic label">
-          {errorMessages.deadline.join(', ')}
+          {errorMessages.get('deadline').join(', ')}
         </div>
       );
     }

@@ -10,26 +10,26 @@ export default class ExerciseList extends Component {
 
   renderExercise(exercise) {
     return (
-      <div key={exercise.id}>
+      <div key={exercise.get('id')}>
         <div className="title">
           <i className="dropdown icon"></i>
-          {exercise.title} {' '}
-          {!!exercise.deadline &&
+          {exercise.get('title')} {' '}
+          {exercise.get('deadline') &&
             <div className="ui tiny label">
-             {moment(exercise.deadline).format('LLL')}
+             {moment(exercise.get('deadline')).format('LLL')}
             </div>
           }
           <Link
             className="ui mini compact blue button right floated"
-            to={`/exercises/${exercise.id}`}
+            to={`/exercises/${exercise.get('id')}`}
           >
             View and submit
           </Link>
         </div>
         <div className="content">
-          <p>{exercise.text}</p>
-          <Link to={`/exercises/${exercise.id}`}>
-            {exercise.title}
+          <p>{exercise.get('text')}</p>
+          <Link to={`/exercises/${exercise.get('id')}`}>
+            {exercise.get('title')}
           </Link>
         </div>
       </div>
@@ -40,7 +40,7 @@ export default class ExerciseList extends Component {
     const { exercises } = this.props;
     return (
       <div className="ui styled fluid accordion" ref="container">
-        {Object.keys(exercises).map(id => this.renderExercise(exercises[id]))}
+        {exercises.valueSeq().map(exercise => this.renderExercise(exercise))}
       </div>
     );
   }

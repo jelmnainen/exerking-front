@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
 
-import { logout } from '../../actions/authActions';
-import LogoutPage from '../LogoutPage';
+import { logout } from '../actions/authActions';
+import LogoutPage from '../components/LogoutPage';
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogout: () => dispatch(logout()),
+  onLogout() {
+    dispatch(logout());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoutPage);

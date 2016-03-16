@@ -14,7 +14,7 @@ export default class RegistrationPage extends Component {
   }
 
   onSubmit({ email, password, passwordConfirmation }) {
-    const { inProgress } = this.props.reg;
+    const inProgress = this.props.reg.get('inProgress');
 
     if (inProgress) {
       return;
@@ -33,14 +33,16 @@ export default class RegistrationPage extends Component {
   }
 
   renderForm() {
-    const { inProgress, errorMessages } = this.props.reg;
+    const { reg } = this.props;
+    const inProgress = reg.get('inProgress');
+    const errorMessages = reg.get('errorMessages');
     return (
       <RegistrationForm loading={inProgress} errors={errorMessages} onSubmit={this.onSubmit} />
     );
   }
 
   render() {
-    const { isOK } = this.props.reg;
+    const isOK = this.props.reg.get('isOK');
     return (
       <div className="row">
         <div className="six wide column">

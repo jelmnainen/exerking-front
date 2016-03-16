@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as actions from '../../actions/authActions';
-import LoginPage from '../LoginPage';
+import * as actions from '../actions/authActions';
+import LoginPage from '../components/LoginPage';
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  auth: state.get('auth'),
 });
 
 const mapDispatchToProps = (dispatch) => ({

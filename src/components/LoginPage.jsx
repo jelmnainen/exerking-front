@@ -10,7 +10,7 @@ export default class LoginPage extends Component {
   }
 
   onSubmit({ email, password }) {
-    const { inProgress } = this.props.auth;
+    const inProgress = this.props.auth.get('inProgress');
     const { login } = this.props.actions;
 
     if (inProgress) {
@@ -21,7 +21,7 @@ export default class LoginPage extends Component {
   }
 
   renderMessage() {
-    const { email } = this.props.auth;
+    const email = this.props.auth.get('email');
     return (
       <p>
         You're signed in as { email }. {' '}
@@ -31,14 +31,16 @@ export default class LoginPage extends Component {
   }
 
   renderForm() {
-    const { inProgress, errorMessages } = this.props.auth;
+    const { auth } = this.props;
+    const inProgress = auth.get('inProgress');
+    const errorMessages = auth.get('errorMessages');
     return (
       <LoginForm loading={inProgress} errors={errorMessages} onSubmit={this.onSubmit} />
     );
   }
 
   render() {
-    const { isSignedIn } = this.props.auth;
+    const isSignedIn = this.props.auth.get('isSignedIn');
     return (
       <div className="row">
         <div className="six wide column">

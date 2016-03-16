@@ -1,107 +1,92 @@
-import { EXERCISES_REQUEST, EXERCISES_REQUEST_SUCCESS, EXERCISES_REQUEST_FAILED,
-  EXERCISES_SINGLE_REQUEST, EXERCISES_SINGLE_REQUEST_SUCCESS, EXERCISES_SINGLE_REQUEST_FAIL,
-  EXERCISES_ADD_REQUEST, EXERCISES_ADD_REQUEST_SUCCESS, EXERCISES_ADD_REQUEST_FAIL,
+import { Map, fromJS } from 'immutable';
+
+import { EXERCISES_REQUEST, EXERCISES_SUCCESS, EXERCISES_FAILURE,
+  EXERCISES_SINGLE_REQUEST, EXERCISES_SINGLE_SUCCESS, EXERCISES_SINGLE_FAILURE,
+  EXERCISES_ADD_REQUEST, EXERCISES_ADD_SUCCESS, EXERCISES_ADD_FAILURE,
   EXERCISES_ADD_RESET } from '../actions/exercisesActions';
 import { LOGOUT } from '../actions/authActions';
 
-const addRequest = (state = {}, action) => {
+const emptyMap = fromJS({});
+
+const addRequest = (state = emptyMap, action) => {
   switch (action.type) {
   case EXERCISES_ADD_REQUEST:
-    return {
+    return state.delete('errorMessages').merge({
       inProgress: true,
       isError: false,
-    };
-  case EXERCISES_ADD_REQUEST_SUCCESS:
-    return {
+    });
+  case EXERCISES_ADD_SUCCESS:
+    return state.merge({
       inProgress: false,
       isError: false,
       isCreated: true,
-    };
-  case EXERCISES_ADD_REQUEST_FAIL:
-    return {
+    });
+  case EXERCISES_ADD_FAILURE:
+    return state.merge({
       inProgress: false,
       isError: true,
       errorMessages: action.payload,
-    };
+    });
   case EXERCISES_ADD_RESET:
-    return {};
+    return emptyMap;
   default:
     return state;
   }
 };
 
-const entries = (state = {}, action) => {
+const entries = (state = emptyMap, action) => {
   const { payload } = action;
   switch (action.type) {
-  case EXERCISES_REQUEST_SUCCESS:
-    return payload.reduce((map, exercise) => {
-      map[exercise.id] = exercise; // eslint-disable-line no-param-reassign
-      return map;
-    }, {});
-  case EXERCISES_ADD_REQUEST_SUCCESS:
-  case EXERCISES_SINGLE_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
-      [payload.id]: payload,
-    });
+  case EXERCISES_SUCCESS:
+    return state.merge(Map(payload.map(item => [item.id, fromJS(item)])));
+  case EXERCISES_ADD_SUCCESS:
+  case EXERCISES_SINGLE_SUCCESS:
+    return state.set(payload.id, fromJS(payload));
   default:
     return state;
   }
 };
 
-const initialState = {
+const initialState = fromJS({
   isFetching: false,
   isError: false,
   entries: {},
   addRequest: {},
-};
+});
 
 export default function (state = initialState, action) {
   const { type } = action;
+
   switch (type) {
   case EXERCISES_REQUEST:
-    return Object.assign({}, state, {
-      isFetching: true,
-      isError: false,
-    });
-  case EXERCISES_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
-      isFetching: false,
-      isError: false,
-      entries: entries(state.entries, action),
-    });
-  case EXERCISES_REQUEST_FAILED:
-    return Object.assign({}, state, {
-      isFetching: false,
-      isError: true,
-      entries: {},
-    });
   case EXERCISES_SINGLE_REQUEST:
-    return Object.assign({}, state, {
+    return state.merge({
       isFetching: true,
       isError: false,
     });
-  case EXERCISES_SINGLE_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
+  case EXERCISES_SUCCESS:
+  case EXERCISES_SINGLE_SUCCESS:
+    return state.mergeDeep({
       isFetching: false,
       isError: false,
-      entries: entries(state.entries, action),
+      entries: entries(state.get('entries'), action),
     });
-  case EXERCISES_SINGLE_REQUEST_FAIL:
-    return Object.assign({}, state, {
+  case EXERCISES_FAILURE:
+  case EXERCISES_SINGLE_FAILURE:
+    return state.merge({
       isFetching: false,
       isError: true,
-      entries: {},
     });
-  case EXERCISES_ADD_REQUEST_SUCCESS:
-    return Object.assign({}, state, {
-      entries: entries(state.entries, action),
-      addRequest: addRequest(state.addRequest, action),
+  case EXERCISES_ADD_SUCCESS:
+    return state.merge({
+      entries: entries(state.get('entries'), action),
+      addRequest: addRequest(state.get('addRequest'), action),
     });
   case EXERCISES_ADD_REQUEST:
-  case EXERCISES_ADD_REQUEST_FAIL:
+  case EXERCISES_ADD_FAILURE:
   case EXERCISES_ADD_RESET:
-    return Object.assign({}, state, {
-      addRequest: addRequest(state.addRequest, action),
+    return state.merge({
+      addRequest: addRequest(state.get('addRequest'), action),
     });
   case LOGOUT:
     return initialState;

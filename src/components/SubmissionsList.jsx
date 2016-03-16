@@ -3,13 +3,12 @@ import { Link } from 'react-router';
 
 export default class SubmissionsList extends Component {
 
-
   renderSubmission(submission) {
     const { exercises, users } = this.props;
     let feedback;
 
-    if (submission.feedback_asked) {
-      if (submission.feedback) {
+    if (submission.get('feedback_asked')) {
+      if (submission.get('feedback')) {
         feedback = (
           <span className="ui tiny green basic label">Feedback given</span>
         );
@@ -21,17 +20,18 @@ export default class SubmissionsList extends Component {
     }
 
     return (
-      <div key={submission.id} className="ui raised segment">
-        {exercises[submission.exercise_id] && exercises[submission.exercise_id].title} by
-        {users[submission.user_id] && users[submission.user_id].email}
+      <div key={submission.get('id')} className="ui raised segment">
+        {exercises.getIn([submission.get('exercise_id'), 'title'])}
+        {' '} by {' '}
+        {users.getIn([submission.get('user_id'), 'email'])}
         {' '}
         {feedback} {' '}
-        {!submission.done &&
+        {submission.get('done') ||
           <span className="ui tiny basic label">Not accepted</span>
         }
         <Link
           className="ui mini compact blue button right floated"
-          to={`/submissions/${submission.id}`}
+          to={`/submissions/${submission.get('id')}`}
         >
           View
         </Link>
@@ -52,7 +52,7 @@ export default class SubmissionsList extends Component {
     }
     return (
       <div className="ui stacked segments">
-        {Object.keys(submissions).map(id => this.renderSubmission(submissions[id]))}
+        {submissions.valueSeq().map(submission => this.renderSubmission(submission))}
       </div>
     );
   }
