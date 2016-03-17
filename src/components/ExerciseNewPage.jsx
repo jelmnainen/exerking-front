@@ -7,6 +7,10 @@ export default class ExercisesNewPage extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillMount() {
+    this.props.fetchCategories();
+  }
+
   componentWillUnmount() {
     this.props.onPageLeave();
   }
@@ -20,16 +24,17 @@ export default class ExercisesNewPage extends Component {
     const text = this.refs.text.value;
     const deadline = this.refs.deadline.value;
     const fileUpload = this.refs.fileUpload.checked;
+    const categoryId = this.refs.category.value;
 
     if (inProgress) {
       return;
     }
 
-    addExercise({ title, text, deadline, fileUpload });
+    addExercise({ title, text, deadline, fileUpload, categoryId });
   }
 
   render() {
-    const { inProgress, errorMessages, isCreated } = this.props;
+    const { inProgress, errorMessages, isCreated, categories } = this.props;
 
     let titleErrors;
     let textErrors;
@@ -92,6 +97,17 @@ export default class ExercisesNewPage extends Component {
                 <input type="checkbox" ref="fileUpload" />
                 <label>Require file upload</label>
               </div>
+            </div>
+            <div className="field">
+              <label>Category</label>
+              <select className="ui dropdown" ref="category">
+                <option value="">Select category</option>
+                {categories.valueSeq().map(category =>
+                  <option key={category.get('id')} value={category.get('id')}>
+                    {category.get('title')}
+                  </option>
+                )}
+              </select>
             </div>
             <button
               className="ui primary button"
