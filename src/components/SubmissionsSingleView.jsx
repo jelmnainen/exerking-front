@@ -13,6 +13,10 @@ export default class SubmissionsSingleView extends Component {
     this.props.fetchSubmission(this.props.params.id);
   }
 
+  componentWillUnmount() {
+    this.props.submissionUpdateReset();
+  }
+
   onSubmit(e) {
     e.preventDefault();
     this.props.patchSubmission(
@@ -23,7 +27,7 @@ export default class SubmissionsSingleView extends Component {
   }
 
   render() {
-    const { exercise, submission } = this.props;
+    const { exercise, submission, request } = this.props;
     const loading = !(exercise && submission);
 
     if (loading) {
@@ -97,6 +101,11 @@ export default class SubmissionsSingleView extends Component {
                 <div className="ui segment">
                   <TeacherSection>
                     <form className="ui form" onSubmit={this.onSubmit}>
+                      {request.get('isCreated') &&
+                        <div className="ui positive message">
+                          Feedback sent.
+                        </div>
+                      }
                       <div className="field">
                         <label>Feedback</label>
                         <textarea
