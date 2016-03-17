@@ -12,6 +12,7 @@ export const SUBMISSIONS_FAILURE = 'SUBMISSIONS_FAILURE';
 export const SUBMISSIONS_UPDATE_REQUEST = 'SUBMISSIONS_UPDATE_REQUEST';
 export const SUBMISSIONS_UPDATE_SUCCESS = 'SUBMISSIONS_UPDATE_SUCCESS';
 export const SUBMISSIONS_UPDATE_FAILURE = 'SUBMISSIONS_UPDATE_FAILURE';
+export const SUBMISSIONS_UPDATE_RESET = 'SUBMISSIONS_UPDATE_RESET';
 
 export const SUBMISSIONS_SINGLE_REQUEST = 'SUBMISSIONS_SINGLE_REQUEST';
 export const SUBMISSIONS_SINGLE_SUCCESS = 'SUBMISSIONS_SINGLE_SUCCESS';
@@ -47,6 +48,10 @@ export const fetchSubmission = (id) => ({
     ],
     endpoint: `/submissions/${id}`,
   },
+});
+
+export const submissionUpdateReset = () => ({
+  type: SUBMISSIONS_UPDATE_RESET,
 });
 
 export const patchSubmission = (id, feedback, done) => ({
