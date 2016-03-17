@@ -103,7 +103,9 @@ export default class ExercisesNewPage extends Component {
               <select className="ui dropdown" ref="category">
                 <option value="">Select category</option>
                 {categories.valueSeq().map(category =>
-                  <option value={category.get('id')}>{category.get('title')}</option>
+                  <option key={category.get('id')} value={category.get('id')}>
+                    {category.get('title')}
+                  </option>
                 )}
               </select>
             </div>
