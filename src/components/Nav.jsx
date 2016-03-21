@@ -12,6 +12,9 @@ export default class Nav extends Component {
           <TeacherSection>
             <Link className="item" activeClassName="active" to="/submissions">Submissions</Link>
           </TeacherSection>
+          <TeacherSection>
+            <Link className="item" activeClassName="active" to="/categories">Categories</Link>
+          </TeacherSection>
           <Link className="item" activeClassName="active" to="/me/submissions">My submissions</Link>
         </div>
       );

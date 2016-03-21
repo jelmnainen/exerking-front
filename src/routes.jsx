@@ -10,6 +10,7 @@ import ExerciseNewContainer from './containers/ExerciseNewContainer';
 import SubmissionsContainer from './containers/SubmissionsContainer';
 import UserSubmissionsContainer from './containers/UserSubmissionsContainer';
 import SubmissionsSingleContainer from './containers/SubmissionsSingleContainer';
+import CategoriesContainer from './containers/CategoriesContainer';
 
 export default (
   <Route path="/" component={App}>
@@ -22,6 +23,7 @@ export default (
     <Route path="submissions" component={SubmissionsContainer} />
     <Route path="me/submissions" component={UserSubmissionsContainer} />
     <Route path="submissions/:id" component={SubmissionsSingleContainer} />
+    <Route path="categories" component={CategoriesContainer} />
     <IndexRedirect to="/exercises" />
   </Route>
 );
