@@ -70,6 +70,7 @@ export default function (state = initialState, action) {
       addRequest: {
         inProgress: false,
         isError: false,
+        isCreated: true,
       },
       entries: entries(state.get('entries'), action),
     });

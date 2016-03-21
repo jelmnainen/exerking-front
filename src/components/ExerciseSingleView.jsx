@@ -38,7 +38,6 @@ export default class ExerciseSingleView extends Component {
         const fileContent = result.substr(result.indexOf(',') + 1);
         submitExercise(id, feedback, fileContent, file.type);
       };
-
       reader.readAsDataURL(file);
     } else {
       submitExercise(id, feedback);
@@ -91,6 +90,26 @@ export default class ExerciseSingleView extends Component {
     );
   }
 
+  renderUploadStatus() {
+    const { addRequest } = this.props;
+    if (addRequest.get('isCreated')) {
+      return (
+        <div className="ui attached positive message">
+          <i className="success icon" />
+          File upload successful!
+        </div>
+      );
+    }
+    if (addRequest.get('isError')) {
+      return (
+        <div className="ui attached negative message">
+          Error!
+        </div>
+      );
+    }
+    return ('');
+  }
+
   renderForm() {
     const { exercise } = this.props;
     return (
@@ -117,6 +136,7 @@ export default class ExerciseSingleView extends Component {
           </div>
         </div>
         <button className="compact ui primary small button" type="submit">Submit</button>
+        {this.renderUploadStatus()}
       </form>
     );
   }
