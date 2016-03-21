@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CategoriesList from './CategoriesList';
 
 export default class CategoriesPage extends Component {
 
@@ -78,29 +79,8 @@ export default class CategoriesPage extends Component {
             </div>
           </form>
 
-          <table className="ui single line compact table">
-            <tbody>
+          <CategoriesList categories={categories} />
 
-              {categories.valueSeq().map(category =>
-                <tr>
-                  <td>
-                    {category.get('title')}
-                  </td>
-                  <td className="right aligned collapsing">
-
-                    <button className="ui mini basic grey compact button">
-                      Edit
-                    </button>
-                    {' '}
-                    <button className="ui mini basic red compact button">
-                      Delete
-                    </button>
-
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
         </div>
       </div>
     );
