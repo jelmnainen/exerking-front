@@ -1,8 +1,17 @@
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import { fetchCategories, addCategory, addCategoryReset }
   from '../actions/categoriesActions';
-import CategoryNewPage from '../components/CategoryNewPage';
+import CategoriesPage from '../components/CategoriesPage';
+
+const getCategories = createSelector(
+  [
+    state => state.getIn(['categories', 'entries']),
+  ],
+  (categories) =>
+    categories.sortBy(category => category.get('title').toLowerCase())
+);
 
 const mapStateToProps = (state) => {
   const request = state.getIn(['categories', 'addRequest']);
@@ -11,7 +20,7 @@ const mapStateToProps = (state) => {
     isError: request.get('isError'),
     errorMessages: request.get('errorMessages'),
     isCreated: request.get('isCreated'),
-    categories: state.getIn(['categories', 'entries']),
+    categories: getCategories(state),
   };
 };
 
@@ -27,4 +36,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryNewPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage);

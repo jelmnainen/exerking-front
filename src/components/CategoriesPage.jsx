@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class CategoryNewPage extends Component {
+export default class CategoriesPage extends Component {
 
   constructor() {
     super();
@@ -59,23 +59,25 @@ export default class CategoryNewPage extends Component {
     return (
       <div className="row">
         <div className="column">
-          <h2 className="ui header">Add new category</h2>
+          <h2 className="ui header">Categories</h2>
+
           {created}
           <form className="ui form" onSubmit={this.onSubmit}>
             <div className="inline field">
-              <input ref="title" />
-              <button
-                className="ui primary button"
-                disabled={inProgress}
-                type="submit"
-              >
-                Add Category
-              </button>
+              <div className="ui fluid small action input">
+                <input ref="title" />
+                <button
+                  className="ui primary button"
+                  disabled={inProgress}
+                  type="submit"
+                >
+                  Create
+                </button>
+              </div>
+              {titleErrors}
             </div>
-            {titleErrors}
           </form>
 
-          <h2 className="ui header">Categories</h2>
           <table className="ui single line compact table">
             <tbody>
 
@@ -89,6 +91,7 @@ export default class CategoryNewPage extends Component {
                     <button className="ui mini basic grey compact button">
                       Edit
                     </button>
+                    {' '}
                     <button className="ui mini basic red compact button">
                       Delete
                     </button>
