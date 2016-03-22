@@ -7,7 +7,11 @@ export default class CategoriesList extends Component {
       <table className="ui single line compact table">
         <tbody>
         {this.props.categories.valueSeq().map(category =>
-          <CategoriesListItem key={category.get('id')} category={category} />
+          <CategoriesListItem
+            key={category.get('id')}
+            category={category}
+            onDeleteClick={this.props.onDeleteClick}
+          />
         )}
         </tbody>
       </table>
@@ -17,4 +21,5 @@ export default class CategoriesList extends Component {
 
 CategoriesList.propTypes = {
   categories: PropTypes.object.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
 };

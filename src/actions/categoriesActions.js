@@ -9,6 +9,10 @@ export const CATEGORIES_ADD_SUCCESS = 'CATEGORIES_ADD_SUCCESS';
 export const CATEGORIES_ADD_FAILURE = 'CATEGORIES_ADD_FAILURE';
 export const CATEGORIES_ADD_RESET = 'CATEGORIES_ADD_RESET';
 
+export const CATEGORIES_DELETE_REQUEST = 'CATEGORIES_DELETE_REQUEST';
+export const CATEGORIES_DELETE_SUCCESS = 'CATEGORIES_DELETE_SUCCESS';
+export const CATEGORIES_DELETE_FAILURE = 'CATEGORIES_DELETE_FAILURE';
+
 export const fetchCategories = () => ({
   [CALL_API]: {
     types: [
@@ -17,6 +21,18 @@ export const fetchCategories = () => ({
       CATEGORIES_FAILURE,
     ],
     endpoint: '/categories',
+  },
+});
+
+export const deleteCategory = (id) => ({
+  [CALL_API]: {
+    types: [
+      CATEGORIES_DELETE_REQUEST,
+      CATEGORIES_DELETE_SUCCESS,
+      CATEGORIES_DELETE_FAILURE,
+    ],
+    endpoint: `/categories/${id}`,
+    method: 'delete',
   },
 });
 

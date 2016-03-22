@@ -1,6 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class CategoriesListItem extends Component {
+  constructor() {
+    super();
+    this.onDeleteClick = this.onDeleteClick.bind(this);
+  }
+
+  onDeleteClick() {
+    this.props.onDeleteClick(this.props.category.get('id'));
+  }
+
   render() {
     const { category } = this.props;
     return (
@@ -14,7 +23,7 @@ export default class CategoriesListItem extends Component {
             Edit
           </button>
           {' '}
-          <button className="ui mini basic red compact button">
+          <button className="ui mini basic red compact button" onClick={this.onDeleteClick}>
             Delete
           </button>
         </td>
@@ -25,4 +34,5 @@ export default class CategoriesListItem extends Component {
 
 CategoriesListItem.propTypes = {
   category: PropTypes.object.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
 };

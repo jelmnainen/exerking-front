@@ -79,7 +79,7 @@ export default class CategoriesPage extends Component {
             </div>
           </form>
 
-          <CategoriesList categories={categories} />
+          <CategoriesList categories={categories} onDeleteClick={this.props.deleteCategory} />
 
         </div>
       </div>

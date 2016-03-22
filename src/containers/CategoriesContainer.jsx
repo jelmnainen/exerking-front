@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { fetchCategories, addCategory, addCategoryReset }
+import { fetchCategories, addCategory, addCategoryReset, deleteCategory }
   from '../actions/categoriesActions';
 import CategoriesPage from '../components/CategoriesPage';
 
@@ -33,6 +33,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchCategories() {
     dispatch(fetchCategories());
+  },
+  deleteCategory(id) {
+    dispatch(deleteCategory(id));
   },
 });
 
