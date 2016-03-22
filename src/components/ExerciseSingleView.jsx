@@ -96,7 +96,7 @@ export default class ExerciseSingleView extends Component {
       return (
         <div className="ui attached positive message">
           <i className="success icon" />
-          File upload successful!
+          Submission created successfully!
         </div>
       );
     }
@@ -107,28 +107,29 @@ export default class ExerciseSingleView extends Component {
         </div>
       );
     }
-    return ('');
+    return null;
   }
 
   renderForm() {
     const { exercise } = this.props;
     return (
       <form className="ui form" onSubmit={this.onSubmit}>
-        {exercise.get('file_upload') &&
-          <div className="field">
-            <input
-              style={{ display: 'none' }}
-              type="file"
-              id="submission-file"
-              ref="file"
-              onChange={this.onFileChange}
-            />
-            <div className="ui mini action input">
-              <input readOnly ref="filename" />
-              <label className="ui mini button" htmlFor="submission-file">Select file</label>
-            </div>
+      {this.renderUploadStatus()}
+      {exercise.get('file_upload') &&
+        <div className="field">
+          <input
+            style={{ display: 'none' }}
+            type="file"
+            id="submission-file"
+            ref="file"
+            onChange={this.onFileChange}
+          />
+          <div className="ui mini action input">
+            <input readOnly ref="filename" />
+            <label className="ui mini button" htmlFor="submission-file">Select file</label>
           </div>
-        }
+        </div>
+      }
         <div className="inline field">
           <div className="ui checkbox">
             <input type="checkbox" ref="feedbackAsked" />
@@ -136,7 +137,6 @@ export default class ExerciseSingleView extends Component {
           </div>
         </div>
         <button className="compact ui primary small button" type="submit">Submit</button>
-        {this.renderUploadStatus()}
       </form>
     );
   }
