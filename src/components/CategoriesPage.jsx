@@ -13,7 +13,7 @@ export default class CategoriesPage extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if (props.isCreated) {
+    if (props.addForm.isSuccess) {
       this.refs.title.value = '';
     }
   }
@@ -25,7 +25,7 @@ export default class CategoriesPage extends Component {
   onSubmit(event) {
     event.preventDefault();
 
-    const { addCategory, inProgress } = this.props;
+    const { addCategory, addForm: { inProgress } } = this.props;
     const title = this.refs.title.value;
 
     if (inProgress) {
@@ -36,7 +36,7 @@ export default class CategoriesPage extends Component {
   }
 
   render() {
-    const { inProgress, isCreated, errorMessages, categories } = this.props;
+    const { addForm: { inProgress, isCreated, errorMessages }, categories } = this.props;
 
     let created;
     let titleErrors;
@@ -79,7 +79,13 @@ export default class CategoriesPage extends Component {
             </div>
           </form>
 
-          <CategoriesList categories={categories} onDeleteClick={this.props.deleteCategory} />
+          <CategoriesList
+            categories={categories}
+            onDelete={this.props.deleteCategory}
+            onSave={this.props.updateCategory}
+            form={this.props.updateForm}
+            reset={this.props.updateCategoryReset}
+          />
 
         </div>
       </div>

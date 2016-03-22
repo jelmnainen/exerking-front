@@ -13,6 +13,11 @@ export const CATEGORIES_DELETE_REQUEST = 'CATEGORIES_DELETE_REQUEST';
 export const CATEGORIES_DELETE_SUCCESS = 'CATEGORIES_DELETE_SUCCESS';
 export const CATEGORIES_DELETE_FAILURE = 'CATEGORIES_DELETE_FAILURE';
 
+export const CATEGORIES_UPDATE_REQUEST = 'CATEGORIES_UPDATE_REQUEST';
+export const CATEGORIES_UPDATE_SUCCESS = 'CATEGORIES_UPDATE_SUCCESS';
+export const CATEGORIES_UPDATE_FAILURE = 'CATEGORIES_UPDATE_FAILURE';
+export const CATEGORIES_UPDATE_RESET = 'CATEGORIES_UPDATE_RESET';
+
 export const fetchCategories = () => ({
   [CALL_API]: {
     types: [
@@ -67,6 +72,24 @@ export const addCategory = (category) => ({
     ],
     endpoint: '/categories',
     method: 'post',
+    body: category,
+    validate: validateCategory,
+  },
+});
+
+export const updateCategoryReset = () => ({
+  type: CATEGORIES_UPDATE_RESET,
+});
+
+export const updateCategory = (id, category) => ({
+  [CALL_API]: {
+    types: [
+      CATEGORIES_UPDATE_REQUEST,
+      CATEGORIES_UPDATE_SUCCESS,
+      CATEGORIES_UPDATE_FAILURE,
+    ],
+    endpoint: `/categories/${id}`,
+    method: 'put',
     body: category,
     validate: validateCategory,
   },

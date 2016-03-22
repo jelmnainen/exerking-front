@@ -4,10 +4,15 @@ export default class CategoriesListItem extends Component {
   constructor() {
     super();
     this.onDeleteClick = this.onDeleteClick.bind(this);
+    this.onEditClick = this.onEditClick.bind(this);
   }
 
   onDeleteClick() {
     this.props.onDeleteClick(this.props.category.get('id'));
+  }
+
+  onEditClick() {
+    this.props.onEditClick(this.props.category);
   }
 
   render() {
@@ -18,8 +23,7 @@ export default class CategoriesListItem extends Component {
           {category.get('title')}
         </td>
         <td className="right aligned collapsing">
-
-          <button className="ui mini basic grey compact button">
+          <button className="ui mini basic grey compact button" onClick={this.onEditClick}>
             Edit
           </button>
           {' '}
@@ -35,4 +39,5 @@ export default class CategoriesListItem extends Component {
 CategoriesListItem.propTypes = {
   category: PropTypes.object.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
+  onEditClick: PropTypes.func.isRequired,
 };
