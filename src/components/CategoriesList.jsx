@@ -25,7 +25,7 @@ export default class CategoriesList extends Component {
     return (
       <table className="ui single line compact table">
         <tbody>
-        {this.props.categories.valueSeq().map(category =>
+        {this.props.categories.valueSeq().map(category => (
           this.state.editable === category
             ?
             <CategoriesListEditFormItem
@@ -43,7 +43,7 @@ export default class CategoriesList extends Component {
               onDeleteClick={this.props.onDelete}
               onEditClick={this.onEditClick}
             />
-        )}
+        ))}
         </tbody>
       </table>
     );
