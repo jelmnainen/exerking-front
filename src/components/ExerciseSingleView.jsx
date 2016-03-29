@@ -138,9 +138,11 @@ export default class ExerciseSingleView extends Component {
             <div className="ten wide column">
               <div className="ui segments">
                 <div className="ui secondary raised segment">
-                  <span className="ui teal ribbon label">
-                    {categories.getIn([exercise.get('category_id'), 'title'])}
-                  </span>
+                  {exercise.get('category_id') &&
+                    <span className="ui teal ribbon label">
+                      {categories.getIn([exercise.get('category_id'), 'title'])}
+                    </span>
+                  }
                   Deadline: {moment(exercise.get('deadline')).format('LLL')}
                 </div>
                 <div className="ui segment">
