@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import * as exercisesActions from '../actions/exercisesActions';
+import { fetchSingleExercise } from '../actions/exercisesActions';
+import { fetchCategories } from '../actions/categoriesActions';
 import {
   submitExercise,
   addSubmissionReset,
@@ -16,16 +16,18 @@ const mapStateToProps = (state, props) => {
     submissions: state.getIn(['submissions', 'entries'])
       .filter(submission => submission.get('exercise_id') === id)
       .sortBy(submission => -submission.get('id')),
+    categories: state.getIn(['categories', 'entries']),
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  exercisesActions: bindActionCreators(exercisesActions, dispatch),
   submitExercise(exerciseId, feedbackAsked, fileContent, fileType) {
     dispatch(submitExercise(exerciseId, feedbackAsked, fileContent, fileType));
   },
-  fetchSubmissions(exerciseId) {
+  fetchExercise(exerciseId) {
     dispatch(fetchCurrentUserExerciseSubmissions(exerciseId));
+    dispatch(fetchCategories());
+    dispatch(fetchSingleExercise(exerciseId));
   },
   onPageLeave() {
     dispatch(addSubmissionReset());

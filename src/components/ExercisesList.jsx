@@ -9,6 +9,7 @@ export default class ExerciseList extends Component {
   }
 
   renderExercise(exercise) {
+    const { categories } = this.props;
     return (
       <div key={exercise.get('id')}>
         <div className="title">
@@ -19,6 +20,13 @@ export default class ExerciseList extends Component {
              {moment(exercise.get('deadline')).format('LLL')}
             </div>
           }
+
+          {exercise.get('category_id') &&
+            <a className="ui tiny teal label">
+              {categories.getIn([exercise.get('category_id'), 'title'])}
+            </a>
+          }
+
           <Link
             className="ui mini compact blue button right floated"
             to={`/exercises/${exercise.get('id')}`}

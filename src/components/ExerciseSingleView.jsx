@@ -11,8 +11,7 @@ export default class ExerciseSingleView extends Component {
   }
 
   componentWillMount() {
-    this.props.exercisesActions.fetchSingleExercise(this.props.params.id);
-    this.props.fetchSubmissions(this.props.params.id);
+    this.props.fetchExercise(this.props.params.id);
   }
 
   componentWillUnmount() {
@@ -123,7 +122,7 @@ export default class ExerciseSingleView extends Component {
   }
 
   render() {
-    const { exercise } = this.props;
+    const { exercise, categories } = this.props;
 
     if (!exercise) {
       return <div>Loading</div>;
@@ -133,12 +132,18 @@ export default class ExerciseSingleView extends Component {
       <div className="row">
         <div className="column">
           <h1 className="ui large header">{exercise.get('title')}</h1>
+
           <div className="ui grid">
 
             <div className="ten wide column">
               <div className="ui segments">
-                <div className="ui secondary segment">
-                  <p>Deadline: {moment(exercise.get('deadline')).format('LLL')}</p>
+                <div className="ui secondary raised segment">
+                  {exercise.get('category_id') &&
+                    <span className="ui teal ribbon label">
+                      {categories.getIn([exercise.get('category_id'), 'title'])}
+                    </span>
+                  }
+                  Deadline: {moment(exercise.get('deadline')).format('LLL')}
                 </div>
                 <div className="ui segment">
                   <p>{exercise.get('text')}</p>
@@ -169,10 +174,10 @@ ExerciseSingleView.propTypes = {
   params: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }).isRequired,
-  exercisesActions: PropTypes.objectOf(PropTypes.func).isRequired,
-  fetchSubmissions: PropTypes.func.isRequired,
+  fetchExercise: PropTypes.func.isRequired,
   onPageLeave: PropTypes.func.isRequired,
   submitExercise: PropTypes.func.isRequired,
   exercise: PropTypes.object,
-  submissions: PropTypes.object,
+  submissions: PropTypes.object.isRequired,
+  categories: PropTypes.object.isRequired,
 };

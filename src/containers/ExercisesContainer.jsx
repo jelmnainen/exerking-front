@@ -1,15 +1,19 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import * as exercisesActions from '../actions/exercisesActions';
 import ExercisesPage from '../components/ExercisesPage';
+import { fetchCategories } from '../actions/categoriesActions';
+import { fetchExercises } from '../actions/exercisesActions';
 
 const mapStateToProps = (state) => ({
   exercises: state.getIn(['exercises', 'entries']),
+  categories: state.getIn(['categories', 'entries']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  exercisesActions: bindActionCreators(exercisesActions, dispatch),
+  fetchExercises() {
+    dispatch(fetchExercises());
+    dispatch(fetchCategories());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExercisesPage);

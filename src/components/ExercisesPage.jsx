@@ -5,8 +5,8 @@ import TeacherSection from '../containers/TeacherSection';
 
 export default class ExercisesPage extends Component {
 
-  componentDidMount() {
-    this.props.exercisesActions.fetchExercises();
+  componentWillMount() {
+    this.props.fetchExercises();
   }
 
   render() {
