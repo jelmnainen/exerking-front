@@ -26,11 +26,6 @@ export default class ExerciseList extends Component {
         <div className="title">
           <i className="dropdown icon"></i>
           {exercise.get('title')} {' '}
-          {exercise.get('deadline') &&
-            <div className="ui tiny label">
-             {moment(exercise.get('deadline')).format('LLL')}
-            </div>
-          }
           {this.renderCategoryLabel(exercise)}
           <Link
             className="ui mini compact blue button right floated"
@@ -51,6 +46,17 @@ export default class ExerciseList extends Component {
 
   render() {
     const { exercises } = this.props;
+
+    if (!exercises || exercises.isEmpty()) {
+      return (
+        <div className="ui info message">
+          <div>
+            No exercises
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="ui styled fluid accordion" ref="container">
         {exercises.valueSeq().map(exercise => this.renderExercise(exercise))}

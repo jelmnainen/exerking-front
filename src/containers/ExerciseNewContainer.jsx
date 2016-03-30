@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 
 import { fetchCategories } from '../actions/categoriesActions';
 import { addExercise, addExerciseReset } from '../actions/exercisesActions';
+import { fetchBatches } from '../actions/batchesActions';
 import ExerciseNewPage from '../components/ExerciseNewPage';
 
 const mapStateToProps = (state) => {
@@ -12,6 +13,7 @@ const mapStateToProps = (state) => {
     errorMessages: request.get('errorMessages'),
     isCreated: request.get('isCreated'),
     categories: state.getIn(['categories', 'entries']),
+    batches: state.getIn(['batches', 'entries']),
   };
 };
 
@@ -24,6 +26,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchCategories() {
     dispatch(fetchCategories());
+  },
+  fetchBatches() {
+    dispatch(fetchBatches());
   },
 });
 

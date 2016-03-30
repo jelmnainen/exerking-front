@@ -78,7 +78,7 @@ export default function (state = initialState, action) {
       entries: entries(state.get('entries'), action),
       forms: {
         add: add(state.get('form'), action),
-      }
+      },
     });
   case BATCHES_ADD_REQUEST:
   case BATCHES_ADD_FAILURE:
