@@ -19,6 +19,9 @@ export default class CategoriesListItem extends Component {
     const { category } = this.props;
     return (
       <tr>
+        <td className="collapsing">
+          <div className={`ui mini compact ${category.get('color')} label`}>&nbsp;</div>
+        </td>
         <td>
           {category.get('title')}
         </td>

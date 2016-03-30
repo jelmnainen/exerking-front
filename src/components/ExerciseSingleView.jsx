@@ -111,6 +111,18 @@ export default class ExerciseSingleView extends Component {
     return null;
   }
 
+  renderCategoryRibbon(exercise) {
+    if (!exercise.get('category_id')) {
+      return null;
+    }
+    const category = this.props.categories.get(exercise.get('category_id'));
+    return (
+      <span className={`ui tiny ${category.get('color')} ribbon label`}>
+        {category.get('title')}
+      </span>
+    );
+  }
+
   renderForm() {
     const { exercise } = this.props;
     return (
@@ -143,7 +155,7 @@ export default class ExerciseSingleView extends Component {
   }
 
   render() {
-    const { exercise, categories } = this.props;
+    const { exercise } = this.props;
 
     if (!exercise) {
       return <div>Loading</div>;
@@ -159,11 +171,7 @@ export default class ExerciseSingleView extends Component {
             <div className="ten wide column">
               <div className="ui segments">
                 <div className="ui secondary raised segment">
-                  {exercise.get('category_id') &&
-                    <span className="ui teal ribbon label">
-                      {categories.getIn([exercise.get('category_id'), 'title'])}
-                    </span>
-                  }
+                  {this.renderCategoryRibbon(exercise)}
                   Deadline: {moment(exercise.get('deadline')).format('LLL')}
                 </div>
                 <div className="ui segment">

@@ -8,8 +8,19 @@ export default class ExerciseList extends Component {
     $(this.refs.container).accordion({ exclusive: false }); // eslint-disable-line no-undef
   }
 
+  renderCategoryLabel(exercise) {
+    if (!exercise.get('category_id')) {
+      return null;
+    }
+    const category = this.props.categories.get(exercise.get('category_id'));
+    return (
+      <span className={`ui tiny ${category.get('color')} label`}>
+        {category.get('title')}
+      </span>
+    );
+  }
+
   renderExercise(exercise) {
-    const { categories } = this.props;
     return (
       <div key={exercise.get('id')}>
         <div className="title">
@@ -20,13 +31,7 @@ export default class ExerciseList extends Component {
              {moment(exercise.get('deadline')).format('LLL')}
             </div>
           }
-
-          {exercise.get('category_id') &&
-            <a className="ui tiny teal label">
-              {categories.getIn([exercise.get('category_id'), 'title'])}
-            </a>
-          }
-
+          {this.renderCategoryLabel(exercise)}
           <Link
             className="ui mini compact blue button right floated"
             to={`/exercises/${exercise.get('id')}`}

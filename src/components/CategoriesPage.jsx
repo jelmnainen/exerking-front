@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import CategoriesList from './CategoriesList';
 
+const AVAILABLE_COLORS = [
+  'Red', 'Orange', 'Yellow', 'Olive', 'Green',
+  'Teal', 'Blue', 'Violet', 'Purple', 'Pink',
+  'Brown', 'Grey', 'Black',
+];
+
 export default class CategoriesPage extends Component {
 
   constructor() {
@@ -27,12 +33,13 @@ export default class CategoriesPage extends Component {
 
     const { addCategory, addForm: { inProgress } } = this.props;
     const title = this.refs.title.value;
+    const color = this.refs.color.value;
 
     if (inProgress) {
       return;
     }
 
-    addCategory({ title });
+    addCategory({ title, color });
   }
 
   render() {
@@ -63,20 +70,26 @@ export default class CategoriesPage extends Component {
           <h2 className="ui header">Categories</h2>
 
           {created}
-          <form className="ui form" onSubmit={this.onSubmit}>
-            <div className="inline field">
-              <div className="ui fluid small action input">
-                <input ref="title" />
-                <button
-                  className="ui primary button"
-                  disabled={inProgress}
-                  type="submit"
-                >
-                  Create
-                </button>
-              </div>
-              {titleErrors}
+          <form onSubmit={this.onSubmit}>
+            <div className="ui fluid small action input">
+              <input type="text" ref="title" />
+
+              <select className="ui compact selection dropdown" ref="color">
+                <option value="">Color</option>
+                {AVAILABLE_COLORS.map(color =>
+                  <option key={color} value={color.toLowerCase()}>{color}</option>
+                )}
+              </select>
+
+              <button
+                className="ui primary button"
+                disabled={inProgress}
+                type="submit"
+              >
+                Create
+              </button>
             </div>
+            {titleErrors}
           </form>
 
           <CategoriesList

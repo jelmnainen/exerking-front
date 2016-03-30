@@ -28,7 +28,7 @@ export default class CategoriesListEditFormItem extends Component {
     const { category, form: { errorMessages } } = this.props;
     return (
       <tr>
-        <td colSpan="2">
+        <td colSpan="3">
           <form onSubmit={this.onSubmit}>
             <div className="inline field">
               <div
