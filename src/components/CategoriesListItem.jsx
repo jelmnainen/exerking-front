@@ -8,7 +8,10 @@ export default class CategoriesListItem extends Component {
   }
 
   onDeleteClick() {
-    this.props.onDeleteClick(this.props.category.get('id'));
+    const { category } = this.props;
+    if (window.confirm(`You are about to delete category "${category.get('title')}"`)) {
+      this.props.onDeleteClick(category.get('id'));
+    }
   }
 
   onEditClick() {
@@ -19,6 +22,9 @@ export default class CategoriesListItem extends Component {
     const { category } = this.props;
     return (
       <tr>
+        <td className="collapsing">
+          <div className={`ui mini compact ${category.get('color')} label`}>&nbsp;</div>
+        </td>
         <td>
           {category.get('title')}
         </td>
