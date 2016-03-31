@@ -75,7 +75,7 @@ export default class CategoriesPage extends Component {
               <input type="text" ref="title" />
 
               <select className="ui compact selection dropdown" ref="color">
-                <option value="">Color</option>
+                <option value="">Default color</option>
                 {AVAILABLE_COLORS.map(color =>
                   <option key={color} value={color.toLowerCase()}>{color}</option>
                 )}

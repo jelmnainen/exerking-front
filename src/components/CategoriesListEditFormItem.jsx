@@ -1,6 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import cn from 'classnames';
 
+const AVAILABLE_COLORS = [
+  'Red', 'Orange', 'Yellow', 'Olive', 'Green',
+  'Teal', 'Blue', 'Violet', 'Purple', 'Pink',
+  'Brown', 'Grey', 'Black',
+];
+
 export default class CategoriesListEditFormItem extends Component {
   constructor() {
     super();
@@ -20,8 +26,9 @@ export default class CategoriesListEditFormItem extends Component {
 
     const id = this.props.category.get('id');
     const title = this.refs.title.value;
+    const color = this.refs.color.value;
 
-    this.props.onSubmit(id, { title });
+    this.props.onSubmit(id, { title, color });
   }
 
   render() {
@@ -40,18 +47,30 @@ export default class CategoriesListEditFormItem extends Component {
                 )}
               >
                 <input ref="title" defaultValue={category.get('title')} />
+                <select
+                  className="ui compact selection dropdown"
+                  ref="color"
+                  defaultValue={category.get('color')}
+                >
+                  <option value="">Default color</option>
+                  {AVAILABLE_COLORS.map(color =>
+                    <option key={color} value={color.toLowerCase()}>{color}</option>
+                  )}
+                </select>
+
+                <button
+                  className="ui small primary button"
+                  type="submit"
+                >
+                  Save
+                </button>
+
                 <button
                   className="ui small button"
                   type="button"
                   onClick={this.props.onCancelClick}
                 >
                   Cancel
-                </button>
-                <button
-                  className="ui small primary button"
-                  type="submit"
-                >
-                  Save
                 </button>
               </div>
             </div>

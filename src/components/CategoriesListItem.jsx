@@ -8,7 +8,10 @@ export default class CategoriesListItem extends Component {
   }
 
   onDeleteClick() {
-    this.props.onDeleteClick(this.props.category.get('id'));
+    const { category } = this.props;
+    if (window.confirm(`You are about to delete category "${category.get('title')}"`)) {
+      this.props.onDeleteClick(category.get('id'));
+    }
   }
 
   onEditClick() {
