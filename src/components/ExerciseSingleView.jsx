@@ -114,22 +114,22 @@ export default class ExerciseSingleView extends Component {
     const { exercise } = this.props;
     return (
       <form className="ui form" onSubmit={this.onSubmit}>
-      {this.renderUploadStatus()}
-      {exercise.get('file_upload') &&
-        <div className="field">
-          <input
-            style={{ display: 'none' }}
-            type="file"
-            id="submission-file"
-            ref="file"
-            onChange={this.onFileChange}
-          />
-          <div className="ui mini action input">
-            <input readOnly ref="filename" />
-            <label className="ui mini button" htmlFor="submission-file">Select file</label>
+        {this.renderUploadStatus()}
+        {exercise.get('file_upload') &&
+          <div className="field">
+            <input
+              style={{ display: 'none' }}
+              type="file"
+              id="submission-file"
+              ref="file"
+              onChange={this.onFileChange}
+            />
+            <div className="ui mini action input">
+              <input readOnly ref="filename" />
+              <label className="ui mini button" htmlFor="submission-file">Select file</label>
+            </div>
           </div>
-        </div>
-      }
+        }
         <div className="inline field">
           <div className="ui checkbox">
             <input type="checkbox" ref="feedbackAsked" />
