@@ -38,6 +38,7 @@ export default class ExerciseSingleView extends Component {
         const fileContent = result.substr(result.indexOf(',') + 1);
         submitExercise(id, feedback, fileContent, file.type);
       };
+
       reader.readAsDataURL(file);
     } else {
       submitExercise(id, feedback);
