@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import cn from 'classnames';
+import { Link } from 'react-router';
 
 import TeacherSection from '../containers/TeacherSection';
 import DeadlineLabel from './DeadlineLabel';
@@ -44,6 +45,15 @@ export default class BatchesListItem extends Component {
                 <i className ="remove icon"></i>
                 Delete set
               </button>
+            </TeacherSection>
+            {' '}
+            <TeacherSection>
+              <Link
+                className="ui tiny black basic button compact right floated"
+                to={`/sets/${batch.get('id')}/edit`}
+              >
+                Edit
+              </Link>
             </TeacherSection>
             <DeadlineLabel deadline={batch.get('deadline')} />
           </h2>

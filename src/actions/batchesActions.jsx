@@ -18,6 +18,10 @@ export const BATCHES_UPDATE_SUCCESS = 'BATCHES_UPDATE_SUCCESS';
 export const BATCHES_UPDATE_FAILURE = 'BATCHES_UPDATE_FAILURE';
 export const BATCHES_UPDATE_RESET = 'BATCHES_UPDATE_RESET';
 
+export const BATCHES_SINGLE_REQUEST = 'BATCHES_SINGLE_REQUEST';
+export const BATCHES_SINGLE_SUCCESS = 'BATCHES_SINGLE_SUCCESS';
+export const BATCHES_SINGLE_FAILURE = 'BATCHES_SINGLE_FAILURE';
+
 export const fetchBatches = () => ({
   [CALL_API]: {
     types: [
@@ -26,6 +30,17 @@ export const fetchBatches = () => ({
       BATCHES_FAILURE,
     ],
     endpoint: '/batches',
+  },
+});
+
+export const fetchSingleBatch = (id) => ({
+  [CALL_API]: {
+    types: [
+      BATCHES_SINGLE_REQUEST,
+      BATCHES_SINGLE_SUCCESS,
+      BATCHES_SINGLE_FAILURE,
+    ],
+    endpoint: `/batches/${id}`,
   },
 });
 

@@ -4,7 +4,8 @@ import { BATCHES_REQUEST, BATCHES_SUCCESS, BATCHES_FAILURE,
   BATCHES_DELETE_REQUEST, BATCHES_DELETE_SUCCESS, BATCHES_DELETE_FAILURE,
   BATCHES_ADD_REQUEST, BATCHES_ADD_SUCCESS, BATCHES_ADD_FAILURE,
   BATCHES_ADD_RESET, BATCHES_UPDATE_REQUEST, BATCHES_UPDATE_SUCCESS,
-  BATCHES_UPDATE_FAILURE, BATCHES_UPDATE_RESET }
+  BATCHES_UPDATE_FAILURE, BATCHES_UPDATE_RESET,
+  BATCHES_SINGLE_REQUEST, BATCHES_SINGLE_SUCCESS, BATCHES_SINGLE_FAILURE }
   from '../actions/batchesActions';
 
 import { LOGOUT } from '../actions/authActions';
@@ -27,8 +28,8 @@ const entries = (state, action) => {
   case BATCHES_SUCCESS:
     return state.merge(Map(payload.map(item => [item.id, fromJS(item)])));
   case BATCHES_ADD_SUCCESS:
-    return state.set(payload.id, fromJS(payload));
   case BATCHES_UPDATE_SUCCESS:
+  case BATCHES_SINGLE_SUCCESS:
     return state.set(payload.id, fromJS(payload));
   case BATCHES_DELETE_SUCCESS:
     return state.filter(batch => batch.get('id') !== payload.id);
@@ -93,12 +94,14 @@ export default function (state = initialState, action) {
   switch (action.type) {
   case BATCHES_REQUEST:
   case BATCHES_DELETE_REQUEST:
+  case BATCHES_SINGLE_REQUEST:
     return state.merge({
       isFetching: true,
       isError: false,
     });
   case BATCHES_SUCCESS:
   case BATCHES_DELETE_SUCCESS:
+  case BATCHES_SINGLE_SUCCESS:
     return state.merge({
       isFetching: false,
       isError: false,
@@ -106,6 +109,7 @@ export default function (state = initialState, action) {
     });
   case BATCHES_FAILURE:
   case BATCHES_DELETE_FAILURE:
+  case BATCHES_SINGLE_FAILURE:
     return state.merge({
       isFetching: false,
       isError: true,
