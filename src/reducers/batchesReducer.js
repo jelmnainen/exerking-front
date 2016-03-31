@@ -6,6 +6,8 @@ import { BATCHES_REQUEST, BATCHES_SUCCESS, BATCHES_FAILURE,
   BATCHES_ADD_RESET }
   from '../actions/batchesActions';
 
+import { LOGOUT } from '../actions/authActions';
+
 const initialState = fromJS({
   isFetching: false,
   isError: false,
@@ -88,6 +90,8 @@ export default function (state = initialState, action) {
         add: add(state.get('form'), action),
       },
     });
+  case LOGOUT:
+    return initialState;
   default:
     return state;
   }
