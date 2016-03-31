@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+
+import ExercisesListItem from './ExercisesListItem';
+
 
 export default class ExerciseList extends Component {
 
@@ -7,44 +9,8 @@ export default class ExerciseList extends Component {
     $(this.refs.container).accordion({ exclusive: false }); // eslint-disable-line no-undef
   }
 
-  renderCategoryLabel(exercise) {
-    if (!exercise.get('category_id')) {
-      return null;
-    }
-    const category = this.props.categories.get(exercise.get('category_id'));
-    return (
-      <span className={`ui tiny ${category.get('color')} label`}>
-        {category.get('title')}
-      </span>
-    );
-  }
-
-  renderExercise(exercise) {
-    return (
-      <div key={exercise.get('id')}>
-        <div className="title">
-          <i className="dropdown icon"></i>
-          {exercise.get('title')} {' '}
-          {this.renderCategoryLabel(exercise)}
-          <Link
-            className="ui mini compact blue button right floated"
-            to={`/exercises/${exercise.get('id')}`}
-          >
-            View and submit
-          </Link>
-        </div>
-        <div className="content">
-          <p>{exercise.get('text')}</p>
-          <Link to={`/exercises/${exercise.get('id')}`}>
-            {exercise.get('title')}
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   render() {
-    const { exercises } = this.props;
+    const { exercises, categories, canEdit, deleteExercise } = this.props;
 
     if (!exercises || exercises.isEmpty()) {
       return (
@@ -58,9 +24,16 @@ export default class ExerciseList extends Component {
 
     return (
       <div className="ui styled fluid accordion" ref="container">
-        {exercises.valueSeq().map(exercise => this.renderExercise(exercise))}
+        {exercises.valueSeq().map(exercise =>
+          <ExercisesListItem
+            canEdit={canEdit}
+            exercise={exercise}
+            deleteExercise={deleteExercise}
+            key={exercise.get('id')}
+            category={categories.getIn([exercise.get('category_id')])}
+          />
+        )}
       </div>
     );
   }
-
 }
