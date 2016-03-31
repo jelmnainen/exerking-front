@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Markdown from 'react-remarkable';
 import cn from 'classnames';
 import moment from 'moment';
 
@@ -175,7 +176,7 @@ export default class ExerciseSingleView extends Component {
                   Deadline: {moment(exercise.get('deadline')).format('LLL')}
                 </div>
                 <div className="ui segment">
-                  <p>{exercise.get('text')}</p>
+                  <Markdown source={exercise.get('text')} container="div" />
                 </div>
               </div>
             </div>
