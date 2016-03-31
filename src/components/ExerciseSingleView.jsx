@@ -91,10 +91,31 @@ export default class ExerciseSingleView extends Component {
     );
   }
 
+  renderUploadStatus() {
+    const { addRequest } = this.props;
+    if (addRequest.get('isCreated')) {
+      return (
+        <div className="ui attached positive message">
+          <i className="success icon" />
+          Submission created successfully!
+        </div>
+      );
+    }
+    if (addRequest.get('isError')) {
+      return (
+        <div className="ui attached negative message">
+          Error!
+        </div>
+      );
+    }
+    return null;
+  }
+
   renderForm() {
     const { exercise } = this.props;
     return (
       <form className="ui form" onSubmit={this.onSubmit}>
+        {this.renderUploadStatus()}
         {exercise.get('file_upload') &&
           <div className="field">
             <input

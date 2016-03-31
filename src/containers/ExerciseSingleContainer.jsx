@@ -10,6 +10,7 @@ import {
 import ExerciseSingleView from '../components/ExerciseSingleView';
 
 const mapStateToProps = (state, props) => {
+  const addRequest = state.getIn(['submissions', 'addRequest']);
   const id = +props.params.id;
   return {
     exercise: state.getIn(['exercises', 'entries', id]),
@@ -17,6 +18,7 @@ const mapStateToProps = (state, props) => {
       .filter(submission => submission.get('exercise_id') === id)
       .sortBy(submission => -submission.get('id')),
     categories: state.getIn(['categories', 'entries']),
+    addRequest,
   };
 };
 
