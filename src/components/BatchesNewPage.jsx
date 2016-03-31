@@ -8,7 +8,7 @@ export default class BatchesNewPage extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if (props.addForm.isSuccess) {
+    if (props.form.isSuccess) {
       this.refs.title.value = '';
       this.refs.deadline.value = '';
     }
@@ -17,7 +17,7 @@ export default class BatchesNewPage extends Component {
   onSubmit(event) {
     event.preventDefault();
 
-    const { addBatch, addForm: { inProgress } } = this.props;
+    const { addBatch, form: { inProgress } } = this.props;
     const title = this.refs.title.value;
     const deadline = this.refs.deadline.value;
 
@@ -29,7 +29,7 @@ export default class BatchesNewPage extends Component {
   }
 
   render() {
-    const { addForm: { inProgress, isSuccess, errorMessages } } = this.props;
+    const { form: { inProgress, isSuccess, errorMessages } } = this.props;
 
     let created;
     let titleErrors;
