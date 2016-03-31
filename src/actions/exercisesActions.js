@@ -39,12 +39,12 @@ export const addExerciseReset = () => ({
   type: EXERCISES_ADD_RESET,
 });
 
-const validateExercise = ({ title, text, deadline }) => {
+const validateExercise = ({ title, text, batchId }) => {
   let valid = true;
   const errors = {
     title: [],
     text: [],
-    deadline: [],
+    batchId: [],
   };
 
   if (title === '') {
@@ -55,9 +55,9 @@ const validateExercise = ({ title, text, deadline }) => {
     valid = false;
     errors.text.push('Text is blank');
   }
-  if (deadline === '') {
+  if (batchId === '') {
     valid = false;
-    errors.deadline.push('Deadline is blank');
+    errors.batchId.push('Set is required');
   }
   if (valid) {
     return false;

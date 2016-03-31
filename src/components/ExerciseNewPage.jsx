@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Map, List } from 'immutable';
 
 export default class ExercisesNewPage extends Component {
 
@@ -9,6 +10,7 @@ export default class ExercisesNewPage extends Component {
 
   componentWillMount() {
     this.props.fetchCategories();
+    this.props.fetchBatches();
   }
 
   componentWillUnmount() {
@@ -22,43 +24,44 @@ export default class ExercisesNewPage extends Component {
     const { addExercise } = this.props;
     const title = this.refs.title.value;
     const text = this.refs.text.value;
-    const deadline = this.refs.deadline.value;
     const fileUpload = this.refs.fileUpload.checked;
     const categoryId = this.refs.category.value;
+    const batchId = this.refs.batchId.value;
 
     if (inProgress) {
       return;
     }
 
-    addExercise({ title, text, deadline, fileUpload, categoryId });
+    addExercise({ title, text, fileUpload, categoryId, batchId });
   }
 
   render() {
-    const { inProgress, errorMessages, isCreated, categories } = this.props;
+    const { inProgress, errorMessages = Map(), isCreated, categories, batches } = this.props;
 
     let titleErrors;
     let textErrors;
-    let deadlineErrors;
     let created;
+    let batchIdErrors;
 
-    if (errorMessages && errorMessages.get('title')) {
+    if (!errorMessages.get('title', List()).isEmpty()) {
       titleErrors = (
         <div className="ui pointing red basic label">
           {errorMessages.get('title').join(', ')}
         </div>
       );
     }
-    if (errorMessages && errorMessages.get('text')) {
+    if (!errorMessages.get('text', List()).isEmpty()) {
       textErrors = (
         <div className="ui pointing red basic label">
           {errorMessages.get('text').join(', ')}
         </div>
       );
     }
-    if (errorMessages && errorMessages.get('deadline')) {
-      deadlineErrors = (
+
+    if (!errorMessages.get('batchId', List()).isEmpty()) {
+      batchIdErrors = (
         <div className="ui pointing red basic label">
-          {errorMessages.get('deadline').join(', ')}
+          {errorMessages.get('batchId').join(', ')}
         </div>
       );
     }
@@ -78,6 +81,18 @@ export default class ExercisesNewPage extends Component {
           {created}
           <form className="ui form" onSubmit={this.onSubmit}>
             <div className="field">
+              <label>Set</label>
+              <select className="ui dropdown" ref="batchId">
+                <option value="">Select set</option>
+                {batches.valueSeq().map(batch =>
+                  <option key={batch.get('id')} value={batch.get('id')}>
+                    {batch.get('title')}
+                  </option>
+                )}
+              </select>
+              {batchIdErrors}
+            </div>
+            <div className="field">
               <label>Title</label>
               <input ref="title" />
               {titleErrors}
@@ -86,11 +101,6 @@ export default class ExercisesNewPage extends Component {
               <label>Text</label>
               <textarea ref="text" />
               {textErrors}
-            </div>
-            <div className="field">
-              <label>Deadline</label>
-              <input type="date" ref="deadline" />
-              {deadlineErrors}
             </div>
             <div className="inline field">
               <div className="ui checkbox">

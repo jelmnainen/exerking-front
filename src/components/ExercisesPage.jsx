@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import ExercisesList from './ExercisesList';
+import React, { Component, PropTypes } from 'react';
+import BatchesList from './BatchesList';
 import { Link } from 'react-router';
 import TeacherSection from '../containers/TeacherSection';
 
@@ -10,20 +10,49 @@ export default class ExercisesPage extends Component {
   }
 
   render() {
+    const { batches, categories, exercises, deleteBatch } = this.props;
     return (
       <div className="row">
-        <div className="column">
-          <h1 className="ui large header">
-            Exercises
-            <TeacherSection>
-              <Link className="ui tiny green button right floated" to="/exercises/new">
-                Create new
-              </Link>
-            </TeacherSection>
-          </h1>
-          <ExercisesList {...this.props} />
+        <div className="sixteen wide column">
+          <div className="ui grid">
+            <div className="row">
+              <div className="column">
+                <h1 className="ui large header">
+                  Exercises
+                  <TeacherSection>
+                    <Link className="ui tiny green button right floated" to="/exercises/new">
+                      Create exercise
+                    </Link>
+                  </TeacherSection>
+                  {' '}
+                  <TeacherSection>
+                    <Link className="ui tiny green button right floated" to="/sets/new">
+                      Create set
+                    </Link>
+                  </TeacherSection>
+                </h1>
+              </div>
+            </div>
+            <div className="row">
+              <div className="column">
+                <BatchesList
+                  batches={batches}
+                  categories={categories}
+                  exercises={exercises}
+                  deleteBatch={deleteBatch}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 }
+
+ExercisesPage.propTypes = {
+  categories: PropTypes.object.isRequired,
+  exercises: PropTypes.object.isRequired,
+  batches: PropTypes.object.isRequired,
+  deleteBatch: PropTypes.func.isRequired,
+};
