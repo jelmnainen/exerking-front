@@ -11,6 +11,7 @@ import SubmissionsContainer from './containers/SubmissionsContainer';
 import UserSubmissionsContainer from './containers/UserSubmissionsContainer';
 import SubmissionsSingleContainer from './containers/SubmissionsSingleContainer';
 import CategoriesContainer from './containers/CategoriesContainer';
+import BatchesContainer from './containers/BatchesContainer';
 
 export default (
   <Route path="/" component={App}>
@@ -24,6 +25,7 @@ export default (
     <Route path="me/submissions" component={UserSubmissionsContainer} />
     <Route path="submissions/:id" component={SubmissionsSingleContainer} />
     <Route path="categories" component={CategoriesContainer} />
+    <Route path="batches/new" component={BatchesContainer} />
     <IndexRedirect to="/exercises" />
   </Route>
 );

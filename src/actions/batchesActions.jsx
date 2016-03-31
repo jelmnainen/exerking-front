@@ -13,6 +13,11 @@ export const BATCHES_ADD_SUCCESS = 'BATCHES_ADD_SUCCESS';
 export const BATCHES_ADD_FAILURE = 'BATCHES_ADD_FAILURE';
 export const BATCHES_ADD_RESET = 'BATCHES_ADD_RESET';
 
+export const BATCHES_UPDATE_REQUEST = 'BATCHES_UPDATE_REQUEST';
+export const BATCHES_UPDATE_SUCCESS = 'BATCHES_UPDATE_SUCCESS';
+export const BATCHES_UPDATE_FAILURE = 'BATCHES_UPDATE_FAILURE';
+export const BATCHES_UPDATE_RESET = 'BATCHES_UPDATE_RESET';
+
 export const fetchBatches = () => ({
   [CALL_API]: {
     types: [
@@ -40,6 +45,7 @@ const validateBatch = ({ title, deadline }) => {
   let valid = true;
   const errors = {
     title: [],
+    deadline: [],
   };
 
   if (title === '') {
@@ -75,4 +81,22 @@ export const addBatch = (batch) => ({
 
 export const addBatchReset = () => ({
   type: BATCHES_ADD_RESET,
+});
+
+export const updateBatch = (id, batch) => ({
+  [CALL_API]: {
+    types: [
+      BATCHES_UPDATE_REQUEST,
+      BATCHES_UPDATE_SUCCESS,
+      BATCHES_UPDATE_FAILURE,
+    ],
+    endpoint: `/batches/${id}`,
+    method: 'put',
+    body: batch,
+    validate: validateBatch,
+  },
+});
+
+export const updateBatchReset = () => ({
+  type: BATCHES_UPDATE_RESET,
 });

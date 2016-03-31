@@ -20,7 +20,13 @@ export default class ExercisesPage extends Component {
                   Exercises
                   <TeacherSection>
                     <Link className="ui tiny green button right floated" to="/exercises/new">
-                      Create new
+                      Create exercise
+                    </Link>
+                  </TeacherSection>
+                  {' '}
+                  <TeacherSection>
+                    <Link className="ui tiny green button right floated" to="/batches/new">
+                      Create set
                     </Link>
                   </TeacherSection>
                 </h1>
