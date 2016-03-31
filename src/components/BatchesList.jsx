@@ -1,34 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { List } from 'immutable';
 
-import ExercisesList from './ExercisesList';
-import DeadlineLabel from './DeadlineLabel';
+import BatchesListItem from './BatchesListItem';
 
 export default class BatchesList extends Component {
-
-  renderBatch(batch) {
-    return (
-      <div className="row">
-        <div className="column">
-          <h2 className="ui medium header">
-            {batch.get('title')}
-            {' '}
-            <DeadlineLabel deadline={batch.get('deadline')} />
-          </h2>
-          <ExercisesList
-            exercises={this.props.exercises.get(batch.get('id'))}
-            categories={this.props.categories}
-          />
-        </div>
-      </div>
-    );
-  }
-
   render() {
-    const { batches } = this.props;
+    const { batches, categories, exercises } = this.props;
     return (
       <div className="ui grid">
-        {batches.valueSeq().map(batch => this.renderBatch(batch))}
+        {batches.valueSeq().map(batch =>
+          <BatchesListItem
+            key={batch.get('id')}
+            batch={batch}
+            onDeleteClick={this.props.deleteBatch}
+            categories={categories}
+            exercises={exercises.get(batch.get('id'), List())}
+          />
+        )}
       </div>
     );
   }
 }
+
+BatchesList.propTypes = {
+  batches: PropTypes.object.isRequired,
+  exercises: PropTypes.object.isRequired,
+  categories: PropTypes.object.isRequired,
+  deleteBatch: PropTypes.func.isRequired,
+};

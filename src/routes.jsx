@@ -25,7 +25,7 @@ export default (
     <Route path="me/submissions" component={UserSubmissionsContainer} />
     <Route path="submissions/:id" component={SubmissionsSingleContainer} />
     <Route path="categories" component={CategoriesContainer} />
-    <Route path="batches/new" component={BatchesContainer} />
+    <Route path="sets/new" component={BatchesContainer} />
     <IndexRedirect to="/exercises" />
   </Route>
 );

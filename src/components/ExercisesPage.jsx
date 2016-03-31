@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import BatchesList from './BatchesList';
 import { Link } from 'react-router';
 import TeacherSection from '../containers/TeacherSection';
@@ -10,6 +10,7 @@ export default class ExercisesPage extends Component {
   }
 
   render() {
+    const { batches, categories, exercises, deleteBatch } = this.props;
     return (
       <div className="row">
         <div className="sixteen wide column">
@@ -25,7 +26,7 @@ export default class ExercisesPage extends Component {
                   </TeacherSection>
                   {' '}
                   <TeacherSection>
-                    <Link className="ui tiny green button right floated" to="/batches/new">
+                    <Link className="ui tiny green button right floated" to="/sets/new">
                       Create set
                     </Link>
                   </TeacherSection>
@@ -34,7 +35,12 @@ export default class ExercisesPage extends Component {
             </div>
             <div className="row">
               <div className="column">
-                <BatchesList {...this.props} />
+                <BatchesList
+                  batches={batches}
+                  categories={categories}
+                  exercises={exercises}
+                  deleteBatch={deleteBatch}
+                />
               </div>
             </div>
           </div>
@@ -43,3 +49,10 @@ export default class ExercisesPage extends Component {
     );
   }
 }
+
+ExercisesPage.propTypes = {
+  categories: PropTypes.object.isRequired,
+  exercises: PropTypes.object.isRequired,
+  batches: PropTypes.object.isRequired,
+  deleteBatch: PropTypes.func.isRequired,
+};

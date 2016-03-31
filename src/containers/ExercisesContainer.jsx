@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ExercisesPage from '../components/ExercisesPage';
 import { fetchCategories } from '../actions/categoriesActions';
 import { fetchExercises } from '../actions/exercisesActions';
-import { fetchBatches } from '../actions/batchesActions';
+import { fetchBatches, deleteBatch } from '../actions/batchesActions';
 
 const mapStateToProps = (state) => {
   const exercises = state.getIn(['exercises', 'entries'])
@@ -26,6 +26,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchExercises());
     dispatch(fetchCategories());
     dispatch(fetchBatches());
+  },
+  deleteBatch(id) {
+    dispatch(deleteBatch(id));
   },
 });
 
