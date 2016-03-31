@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { Map, List } from 'immutable';
 
 export default class BatchesEditPage extends Component {
 
@@ -39,13 +40,13 @@ export default class BatchesEditPage extends Component {
   }
 
   render() {
-    const { form: { inProgress, isSuccess, errorMessages } } = this.props;
+    const { form: { inProgress, isSuccess, errorMessages = Map() } } = this.props;
 
     let updated;
     let titleErrors;
     let deadlineErrors;
 
-    if (errorMessages && errorMessages.get('title')) {
+    if (!errorMessages.get('title', List()).isEmpty()) {
       titleErrors = (
         <div className="ui pointing red basic label">
           {errorMessages.get('title').join(', ')}
@@ -53,7 +54,7 @@ export default class BatchesEditPage extends Component {
       );
     }
 
-    if (errorMessages && errorMessages.get('deadline')) {
+    if (!errorMessages.get('deadline', List()).isEmpty()) {
       deadlineErrors = (
         <div className="ui pointing red basic label">
           {errorMessages.get('deadline').join(', ')}
@@ -76,10 +77,12 @@ export default class BatchesEditPage extends Component {
           {updated}
           <form className="ui form" onSubmit={this.onSubmit}>
             <div className="field">
+              <label>Title</label>
               <input ref="title" />
               {titleErrors}
             </div>
             <div className="field">
+              <label>Deadline</label>
               <input type="date" ref="deadline" />
               {deadlineErrors}
             </div>
@@ -88,7 +91,7 @@ export default class BatchesEditPage extends Component {
               disabled={inProgress}
               type="submit"
             >
-              Submit
+              Save changes
             </button>
           </form>
         </div>
