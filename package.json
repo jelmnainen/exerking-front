@@ -14,7 +14,7 @@
   "dependencies": {
     "axios": "^0.9.1",
     "classnames": "^2.2.3",
-    "core-js": "^1.2.6",
+    "core-js": "^2.2.1",
     "express": "^4.13.4",
     "history": "^1.17.0",
     "humps": "^1.0.0",
