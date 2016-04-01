@@ -1,3 +1,4 @@
+import 'core-js/shim';
 import 'isomorphic-fetch';
 
 import React from 'react';
