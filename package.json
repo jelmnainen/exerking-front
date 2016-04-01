@@ -20,6 +20,7 @@
     "history": "^1.17.0",
     "humps": "^1.0.0",
     "immutable": "^3.7.6",
+    "isomorphic-fetch": "^2.2.1",
     "moment": "^2.11.2",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
