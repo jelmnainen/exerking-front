@@ -95,6 +95,7 @@ export default store => next => action => {
       }
     })
     .catch(err => {
+      console.error('[api middleware]', err);
       next({ type: FAILURE, error: true, payload: err });
     });
 };
