@@ -28,6 +28,7 @@ export default class Nav extends Component {
     if (this.props.isSignedIn) {
       return (
         <span className="right menu">
+          <Link className="item" activeClassName="active" to="/support">Support</Link>
           <span className="item">
             {this.props.email}
           </span>
