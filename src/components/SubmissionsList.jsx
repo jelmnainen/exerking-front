@@ -50,6 +50,15 @@ export default class SubmissionsList extends Component {
         </div>
       );
     }
+
+    if (!submissions || submissions.isEmpty()) {
+      return (
+        <div className="ui info message">
+          No submissions
+        </div>
+      );
+    }
+
     return (
       <div className="ui stacked segments">
         {submissions.valueSeq().map(submission => this.renderSubmission(submission))}
