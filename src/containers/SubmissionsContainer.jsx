@@ -18,7 +18,9 @@ const getSubmissions = createSelector(
     state => state.getIn(['submissions', 'entries']),
   ],
   (submissions) =>
-    submissions.sortBy(submission => -submission.get('id'))
+    submissions
+      .filter(submission => submission.get('superseded_by') === null)
+      .sortBy(submission => -submission.get('id'))
 );
 
 const getExercises = state => state.getIn(['exercises', 'entries']);

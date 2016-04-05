@@ -12,7 +12,9 @@ const getCurrentUserSubmissions = createSelector(
     state => state.getIn(['auth', 'id']),
   ],
   (submissions, userId) =>
-    submissions.filter(submission => submission.get('user_id') === userId)
+    submissions
+      .filter(submission => submission.get('user_id') === userId)
+      .filter(submission => submission.get('superseded_by') === null)
       .sortBy(submission => -submission.get('id'))
 );
 
