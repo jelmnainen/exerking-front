@@ -26,7 +26,7 @@ export default class BatchesListItem extends Component {
   }
 
   render() {
-    const { exercises, batch, categories } = this.props;
+    const { exercises, batch, categories, canEdit, deleteExercise } = this.props;
     const deletable = this.isDeletable();
     return (
       <div className="row">
@@ -60,6 +60,8 @@ export default class BatchesListItem extends Component {
           <ExercisesList
             exercises={exercises}
             categories={categories}
+            canEdit={canEdit}
+            deleteExercise={deleteExercise}
           />
         </div>
       </div>

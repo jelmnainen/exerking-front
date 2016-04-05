@@ -3,7 +3,9 @@ import { Map, fromJS } from 'immutable';
 import { EXERCISES_REQUEST, EXERCISES_SUCCESS, EXERCISES_FAILURE,
   EXERCISES_SINGLE_REQUEST, EXERCISES_SINGLE_SUCCESS, EXERCISES_SINGLE_FAILURE,
   EXERCISES_ADD_REQUEST, EXERCISES_ADD_SUCCESS, EXERCISES_ADD_FAILURE,
-  EXERCISES_ADD_RESET } from '../actions/exercisesActions';
+  EXERCISES_ADD_RESET,
+  EXERCISES_DELETE_REQUEST, EXERCISES_DELETE_SUCCESS, EXERCISES_DELETE_FAILURE,
+} from '../actions/exercisesActions';
 import { LOGOUT } from '../actions/authActions';
 
 const emptyMap = fromJS({});
@@ -42,6 +44,8 @@ const entries = (state = emptyMap, action) => {
   case EXERCISES_ADD_SUCCESS:
   case EXERCISES_SINGLE_SUCCESS:
     return state.set(payload.id, fromJS(payload));
+  case EXERCISES_DELETE_SUCCESS:
+    return state.delete(payload.id);
   default:
     return state;
   }
@@ -60,19 +64,22 @@ export default function (state = initialState, action) {
   switch (type) {
   case EXERCISES_REQUEST:
   case EXERCISES_SINGLE_REQUEST:
+  case EXERCISES_DELETE_REQUEST:
     return state.merge({
       isFetching: true,
       isError: false,
     });
   case EXERCISES_SUCCESS:
   case EXERCISES_SINGLE_SUCCESS:
-    return state.mergeDeep({
+  case EXERCISES_DELETE_SUCCESS:
+    return state.merge({
       isFetching: false,
       isError: false,
       entries: entries(state.get('entries'), action),
     });
   case EXERCISES_FAILURE:
   case EXERCISES_SINGLE_FAILURE:
+  case EXERCISES_DELETE_FAILURE:
     return state.merge({
       isFetching: false,
       isError: true,

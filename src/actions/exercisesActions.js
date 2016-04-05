@@ -13,6 +13,11 @@ export const EXERCISES_ADD_SUCCESS = 'EXERCISES_ADD_SUCCESS';
 export const EXERCISES_ADD_FAILURE = 'EXERCISES_ADD_FAILURE';
 export const EXERCISES_ADD_RESET = 'EXERCISES_ADD_RESET';
 
+export const EXERCISES_DELETE_REQUEST = 'EXERCISES_DELETE_REQUEST';
+export const EXERCISES_DELETE_SUCCESS = 'EXERCISES_DELETE_SUCCESS';
+export const EXERCISES_DELETE_FAILURE = 'EXERCISES_DELETE_FAILURE';
+
+
 export const fetchExercises = () => ({
   [CALL_API]: {
     types: [
@@ -76,5 +81,17 @@ export const addExercise = (exercise) => ({
     method: 'post',
     body: exercise,
     validate: validateExercise,
+  },
+});
+
+export const deleteExercise = (id) => ({
+  [CALL_API]: {
+    types: [
+      EXERCISES_DELETE_REQUEST,
+      EXERCISES_DELETE_SUCCESS,
+      EXERCISES_DELETE_FAILURE,
+    ],
+    endpoint: `/exercises/${id}`,
+    method: 'delete',
   },
 });

@@ -5,7 +5,7 @@ import BatchesListItem from './BatchesListItem';
 
 export default class BatchesList extends Component {
   render() {
-    const { batches, categories, exercises } = this.props;
+    const { batches, categories, exercises, canEdit, deleteExercise } = this.props;
     return (
       <div className="ui grid">
         {batches.valueSeq().map(batch =>
@@ -15,6 +15,8 @@ export default class BatchesList extends Component {
             onDeleteClick={this.props.deleteBatch}
             categories={categories}
             exercises={exercises.get(batch.get('id'), List())}
+            canEdit={canEdit}
+            deleteExercise={deleteExercise}
           />
         )}
       </div>

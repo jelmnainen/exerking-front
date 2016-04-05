@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import ExercisesPage from '../components/ExercisesPage';
 import { fetchCategories } from '../actions/categoriesActions';
-import { fetchExercises } from '../actions/exercisesActions';
+import { fetchExercises, deleteExercise } from '../actions/exercisesActions';
 import { fetchBatches, deleteBatch } from '../actions/batchesActions';
 
 const mapStateToProps = (state) => {
@@ -14,10 +14,13 @@ const mapStateToProps = (state) => {
   const batches = state.getIn(['batches', 'entries'])
     .sortBy(batch => batch.get('deadline'));
 
+  const canEdit = state.getIn(['auth', 'isTeacher']) && state.getIn(['auth', 'isSignedIn']);
+
   return {
     exercises,
     categories: state.getIn(['categories', 'entries']),
     batches,
+    canEdit,
   };
 };
 
@@ -29,6 +32,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   deleteBatch(id) {
     dispatch(deleteBatch(id));
+  },
+  deleteExercise(id) {
+    dispatch(deleteExercise(id));
   },
 });
 

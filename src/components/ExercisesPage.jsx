@@ -10,7 +10,14 @@ export default class ExercisesPage extends Component {
   }
 
   render() {
-    const { batches, categories, exercises, deleteBatch } = this.props;
+    const {
+      batches,
+      categories,
+      exercises,
+      deleteBatch,
+      deleteExercise,
+      canEdit,
+    } = this.props;
     return (
       <div className="row">
         <div className="sixteen wide column">
@@ -40,6 +47,8 @@ export default class ExercisesPage extends Component {
                   categories={categories}
                   exercises={exercises}
                   deleteBatch={deleteBatch}
+                  deleteExercise={deleteExercise}
+                  canEdit={canEdit}
                 />
               </div>
             </div>
