@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import BatchesList from './BatchesList';
 import { Link } from 'react-router';
 import TeacherSection from '../containers/TeacherSection';
+import CourseProgressContainer from '../containers/CourseProgressContainer';
 
 export default class ExercisesPage extends Component {
 
@@ -38,10 +39,11 @@ export default class ExercisesPage extends Component {
                     </Link>
                   </TeacherSection>
                 </h1>
+
               </div>
             </div>
-            <div className="row">
-              <div className="column">
+            <div className="ui grid">
+              <div className="thirteen wide column">
                 <BatchesList
                   batches={batches}
                   categories={categories}
@@ -50,6 +52,9 @@ export default class ExercisesPage extends Component {
                   deleteExercise={deleteExercise}
                   canEdit={canEdit}
                 />
+              </div>
+              <div className="three wide column">
+                <CourseProgressContainer />
               </div>
             </div>
           </div>
