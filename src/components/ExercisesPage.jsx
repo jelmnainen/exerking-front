@@ -38,6 +38,13 @@ export default class ExercisesPage extends Component {
                       Create set
                     </Link>
                   </TeacherSection>
+                  {' '}
+                  <TeacherSection>
+                    <Link className="ui tiny button right floated" to="/stats">
+                      <i className="bar chart icon" />
+                      View stats
+                    </Link>
+                  </TeacherSection>
                 </h1>
 
               </div>

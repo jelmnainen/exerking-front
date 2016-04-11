@@ -15,6 +15,7 @@ import CategoriesContainer from './containers/CategoriesContainer';
 import BatchesNewContainer from './containers/BatchesNewContainer';
 import BatchesEditContainer from './containers/BatchesEditContainer';
 import SupportPage from './components/SupportPage';
+import TeacherVisualizationContainer from './containers/TeacherVisualizationContainer';
 
 export default (
   <Route path="/" component={App}>
@@ -32,6 +33,7 @@ export default (
     <Route path="sets/new" component={BatchesNewContainer} />
     <Route path="sets/:id/edit" component={BatchesEditContainer} />
     <Route path="support" component={SupportPage} />
+    <Route path="stats" component={TeacherVisualizationContainer} />
     <IndexRedirect to="/exercises" />
   </Route>
 );
