@@ -18,6 +18,8 @@ export const SUBMISSIONS_SINGLE_REQUEST = 'SUBMISSIONS_SINGLE_REQUEST';
 export const SUBMISSIONS_SINGLE_SUCCESS = 'SUBMISSIONS_SINGLE_SUCCESS';
 export const SUBMISSIONS_SINGLE_FAILURE = 'SUBMISSIONS_SINGLE_FAILURE';
 
+export const SUBMISSIONS_SET_FILTER = 'SUBMISSIONS_SET_FILTER';
+
 export const addSubmissionReset = () => ({ type: SUBMISSIONS_ADD_RESET });
 
 export const submitExercise = (exerciseId, feedbackAsked, fileContent, fileType) => ({
@@ -115,3 +117,8 @@ export const fetchCurrentUserSubmissions = () =>
     const currentUserId = getState().getIn(['auth', 'id']);
     dispatch(fetchUserSubmissions(currentUserId));
   };
+
+export const setFilter = (type) => ({
+  type: SUBMISSIONS_SET_FILTER,
+  payload: type,
+});

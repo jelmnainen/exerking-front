@@ -4,8 +4,10 @@ import { SUBMISSIONS_ADD_REQUEST, SUBMISSIONS_ADD_SUCCESS, SUBMISSIONS_ADD_FAILU
   SUBMISSIONS_ADD_RESET, SUBMISSIONS_REQUEST, SUBMISSIONS_SUCCESS, SUBMISSIONS_FAILURE,
   SUBMISSIONS_SINGLE_REQUEST, SUBMISSIONS_SINGLE_SUCCESS, SUBMISSIONS_SINGLE_FAILURE,
   SUBMISSIONS_UPDATE_RESET, SUBMISSIONS_UPDATE_FAILURE, SUBMISSIONS_UPDATE_REQUEST,
-  SUBMISSIONS_UPDATE_SUCCESS }
+  SUBMISSIONS_UPDATE_SUCCESS, SUBMISSIONS_SET_FILTER }
   from '../actions/submissionsActions';
+import { FILTER_ALL }
+  from '../constants/submissionsConstants';
 import { LOGOUT } from '../actions/authActions';
 
 const emptyMap = fromJS({});
@@ -54,6 +56,7 @@ const initialState = fromJS({
   entries: {},
   addRequest: {},
   updateRequest: {},
+  filter: FILTER_ALL,
 });
 
 export default function (state = initialState, action) {
@@ -110,6 +113,10 @@ export default function (state = initialState, action) {
   case SUBMISSIONS_UPDATE_RESET:
     return state.merge({
       updateRequest: updateRequest(state.get('updateRequest'), action),
+    });
+  case SUBMISSIONS_SET_FILTER:
+    return state.merge({
+      filter: action.payload,
     });
   case LOGOUT:
     return initialState;
