@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
+import Markdown from 'react-remarkable';
 
 export default class ExerciseListItem extends Component {
 
@@ -81,7 +82,7 @@ export default class ExerciseListItem extends Component {
           </Link>
         </div>
         <div className="content">
-          <p>{exercise.get('text')}</p>
+          <Markdown source={exercise.get('text')} container="div" />
           <Link to={`/exercises/${exercise.get('id')}`}>
             {exercise.get('title')}
           </Link>
