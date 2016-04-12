@@ -17,6 +17,11 @@ export const EXERCISES_DELETE_REQUEST = 'EXERCISES_DELETE_REQUEST';
 export const EXERCISES_DELETE_SUCCESS = 'EXERCISES_DELETE_SUCCESS';
 export const EXERCISES_DELETE_FAILURE = 'EXERCISES_DELETE_FAILURE';
 
+export const EXERCISES_UPDATE_REQUEST = 'EXERCISES_UPDATE_REQUEST';
+export const EXERCISES_UPDATE_SUCCESS = 'EXERCISES_UPDATE_SUCCESS';
+export const EXERCISES_UPDATE_FAILURE = 'EXERCISES_UPDATE_FAILURE';
+export const EXERCISES_UPDATE_RESET = 'EXERCISES_UPDATE_RESET';
+
 
 export const fetchExercises = () => ({
   [CALL_API]: {
@@ -94,4 +99,28 @@ export const deleteExercise = (id) => ({
     endpoint: `/exercises/${id}`,
     method: 'delete',
   },
+});
+
+export const patchExercise = (id, title, text, categoryId, batchId, fileUpload) => ({
+  [CALL_API]: {
+    types: [
+      EXERCISES_UPDATE_REQUEST,
+      EXERCISES_UPDATE_SUCCESS,
+      EXERCISES_UPDATE_FAILURE,
+    ],
+    endpoint: `/exercises/${id}`,
+    method: 'put',
+    body: {
+      title,
+      text,
+      category_id: categoryId,
+      batch_id: batchId,
+      file_upload: fileUpload,
+    },
+    validate: validateExercise,
+  },
+});
+
+export const updateExerciseFormReset = () => ({
+  type: EXERCISES_UPDATE_RESET,
 });

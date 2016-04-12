@@ -33,8 +33,17 @@ export default class ExerciseList extends Component {
     const { canEdit, exercise } = this.props;
 
     let deleteButton;
+    let editButton;
 
     if (canEdit) {
+      editButton = (
+        <Link
+          className="ui mini compact blue button right floated"
+          to={`/exercises/${exercise.get('id')}/edit`}
+        >
+          Edit
+        </Link>
+      );
       deleteButton = (
         <button
           className="ui mini compact red button right floated"
@@ -57,6 +66,7 @@ export default class ExerciseList extends Component {
           }
           {this.renderCategoryLabel(exercise)}
           {deleteButton}
+          {editButton}
           <Link
             className="ui mini compact blue button right floated"
             to={`/exercises/${exercise.get('id')}`}
