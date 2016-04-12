@@ -69,4 +69,7 @@ ExercisesPage.propTypes = {
   exercises: PropTypes.object.isRequired,
   batches: PropTypes.object.isRequired,
   deleteBatch: PropTypes.func.isRequired,
+  fetchExercises: PropTypes.func.isRequired,
+  deleteExercise: PropTypes.func.isRequired,
+  canEdit: PropTypes.bool.isRequired,
 };

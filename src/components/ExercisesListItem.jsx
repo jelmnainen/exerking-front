@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
 
-export default class ExerciseList extends Component {
+export default class ExerciseListItem extends Component {
 
   constructor(props) {
     super(props);
@@ -34,6 +34,7 @@ export default class ExerciseList extends Component {
 
     let deleteButton;
     let editButton;
+    let doneMark;
 
     if (canEdit) {
       editButton = (
@@ -54,10 +55,15 @@ export default class ExerciseList extends Component {
       );
     }
 
+    if (exercise.get('done')) {
+      doneMark = <i className="checkmark icon green"></i>;
+    }
+
     return (
       <div key={exercise.get('id')}>
         <div className="title">
           <i className="dropdown icon"></i>
+          {doneMark}
           {exercise.get('title')} {' '}
           {exercise.get('deadline') &&
             <div className="ui tiny label">
@@ -83,5 +89,11 @@ export default class ExerciseList extends Component {
       </div>
     );
   }
-
 }
+
+ExerciseListItem.propTypes = {
+  deleteExercise: PropTypes.func.isRequired,
+  exercise: PropTypes.object.isRequired,
+  category: PropTypes.object.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+};
