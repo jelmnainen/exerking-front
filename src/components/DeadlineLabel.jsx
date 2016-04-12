@@ -14,7 +14,7 @@ export default class DeadlineLabel extends Component {
         className={cn('ui small compact label', { 'red basic': expired })}
         title={deadline.format('LLL')}
       >
-        {expired ? 'Expired' : 'Expires in'}
+        {expired ? 'Expired' : 'Expires'}
         {' '}
         {relative}
       </div>
