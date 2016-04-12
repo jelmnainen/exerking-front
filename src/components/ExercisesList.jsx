@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import ExercisesListItem from './ExercisesListItem';
 
-
 export default class ExerciseList extends Component {
 
   componentDidMount() {
