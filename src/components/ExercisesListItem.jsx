@@ -40,18 +40,20 @@ export default class ExerciseListItem extends Component {
     if (canEdit) {
       editButton = (
         <Link
-          className="ui mini compact blue button right floated"
+          className="ui mini icon compact blue button right floated"
           to={`/exercises/${exercise.get('id')}/edit`}
+          title="Edit exercise"
         >
-          Edit
+          <i className="write icon" />
         </Link>
       );
       deleteButton = (
         <button
-          className="ui mini compact red button right floated"
+          className="ui mini icon compact red button right floated"
           onClick={this.deleteExercise}
+          title="Remove exercise"
         >
-          Delete
+          <i className="remove icon" />
         </button>
       );
     }
