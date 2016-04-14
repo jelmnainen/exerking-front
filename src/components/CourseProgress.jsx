@@ -15,6 +15,7 @@ export default class CourseProgress extends Component {
           <Progress
             max={overall.total}
             value={overall.done}
+            size="small"
           />
         </div>
         {categories.map(({ title, done, total }) =>
@@ -27,6 +28,7 @@ export default class CourseProgress extends Component {
             <Progress
               max={total}
               value={done}
+              size="small"
             />
           </div>
         )}
