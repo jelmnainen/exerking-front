@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
     return state.merge({
       inProgress: false,
       isError: true,
-      errorMessages: action.errors,
+      errorMessages: action.payload,
     });
   case REGISTRATION_RESET:
     return initialState;

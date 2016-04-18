@@ -47,14 +47,14 @@ describe('registrationReducer', () => {
   it('registration request fail updates state correctly', () => {
     const action = {
       type: actions.REGISTRATION_REQUEST_FAIL,
-      errors: {
+      payload: {
         email: ['message'],
       },
     };
     const expectedState = fromJS({
       inProgress: false,
       isError: true,
-      errorMessages: action.errors,
+      errorMessages: action.payload,
     });
     const nextState = reducer(undefined, action);
     expect(nextState).to.eql(expectedState);

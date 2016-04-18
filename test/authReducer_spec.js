@@ -60,7 +60,7 @@ describe('authReducer', () => {
   it('login request fail updates state correctly', () => {
     const action = {
       type: actions.LOGIN_REQUEST_FAIL,
-      errors: {
+      payload: {
         email: ['message'],
       },
     };
@@ -68,7 +68,7 @@ describe('authReducer', () => {
       isSignedIn: false,
       isError: true,
       inProgress: false,
-      errorMessages: action.errors,
+      errorMessages: action.payload,
     });
     const nextState = reducer(emptyState, action);
     expect(nextState).to.eql(expectedState);

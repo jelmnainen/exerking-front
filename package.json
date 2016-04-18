@@ -12,7 +12,6 @@
     "node": "5.4"
   },
   "dependencies": {
-    "axios": "^0.9.1",
     "classnames": "^2.2.3",
     "core-js": "^2.2.1",
     "express": "^4.13.4",
