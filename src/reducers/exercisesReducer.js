@@ -37,6 +37,7 @@ const form = (state = emptyMap, action) => {
   case EXERCISES_ADD_RESET:
   case EXERCISES_UPDATE_RESET:
     return emptyMap;
+  /* istanbul ignore next */
   default:
     return state;
   }
@@ -53,6 +54,7 @@ const entries = (state = emptyMap, action) => {
     return state.set(payload.id, fromJS(payload));
   case EXERCISES_DELETE_SUCCESS:
     return state.delete(payload.id);
+  /* istanbul ignore next */
   default:
     return state;
   }
