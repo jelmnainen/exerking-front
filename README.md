@@ -21,3 +21,5 @@ For production, do
 
     NODE_ENV=production API_URL=insertYourApiUrlHere npm run postinstall
     NODE_ENV=production PORT=insertPortHere npm start
+
+[Architectural documentation](https://github.com/jelmnainen/exerking-front/blob/master/archidoc.md)
