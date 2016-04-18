@@ -7,6 +7,9 @@ An exercise marking system frontend
 
 [Travis](https://travis-ci.org/jelmnainen/exerking-front)
 
+## Architectural documentation
+[archidoc.md](https://github.com/jelmnainen/exerking-front/blob/master/archidoc.md)
+
 ## Installation
 After cloning, go to folder and run 
 
@@ -21,6 +24,3 @@ For production, do
 
     NODE_ENV=production API_URL=insertYourApiUrlHere npm run postinstall
     NODE_ENV=production PORT=insertPortHere npm start
-
-## Architectural documentation
-[archidoc.md](https://github.com/jelmnainen/exerking-front/blob/master/archidoc.md)
