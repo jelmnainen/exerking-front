@@ -34,4 +34,4 @@ To persist the changes the actions can make an API call to the backend. The func
       }
     }
 
-See also the [Backend architecture documentation]()
+See also the [Backend architecture documentation](https://github.com/jelmnainen/exerking-back/blob/master/ARCHIDOC.md)
