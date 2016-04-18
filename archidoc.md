@@ -30,7 +30,7 @@ To persist the changes the actions can make an API call to the backend. The func
         endpoint: '[endpoint-url]',
         (optional) method: '[http-method]',
         (if method === post/put) body: [request-body],
-        (optional) validate: [validation-rules]
+        (optional) validate: [body-data-validation-rules]
       }
     }
 
