@@ -34,4 +34,8 @@ To persist the changes the actions can make an API call to the backend. The func
       }
     }
 
-See also the [Backend architecture documentation](https://github.com/jelmnainen/exerking-back/blob/master/ARCHIDOC.md)
+## Data structures
+See [schema.rb](https://github.com/jelmnainen/exerking-back/blob/master/db/schema.rb)
+
+## Backend documentation
+See [backend architecture documentation](https://github.com/jelmnainen/exerking-back/blob/master/ARCHIDOC.md)
