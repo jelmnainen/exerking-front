@@ -16,6 +16,7 @@ import BatchesNewContainer from './containers/BatchesNewContainer';
 import BatchesEditContainer from './containers/BatchesEditContainer';
 import SupportPage from './components/SupportPage';
 import TeacherVisualizationContainer from './containers/TeacherVisualizationContainer';
+import PasswordResetContainer from './containers/PasswordResetContainer';
 
 export default (
   <Route path="/" component={App}>
@@ -34,6 +35,7 @@ export default (
     <Route path="sets/:id/edit" component={BatchesEditContainer} />
     <Route path="support" component={SupportPage} />
     <Route path="stats" component={TeacherVisualizationContainer} />
+    <Route path="password-reset" component={PasswordResetContainer} />
     <IndexRedirect to="/exercises" />
   </Route>
 );
