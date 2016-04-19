@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import moment from 'moment';
 import { Link } from 'react-router';
 import Markdown from 'react-remarkable';
 
@@ -22,7 +21,7 @@ export default class ExerciseListItem extends Component {
     const { category } = this.props;
     if (category) {
       return (
-        <span className={`ui tiny ${category.get('color')} label`}>
+        <span className={`ui tiny basic ${category.get('color')} label`}>
           {category.get('title')}
         </span>
       );
@@ -68,11 +67,6 @@ export default class ExerciseListItem extends Component {
           <i className="dropdown icon"></i>
           {doneMark}
           {exercise.get('title')} {' '}
-          {exercise.get('deadline') &&
-            <div className="ui tiny label">
-             {moment(exercise.get('deadline')).format('LLL')}
-            </div>
-          }
           {this.renderCategoryLabel(exercise)}
           {deleteButton}
           {editButton}
@@ -80,14 +74,11 @@ export default class ExerciseListItem extends Component {
             className="ui mini compact blue button right floated"
             to={`/exercises/${exercise.get('id')}`}
           >
-            View and submit
+            More
           </Link>
         </div>
         <div className="content">
           <Markdown source={exercise.get('text')} container="div" />
-          <Link to={`/exercises/${exercise.get('id')}`}>
-            {exercise.get('title')}
-          </Link>
         </div>
       </div>
     );

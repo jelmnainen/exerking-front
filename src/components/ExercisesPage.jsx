@@ -21,50 +21,40 @@ export default class ExercisesPage extends Component {
     } = this.props;
     return (
       <div className="row">
-        <div className="sixteen wide column">
-          <div className="ui grid">
-            <div className="row">
-              <div className="column">
-                <h1 className="ui large header">
-                  Exercises
-                  <TeacherSection>
-                    <Link className="ui tiny green button right floated" to="/exercises/new">
-                      Create exercise
-                    </Link>
-                  </TeacherSection>
-                  {' '}
-                  <TeacherSection>
-                    <Link className="ui tiny green button right floated" to="/sets/new">
-                      Create set
-                    </Link>
-                  </TeacherSection>
-                  {' '}
-                  <TeacherSection>
-                    <Link className="ui tiny button right floated" to="/stats">
-                      <i className="bar chart icon" />
-                      View stats
-                    </Link>
-                  </TeacherSection>
-                </h1>
-
-              </div>
-            </div>
-            <div className="ui grid">
-              <div className="thirteen wide column">
-                <BatchesList
-                  batches={batches}
-                  categories={categories}
-                  exercises={exercises}
-                  deleteBatch={deleteBatch}
-                  deleteExercise={deleteExercise}
-                  canEdit={canEdit}
-                />
-              </div>
-              <div className="three wide column">
-                <CourseProgressContainer />
-              </div>
-            </div>
-          </div>
+        <div className="thirteen wide column">
+          <h1 className="ui large header">
+            Exercises
+            <TeacherSection>
+              <Link className="ui tiny green button right floated" to="/exercises/new">
+                Create exercise
+              </Link>
+            </TeacherSection>
+            {' '}
+            <TeacherSection>
+              <Link className="ui tiny green button right floated" to="/sets/new">
+                Create set
+              </Link>
+            </TeacherSection>
+            {' '}
+            <TeacherSection>
+              <Link className="ui tiny button right floated" to="/stats">
+                <i className="bar chart icon" />
+                View stats
+              </Link>
+            </TeacherSection>
+          </h1>
+          <div className="ui fitted hidden divider" />
+          <BatchesList
+            batches={batches}
+            categories={categories}
+            exercises={exercises}
+            deleteBatch={deleteBatch}
+            deleteExercise={deleteExercise}
+            canEdit={canEdit}
+          />
+        </div>
+        <div className="three wide column">
+          <CourseProgressContainer />
         </div>
       </div>
     );
