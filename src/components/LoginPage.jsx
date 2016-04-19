@@ -46,6 +46,8 @@ export default class LoginPage extends Component {
         <div className="six wide column">
           <h2 className="ui header">Login</h2>
           {isSignedIn ? this.renderMessage() : this.renderForm()}
+          <div className="ui hidden divider" />
+          <Link to="/password-reset">Forgot password?</Link>
         </div>
       </div>
     );

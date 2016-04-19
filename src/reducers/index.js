@@ -7,6 +7,7 @@ import submissions from './submissionReducer';
 import users from './usersReducer';
 import categories from './categoriesReducer';
 import batches from './batchesReducer';
+import passwordReset from './passwordResetReducer';
 
 export default combineReducers({
   exercises,
@@ -16,4 +17,5 @@ export default combineReducers({
   users,
   categories,
   batches,
+  passwordReset,
 });
