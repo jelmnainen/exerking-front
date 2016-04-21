@@ -3,6 +3,7 @@ import BatchesList from './BatchesList';
 import { Link } from 'react-router';
 import TeacherSection from '../containers/TeacherSection';
 import CourseProgressContainer from '../containers/CourseProgressContainer';
+import cn from 'classnames';
 
 export default class ExercisesPage extends Component {
 
@@ -18,10 +19,11 @@ export default class ExercisesPage extends Component {
       deleteBatch,
       deleteExercise,
       canEdit,
+      showProgress,
     } = this.props;
     return (
       <div className="row">
-        <div className="thirteen wide column">
+        <div className={cn('column', { 'thirteen wide': showProgress })}>
           <h1 className="ui large header">
             Exercises
             <TeacherSection>
@@ -53,9 +55,11 @@ export default class ExercisesPage extends Component {
             canEdit={canEdit}
           />
         </div>
-        <div className="three wide column">
-          <CourseProgressContainer />
-        </div>
+        {showProgress &&
+          <div className="three wide column">
+            <CourseProgressContainer />
+          </div>
+        }
       </div>
     );
   }
@@ -69,4 +73,5 @@ ExercisesPage.propTypes = {
   fetchExercises: PropTypes.func.isRequired,
   deleteExercise: PropTypes.func.isRequired,
   canEdit: PropTypes.bool.isRequired,
+  showProgress: PropTypes.bool.isRequired,
 };
