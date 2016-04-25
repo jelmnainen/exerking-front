@@ -8,7 +8,7 @@ An exercise marking system frontend
 [Travis](https://travis-ci.org/jelmnainen/exerking-front)
 
 ## Architectural documentation
-[archidoc.md](https://github.com/jelmnainen/exerking-front/blob/master/archidoc.md)
+[archidoc.md](https://github.com/jelmnainen/exerking-front/blob/master/ARCHIDOC.md)
 
 ## Installation
 After cloning, go to folder and run 
