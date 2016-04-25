@@ -13,10 +13,13 @@ describe('usersReducer', () => {
     isError: false,
     entries: new Map(),
   });
+
   it('returns correct initial state', () => {
     const state = fromJS(reducer(undefined, {}));
+
     expect(state).to.equal(initialState);
   });
+
   it('changes fetching status correctly', () => {
     const action = {
       type: USERS_REQUEST,
@@ -28,6 +31,7 @@ describe('usersReducer', () => {
 
     expect(nextState).to.equal(expectedState);
   });
+
   it('populates entries on success', () => {
     const action = {
       type: USERS_SUCCESS,
@@ -42,6 +46,7 @@ describe('usersReducer', () => {
 
     expect(nextState).to.equal(expectedState);
   });
+
   it('changes error status on fail', () => {
     const action = {
       type: USERS_FAIL,
@@ -50,13 +55,20 @@ describe('usersReducer', () => {
       isError: true,
     });
     const nextState = fromJS(reducer(undefined, action));
+
     expect(nextState).to.equal(expectedState);
   });
+
   it('clears login info on logout', () => {
     const action = {
       type: LOGOUT,
     };
-    const nextState = reducer(undefined, action);
+
+    const localState = initialState.merge({
+      entries: new Map({ map: 'map' }),
+    });
+
+    const nextState = reducer(localState, action);
 
     expect(nextState).to.equal(initialState);
   });
