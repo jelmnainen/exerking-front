@@ -120,7 +120,7 @@ export default function (state = initialState, action) {
       entries: entries(state.get('entries'), action),
       forms: {
         add: add(state.getIn(['forms', 'add']), action),
-        update: update(state.getIn(['forms', 'add']), action),
+        update: update(state.getIn(['forms', 'update']), action),
       },
     });
   case BATCHES_ADD_REQUEST:
