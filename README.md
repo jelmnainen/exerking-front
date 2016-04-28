@@ -10,6 +10,9 @@ An exercise marking system frontend
 ## Architectural documentation
 [archidoc.md](https://github.com/jelmnainen/exerking-front/blob/master/ARCHIDOC.md)
 
+## Testing documentation
+[testingdoc.md](https://github.com/jelmnainen/exerking-front/blob/master/TESTINGDOC.md)
+
 ## Installation
 After cloning, go to folder and run 
 
