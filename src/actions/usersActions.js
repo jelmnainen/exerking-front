@@ -1,31 +1,16 @@
-import { createAxios } from '../utils';
+import { CALL_API } from '../middleware/api';
 
 export const USERS_REQUEST = 'USERS_REQUEST';
 export const USERS_SUCCESS = 'USERS_SUCCESS';
 export const USERS_FAIL = 'USERS_FAIL';
 
-const fetchUsersRequest = () => ({ type: USERS_REQUEST });
-
-const fetchUsersSuccess = (users) => ({
-  type: USERS_SUCCESS,
-  payload: users,
+export const fetchAllUsers = () => ({
+  [CALL_API]: {
+    types: [
+      USERS_REQUEST,
+      USERS_SUCCESS,
+      USERS_FAIL,
+    ],
+    endpoint: '/users',
+  },
 });
-
-const fetchUsersFail = () => ({
-  type: USERS_FAIL,
-});
-
-export const fetchAllUsers = () =>
-  (dispatch, getState) => {
-    dispatch(fetchUsersRequest());
-    const token = getState().getIn(['auth', 'token']);
-    const axios = createAxios(token);
-    axios.get('/users')
-      .then(response => {
-        dispatch(fetchUsersSuccess(response.data));
-      })
-      .catch(e => {
-        dispatch(fetchUsersFail());
-        console.log(e);
-      });
-  };
