@@ -26,14 +26,15 @@ const mapStateToProps = (state) => {
   const batches = state.getIn(['batches', 'entries'])
     .sortBy(batch => batch.get('deadline'));
 
-  const canEdit = state.getIn(['auth', 'isTeacher']) && state.getIn(['auth', 'isSignedIn']);
+  const isTeacher = state.getIn(['auth', 'isTeacher']) && state.getIn(['auth', 'isSignedIn']);
 
   return {
     exercises,
     categories: state.getIn(['categories', 'entries']),
     batches,
-    canEdit,
+    canEdit: isTeacher,
     submissions,
+    showProgress: !isTeacher,
   };
 };
 
